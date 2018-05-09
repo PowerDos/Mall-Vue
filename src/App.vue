@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Sreach></Sreach>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Sreach from '@/components/Sreach'
+import Header from '@/components/header/Header'
 export default {
   name: 'App',
   components: {
-    Header,
-    Sreach
+    Header
   }
 }
 </script>
+
+<style scoped>
+#app{
+  background-color: #F6F6F6;
+}
+</style>
