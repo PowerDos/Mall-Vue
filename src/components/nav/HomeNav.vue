@@ -428,13 +428,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$refs.navSide)
-    console.log(this.$refs.itemPanel1)
-    // this.$refs.itemPanel1.style.top = this.$refs.navSide.offsetTop + 'px'
     this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
-    console.log(this.$refs.itemPanel1.style.top)
-    console.log(this.$refs.itemPanel1.style.left)
-    // this.$refs.itemPanel2.style.top = this.$refs.navSide.offsetTop + 'px'
     this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
   }
 }
