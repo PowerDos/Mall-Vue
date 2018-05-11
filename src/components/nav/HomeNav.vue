@@ -135,7 +135,7 @@
       </div>
     </div>
     <transition name="fade">
-      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" ref="itemPanel" @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
+      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1"  @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
         <div class="nav-detail-item">
           <span>清洁用品 > </span>
           <span>美妆商城 > </span>
@@ -269,7 +269,7 @@
       </div>
     </transition>
     <transition name="fade">
-      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" ref="itemPanel" @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
+      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">
         <div class="nav-detail-item">
           <span>赛事 > </span>
           <span>运动城 > </span>
@@ -428,11 +428,14 @@ export default {
     }
   },
   mounted () {
-    console.log(1)
-    console.log(this.$refs.navSide.offsetTop)
-    console.log(this.$refs.navSide.offsetLeft)
-    console.log(this.$refs.navSide.offsetWidth)
-    console.log(this.$refs.navSide.offsetHeight)
+    console.log(this.$refs.navSide)
+    console.log(this.$refs.itemPanel1)
+    // this.$refs.itemPanel1.style.top = this.$refs.navSide.offsetTop + 'px'
+    this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
+    console.log(this.$refs.itemPanel1.style.top)
+    console.log(this.$refs.itemPanel1.style.left)
+    // this.$refs.itemPanel2.style.top = this.$refs.navSide.offsetTop + 'px'
+    this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
   }
 }
 </script>
