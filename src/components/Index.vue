@@ -17,88 +17,25 @@
           </div>
           <div class="count-down">
             <span class="count-down-text">当前场次</span>
-            <span class="count-down-num count-down-hour">00</span>
+            <span class="count-down-num count-down-hour">{{ hourStr }}</span>
             <span class="count-down-point">:</span>
-            <span class="count-down-num count-down-minute">56</span>
+            <span class="count-down-num count-down-minute">{{ minuteStr }}</span>
             <span class="count-down-point">:</span>
-            <span class="count-down-num count-down-seconds">00</span>
+            <span class="count-down-num count-down-seconds">{{ secondStr }}</span>
             <span class="count-down-text">后结束抢购</span>
           </div>
         </div>
         <!-- 内容 -->
         <div class="seckill-content">
-          <div class="seckill-item">
+          <div class="seckill-item" v-for="(item, index) in seckills" :key="index" @mouseenter="seckillIsAction[index] = !seckillIsAction[index]"  @mouseleave="seckillIsAction[index] = !seckillIsAction[index]">
             <div class="seckill-item-img">
-              <img src="/static/img/index/seckill/seckill-item1.jpg">
+              <img :src="item.img" :class="{'seckill-action': seckillIsAction[index]}">
             </div>
             <div class="seckill-item-info">
-              <p>【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱</p>
+              <p>{{item.intro}}</p>
               <p>
-                <i class="fa fa-rmb text-danger"></i>
-                <span class="seckill-price text-danger">71.9</span>
-                <i class="fa fa-rmb"></i>
-                <span class="seckill-old-price"></span>
-                <s>89.6</s>
-              </p>
-            </div>
-          </div>
-          <div class="seckill-item">
-            <div class="seckill-item-img">
-              <img src="/static/img/index/seckill/seckill-item2.jpg">
-            </div>
-            <div class="seckill-item-info">
-              <p>Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水</p>
-              <p>
-                <i class="fa fa-rmb text-danger"></i>
-                <span class="seckill-price text-danger">989.0</span>
-                <i class="fa fa-rmb"></i>
-                <span class="seckill-old-price"></span>
-                <s>1299.0</s>
-              </p>
-            </div>
-          </div>
-          <div class="seckill-item">
-            <div class="seckill-item-img">
-              <img src="/static/img/index/seckill/seckill-item3.jpg">
-            </div>
-            <div class="seckill-item-info">
-              <p>粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒</p>
-              <p>
-                <i class="fa fa-rmb text-danger"></i>
-                <span class="seckill-price text-danger">21.8</span>
-                <i class="fa fa-rmb"></i>
-                <span class="seckill-old-price"></span>
-                <s>49.0</s>
-              </p>
-            </div>
-          </div>
-          <div class="seckill-item">
-            <div class="seckill-item-img">
-              <img src="/static/img/index/seckill/seckill-item4.jpg">
-            </div>
-            <div class="seckill-item-info">
-              <p>【京东超市】清风（APP）抽纸 原木纯品金装系列 3层</p>
-              <p>
-                <i class="fa fa-rmb text-danger"></i>
-                <span class="seckill-price text-danger">49.9</span>
-                <i class="fa fa-rmb"></i>
-                <span class="seckill-old-price"></span>
-                <s>109.0</s>
-              </p>
-            </div>
-          </div>
-          <div class="seckill-item">
-            <div class="seckill-item-img">
-              <img src="/static/img/index/seckill/seckill-item5.jpg">
-            </div>
-            <div class="seckill-item-info">
-              <p>NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫</p>
-              <p>
-                <i class="fa fa-rmb text-danger"></i>
-                <span class="seckill-price text-danger">559</span>
-                <i class="fa fa-rmb"></i>
-                <span class="seckill-old-price"></span>
-                <s>798.0</s>
+                <span class="seckill-price text-danger"><Icon type="social-yen"></Icon>{{item.price}}</span>
+                <span class="seckill-old-price"><s>{{item.realPrice}}</s></span>
               </p>
             </div>
           </div>
@@ -416,6 +353,76 @@ import HomeNav from '@/components/nav/HomeNav'
 import Footer from '@/components/footer/Footer'
 export default {
   name: 'Index',
+  data () {
+    return {
+      hour: 3,
+      minute: 50,
+      seconds: 30,
+      seckillAction: 'seckill-action',
+      seckillIsAction: [false, false, true, false, true],
+      seckills: [
+        {
+          intro: '【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱',
+          img: '/static/img/index/seckill/seckill-item1.jpg',
+          price: 71.9,
+          realPrice: 89.6
+        },
+        {
+          intro: 'Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水',
+          img: '/static/img/index/seckill/seckill-item2.jpg',
+          price: 989.0,
+          realPrice: 1299.0
+        },
+        {
+          intro: '粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒',
+          img: '/static/img/index/seckill/seckill-item3.jpg',
+          price: 21.8,
+          realPrice: 49.0
+        },
+        {
+          intro: '【京东超市】清风（APP）抽纸 原木纯品金装系列 3层',
+          img: '/static/img/index/seckill/seckill-item4.jpg',
+          price: 49.9,
+          realPrice: 59.0
+        },
+        {
+          intro: 'NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫',
+          img: '/static/img/index/seckill/seckill-item5.jpg',
+          price: 559.9,
+          realPrice: 759.9
+        }
+      ]
+    }
+  },
+  mounted () {
+    const father = this
+    setInterval(function () {
+      father.seconds--
+      if (father.seconds === -1) {
+        father.seconds = 59
+        father.minute--
+        if (father.minute === -1) {
+          father.minute = 59
+          father.hour--
+        }
+      }
+      // console.log(father.seconds)
+    }, 1000)
+  },
+  methods: {
+
+  },
+  computed: {
+    hourStr: function () {
+      return this.hour < 10 ? '0' + this.hour : this.hour
+    },
+    minuteStr: function () {
+      return this.minute < 10 ? '0' + this.minute : this.minute
+    },
+    secondStr: function () {
+      return this.seconds < 10 ? `0${this.hour}` : this.seconds
+    }
+  },
   components: {
     Sreach,
     HomeNav,
@@ -532,6 +539,15 @@ export default {
   height: 130px;
   margin-left: 15px;
   margin-top: 15px;
+  transition: transform 0.05s;
+}
+.seckill-action{
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.06);
+  transition: transform 0.05s;
 }
 .seckill-item-info {
   padding: 5px;
