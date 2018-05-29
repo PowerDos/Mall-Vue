@@ -27,7 +27,7 @@
         </div>
         <!-- 内容 -->
         <div class="seckill-content">
-          <div class="seckill-item" v-for="(item, index) in seckills" :key="index" @mouseenter="seckillIsAction[index] = !seckillIsAction[index]"  @mouseleave="seckillIsAction[index] = !seckillIsAction[index]">
+          <div class="seckill-item" v-for="(item, index) in seckills" :key="index" @mouseover="seckillIsAction[index] = true"  @mouseout="seckillIsAction[index] = false">
             <div class="seckill-item-img">
               <img :src="item.img" :class="{'seckill-action': seckillIsAction[index]}">
             </div>
@@ -524,6 +524,7 @@ export default {
   margin-top: 15px;
   margin-left: 15px;
   box-shadow: 0px 0px 8px #ccc;
+  cursor: pointer;
   float: left;
 }
 .seckill-item-img {
@@ -539,15 +540,11 @@ export default {
   height: 130px;
   margin-left: 15px;
   margin-top: 15px;
-  transition: transform 0.05s;
+  transition: margin-top 0.3s;
 }
 .seckill-action{
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  transform: scale(1.06);
-  transition: transform 0.05s;
+  margin-top: 8px !important;
+  transition: margin-top 0.3s;
 }
 .seckill-item-info {
   padding: 5px;
