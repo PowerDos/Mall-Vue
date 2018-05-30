@@ -27,9 +27,9 @@
         </div>
         <!-- 内容 -->
         <div class="seckill-content">
-          <div class="seckill-item" v-for="(item, index) in seckills" :key="index" @mouseover="seckillIsAction[index] = true"  @mouseout="seckillIsAction[index] = false">
+          <div class="seckill-item" v-for="(item, index) in seckills" :key="index">
             <div class="seckill-item-img">
-              <img :src="item.img" :class="{'seckill-action': seckillIsAction[index]}">
+              <img :src="item.img">
             </div>
             <div class="seckill-item-info">
               <p>{{item.intro}}</p>
@@ -44,146 +44,33 @@
       <!-- 电脑专场 -->
       <div class="item-class">
         <div class="item-class-head">
-          <span class="item-class-title">电脑数码</span>
+          <span class="item-class-title">{{computer.title}}</span>
           <ul>
-            <li>
-              <a href="#">电脑馆</a>
-            </li>
-            <li>
-              <a href="#">游戏极品</a>
-            </li>
-            <li>
-              <a href="#">装机大师</a>
-            </li>
-            <li>
-              <a href="#">职场焕新</a>
-            </li>
-            <li>
-              <a href="#">女神频道</a>
-            </li>
-            <li>
-              <a href="#">虚拟现实</a>
-            </li>
-            <li>
-              <a href="#">二合一平板</a>
-            </li>
-            <li>
-              <a href="#">电子教育</a>
-            </li>
-            <li>
-              <a href="#">万物周刊</a>
+            <li v-for="(item, index) in computer.link" :key="index">
+              <a href="#">{{item}}</a>
             </li>
           </ul>
         </div>
-        <div class="item-class-content">
+        <div class="item-class-content" v-for="(item, index) in computer.detail" :key="index">
           <div class="item-content-top">
             <div class="item-big-img">
-              <img src="/static/img/index/computer/item-computer-1.jpg" alt="">
+              <img :src="item.bigImg" alt="">
             </div>
             <div class="item-four-img">
-              <div class="item-four-detail">
+              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
                 <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">电脑馆</p>
-                  <p class="pt_bi_promo">笔记本999元限量秒！</p>
+                  <p class="pt_bi_tit">{{subItem.title}}</p>
+                  <p class="pt_bi_promo">{{subItem.intro}}</p>
                 </div>
                 <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">外设装备</p>
-                  <p class="pt_bi_promo">1000减618</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-1-3.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">电脑配件</p>
-                  <p class="pt_bi_promo">联合满减<br>最高省618</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-1-4.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">办公生活</p>
-                  <p class="pt_bi_promo">5折神券 精品文具</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-1-5.jpg" alt="">
+                  <img :src="subItem.img" alt="">
                 </div>
               </div>
             </div>
           </div>
           <div class="item-content-bottom">
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-1-6.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-1-7.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-1-8.jpg">
-            </div>
-          </div>
-        </div>
-        <div class="item-class-content">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <img src="/static/img/index/computer/item-computer-2-1.jpg" alt="">
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">平板电脑</p>
-                  <p class="pt_bi_promo">爆款平板12期免息</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-2-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">智能酷玩</p>
-                  <p class="pt_bi_promo">抢999减666神券</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-2-3.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">娱乐影音</p>
-                  <p class="pt_bi_promo">大牌耳机低至5折</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-2-4.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">摄影摄像</p>
-                  <p class="pt_bi_promo">大牌相机5折抢</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/computer/item-computer-2-5.jpg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item-content-bottom">
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-2-6.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-2-7.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/computer/item-computer-2-8.jpg">
+            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
+              <img :src="subImg">
             </div>
           </div>
         </div>
@@ -191,153 +78,33 @@
       <!-- 爱吃专场 -->
       <div class="item-class">
         <div class="item-class-head item-class-eat-head">
-          <span class="item-class-title">爱吃</span>
+          <span class="item-class-title">{{eat.title}}</span>
           <ul>
-            <li>
-              <a href="#">休闲零食</a>
+            <li v-for="(item, index) in eat.link" :key="index">
+              <a href="#">{{item}}</a>
             </li>
-            <li>
-              <a href="#">坚果</a>
-            </li>
-            <li>
-              <a href="#">牛奶</a>
-            </li>
-            <li>
-              <a href="#">饮料冲调</a>
-            </li>
-            <li>
-              <a href="#">食用油</a>
-            </li>
-            <li>
-              <a href="#">大米</a>
-            </li>
-            <li>
-              <a href="#">白酒</a>
-            </li>
-            <li>
-              <a href="#">红酒</a>
-            </li>
-            <li>
-              <a href="#">烧烤食材</a>
-            </li>
-            <li>
-              <a href="#">牛排</a>
-            </li>
-            <li>
-              <a href="#">樱桃</a>
-            </li>
-
           </ul>
         </div>
-        <div class="item-class-content">
+        <div class="item-class-content" v-for="(item, index) in eat.detail" :key="index">
           <div class="item-content-top">
             <div class="item-big-img">
-              <img src="/static/img/index/eat/item-eat-1-1.jpg" alt="">
+              <img :src="item.bigImg" alt="">
             </div>
             <div class="item-four-img">
-              <div class="item-four-detail">
+              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
                 <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">粮油调味</p>
-                  <p class="pt_bi_promo">买2免1</p>
+                  <p class="pt_bi_tit pt_bi_tit-eat">{{subItem.title}}</p>
+                  <p class="pt_bi_promo">{{subItem.intro}}</p>
                 </div>
                 <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-1-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">饮料冲调</p>
-                  <p class="pt_bi_promo">第二件半价</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-1-3.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">休闲零食</p>
-                  <p class="pt_bi_promo"> 满99减40</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-1-4.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">中外名酒</p>
-                  <p class="pt_bi_promo">满199减100</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-1-5.jpg" alt="">
+                  <img :src="subItem.img" alt="">
                 </div>
               </div>
             </div>
           </div>
           <div class="item-content-bottom">
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-1-6.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-1-7.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-1-8.jpg">
-            </div>
-          </div>
-        </div>
-        <div class="item-class-content">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <img src="/static/img/index/eat/item-eat-2-1.jpg" alt="">
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">东家菜</p>
-                  <p class="pt_bi_promo">丰富好味</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-2-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">东家菜</p>
-                  <p class="pt_bi_promo">丰富好味</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-2-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">东家菜</p>
-                  <p class="pt_bi_promo">丰富好味</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-2-2.jpg" alt="">
-                </div>
-              </div>
-              <div class="item-four-detail">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">东家菜</p>
-                  <p class="pt_bi_promo">丰富好味</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <img src="/static/img/index/eat/item-eat-2-2.jpg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item-content-bottom">
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-2-6.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-2-7.jpg">
-            </div>
-            <div class="item-content-bottom-img">
-              <img src="/static/img/index/eat/item-eat-2-8.jpg">
+            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
+              <img :src="subImg">
             </div>
           </div>
         </div>
@@ -351,47 +118,15 @@
 import Sreach from '@/components/Sreach'
 import HomeNav from '@/components/nav/HomeNav'
 import Footer from '@/components/footer/Footer'
+import store from '@/vuex/store'
+import { mapState } from 'vuex'
 export default {
   name: 'Index',
   data () {
     return {
       hour: 3,
       minute: 50,
-      seconds: 30,
-      seckillAction: 'seckill-action',
-      seckillIsAction: [false, false, true, false, true],
-      seckills: [
-        {
-          intro: '【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱',
-          img: '/static/img/index/seckill/seckill-item1.jpg',
-          price: 71.9,
-          realPrice: 89.6
-        },
-        {
-          intro: 'Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水',
-          img: '/static/img/index/seckill/seckill-item2.jpg',
-          price: 989.0,
-          realPrice: 1299.0
-        },
-        {
-          intro: '粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒',
-          img: '/static/img/index/seckill/seckill-item3.jpg',
-          price: 21.8,
-          realPrice: 49.0
-        },
-        {
-          intro: '【京东超市】清风（APP）抽纸 原木纯品金装系列 3层',
-          img: '/static/img/index/seckill/seckill-item4.jpg',
-          price: 49.9,
-          realPrice: 59.0
-        },
-        {
-          intro: 'NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫',
-          img: '/static/img/index/seckill/seckill-item5.jpg',
-          price: 559.9,
-          realPrice: 759.9
-        }
-      ]
+      seconds: 30
     }
   },
   mounted () {
@@ -413,6 +148,7 @@ export default {
 
   },
   computed: {
+    ...mapState([ 'seckills', 'computer', 'eat' ]),
     hourStr: function () {
       return this.hour < 10 ? '0' + this.hour : this.hour
     },
@@ -427,7 +163,8 @@ export default {
     Sreach,
     HomeNav,
     Footer
-  }
+  },
+  store
 }
 </script>
 
@@ -542,8 +279,8 @@ export default {
   margin-top: 15px;
   transition: margin-top 0.3s;
 }
-.seckill-action{
-  margin-top: 8px !important;
+.seckill-item-img:hover img {
+  margin-top: 6px;
   transition: margin-top 0.3s;
 }
 .seckill-item-info {
@@ -630,10 +367,26 @@ export default {
   overflow: hidden;
   float: left;
 }
+.item-big-img img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-big-img:hover img {
+  margin-left: -15px;
+  transition: margin-left 0.3s;
+}
 .item-four-img {
   width: 303px;
   margin-left: 8px;
   float: left;
+}
+.item-four-detail img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-four-detail:hover img {
+  margin-left: -6px;
+  transition: margin-left 0.3s;
 }
 .item-four-detail {
   width: 152px;
@@ -685,6 +438,14 @@ export default {
   margin-right: 8px;
   overflow: hidden;
   float: left;
+}
+.item-content-bottom-img img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-content-bottom-img:hover img {
+  margin-left: -15px;
+  transition: margin-left 0.3s;
 }
 /*****************************商品专栏结束*****************************/
 </style>

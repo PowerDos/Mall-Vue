@@ -107,20 +107,8 @@
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
-            <CarouselItem>
-              <img src="static/img/nav/1.jpg" alt="">
-            </CarouselItem>
-            <CarouselItem>
-              <img src="static/img/nav/2.jpg" alt="">
-            </CarouselItem>
-            <CarouselItem>
-              <img src="static/img/nav/3.jpg" alt="">
-            </CarouselItem>
-            <CarouselItem>
-              <img src="static/img/nav/4.jpg" alt="">
-            </CarouselItem>
-            <CarouselItem>
-              <img src="static/img/nav/5.jpg" alt="">
+            <CarouselItem v-for="(item, index) in CarouselItems" :key="index">
+              <img :src="item" alt="">
             </CarouselItem>
           </Carousel>
         </div>
@@ -411,6 +399,8 @@
 </template>
 
 <script>
+import store from '@/vuex/store'
+import { mapState } from 'vuex'
 export default {
   name: 'HomeNav',
   data () {
@@ -418,6 +408,9 @@ export default {
       panel1: false,
       panel2: false
     }
+  },
+  computed: {
+    ...mapState([ 'CarouselItems' ])
   },
   methods: {
     showDetail (index) {
@@ -430,7 +423,8 @@ export default {
   mounted () {
     this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
     this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
-  }
+  },
+  store
 }
 </script>
 
