@@ -169,6 +169,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  background-color: #F6F6F6;
+}
 .content {
   width: 1008px;
   margin: 0px auto;

@@ -31,7 +31,9 @@ export default {
 
 <style scoped>
 .container {
-  margin: 15px auto;
+  padding-top: 15px;
+  margin: 0px auto;
+  margin-bottom: 15px;
   width: 460px;
 }
 .sreach {
