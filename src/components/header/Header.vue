@@ -18,7 +18,7 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first">你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><a href="signup.html">免费注册</a></span></li>
+        <li class="first">你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><router-link to="/SignUp">免费注册</router-link></span></li>
         <li><a href="#">购物车</a> <span class="glyphicon glyphicon-menu-down"></span></li>
         <li><a href="#">手机商城</a></li>
         <li><a href="#">网站导航</a></li>

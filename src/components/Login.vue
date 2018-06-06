@@ -1,4 +1,5 @@
 <template>
+<!-- 登陆页面 -->
   <div>
     <Row class="container">
       <Col span="13" offset="2" class="login-img-box">
@@ -10,14 +11,14 @@
             <p>欢迎登陆</p>
           </div>
           <div class="form-box">
-            <Form ref="formInline" :model="formInline" :rules="ruleInline">
-              <FormItem prop="user">
-                  <Input type="text" v-model="user" size="large" placeholder="用户名">
-                      <Icon type="ios-person-outline" slot="prepend"> </Icon>
+            <Form ref="formInline" :model="formDate" :rules="ruleInline">
+              <FormItem prop="username">
+                  <Input type="text" v-model="formDate.username" size="large" placeholder="用户名">
+                      <Icon type="person" slot="prepend"></Icon>
                   </Input>
               </FormItem>
               <FormItem prop="password">
-                  <Input type="password" v-model="password" size="large" placeholder="密码">
+                  <Input type="password" v-model="formDate.password" size="large" placeholder="密码">
                       <Icon type="ios-locked-outline" slot="prepend"> </Icon>
                   </Input>
               </FormItem>
@@ -39,10 +40,12 @@ export default {
   name: 'Login',
   data () {
     return {
-      username: '',
-      password: '',
+      formDate: {
+        username: '',
+        password: ''
+      },
       ruleInline: {
-        user: [
+        username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [
