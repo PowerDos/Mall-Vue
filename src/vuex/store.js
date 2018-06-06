@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    signUpStep: 0,
     CarouselItems: [
       'static/img/nav/1.jpg',
       'static/img/nav/2.jpg',
@@ -175,6 +176,11 @@ export default new Vuex.Store({
           ]
         }
       ]
+    }
+  },
+  mutations: {
+    changeSignUpStep (state, step) {
+      state.signUpStep = step
     }
   }
 })

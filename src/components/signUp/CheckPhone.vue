@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <Form :model="formValidate" :label-width="60" :rules="ruleValidate">
+  <div class="info-form">
+    <Form ref="formValidate" :model="formValidate" :label-width="80" :rules="ruleValidate">
       <FormItem label="手机号" prop="phone">
-          <Input v-model="formValidate.phone" placeholder="请输入手机号"></Input>
+          <i-input v-model="formValidate.phone" clearable size="large"  placeholder="请输入手机号"></i-input>
       </FormItem>
       <FormItem label="验证码" prop="checkNum">
-          <Input v-model="formValidate.checkNum" placeholder="请输入验证码">
+          <i-input v-model="formValidate.checkNum" size="large"  placeholder="请输入验证码">
             <Button slot="append" @click="getcheckNum">获取验证码</Button>
-          </Input>
+          </i-input>
       </FormItem>
-      <Button type="primary" size="large" long @click="next">验证手机号</Button>
+      <Button type="error" size="large" long @click="handleSubmit('formValidate')">验证手机号</Button>
     </Form>
   </div>
 </template>
 
 <script>
+import store from '@/vuex/store'
+import { mapMutations } from 'vuex'
 export default {
   name: 'CheckPhone',
   data () {
@@ -36,6 +38,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['changeSignUpStep']),
     getcheckNum () {
       if (this.formValidate.phone.length === 11) {
         this.$Message.success({
@@ -51,17 +54,27 @@ export default {
         })
       }
     },
-    next () {
-      if (this.formValidate.phone.length === 11 && this.formValidate.checkNum === '1234') {
-        this.$router.push({ path: '/SignUp/inputInfo' })
-      } else {
-        this.$Message.error({
-          content: '请填写正确的信息',
-          duration: 6,
-          closable: true
-        })
-      }
+    handleSubmit (name) { // 提交验证
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$router.push({ path: '/SignUp/inputInfo', query: { phone: this.formValidate.phone } })
+          this.changeSignUpStep(1)
+        } else {
+          this.$Message.error({
+            content: '请填写正确的信息',
+            duration: 6,
+            closable: true
+          })
+        }
+      })
     }
-  }
+  },
+  store
 }
 </script>
+
+<style scoped>
+.info-form {
+  width: 90% !important;
+}
+</style>

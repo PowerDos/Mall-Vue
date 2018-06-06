@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import CheckPhone from '@/components/signUp/CheckPhone'
 import InputInfo from '@/components/signUp/InputInfo'
+import SignUpDone from '@/components/signUp/SignUpDone'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
           path: 'inputInfo',
           name: 'InputInfo',
           component: InputInfo
+        },
+        {
+          path: 'signUpDone',
+          name: 'SignUpDone',
+          component: SignUpDone
         }
       ]
     }

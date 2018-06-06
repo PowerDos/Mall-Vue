@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="container">
-      <Input v-model="sreachData" size="large" class="sreach">
+      <i-input v-model="sreachData" size="large" class="sreach">
         <Button slot="append" icon="ios-search"></Button>
-      </Input>
+      </i-input>
       <Tag v-for="(item, index) in promotionTags" :key="index" closable  @on-close="closeTags(index)"><span @click="selectTags(index)">{{item}}</span></Tag>
     </div>
   </div>
