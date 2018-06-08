@@ -8,7 +8,7 @@
         <div class="sign-up-title">
           <h1>欢迎注册账号</h1>
           <br>
-          <h2>北理商城, 天天低价品质保证, 让消费者钱更值钱</h2>
+          <h2>BIT MALL, 天天低价品质保证, 让消费者钱更值钱</h2>
         </div>
         <div class="sing-up-step-box">
           <Steps :current="signUpStep">
@@ -29,30 +29,30 @@
 </template>
 
 <script>
-import store from '@/vuex/store'
-import { mapState, mapMutations } from 'vuex'
-import Footer from '@/components/footer/Footer'
+import store from '@/vuex/store';
+import { mapState, mapMutations } from 'vuex';
+import Footer from '@/components/footer/Footer';
 export default {
   name: 'SignUp',
   data () {
     return {
       index: 0
-    }
+    };
   },
   computed: {
     ...mapState(['signUpStep'])
   },
   methods: {
-    ...mapMutations(['changeSignUpStep'])
+    ...mapMutations(['SET_SIGN_UP_SETP'])
   },
   store,
   mounted () {
-    this.changeSignUpStep(0)
+    this.SET_SIGN_UP_SETP(0);
   },
   components: {
     Footer
   }
-}
+};
 </script>
 
 <style scoped>

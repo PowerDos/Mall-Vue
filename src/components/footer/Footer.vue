@@ -40,7 +40,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="copyright">
-          <p>Copyright © 2018 BY Gavin 林智杰</p>
+          <p>Copyright © 2018 by Gavin <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a></p>
         </div>
       </div>
     </footer>
@@ -62,9 +62,9 @@ export default {
       moreLink: [
         '关于我们', '联系我们', '联系客服', '合作招商', '商家帮助', '营销中心', '销售联盟', '校园社区', '风险监测', '隐私政策'
       ]
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -170,8 +170,11 @@ export default {
   width: 100%;
   color: #666;
   line-height: 30px;
-  cursor: pointer;
   text-align: center;
+}
+.copyright a{
+  color: #232323;
+  font-size: 20px;
 }
 /*****************************底 部 结 束*****************************/
 </style>

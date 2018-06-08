@@ -35,7 +35,9 @@
 </template>
 
 <script>
-import Footer from '@/components/footer/Footer'
+import Footer from '@/components/footer/Footer';
+import store from '@/vuex/store';
+import { mapMutations } from 'vuex';
 export default {
   name: 'Login',
   data () {
@@ -53,23 +55,33 @@ export default {
           { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
         ]
       }
-    }
+    };
   },
   methods: {
+    ...mapMutations(['SET_USER_LOGIN_INFO']),
     handleSubmit (name) {
+      const father = this;
+      console.log(this.formDate.username);
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('登陆成功')
+          if (father.formDate.username === 'Gavin' && father.formDate.password === '123456') {
+            this.SET_USER_LOGIN_INFO('Gavin');
+            this.$Message.success('登陆成功');
+            father.$router.push('/');
+          } else {
+            this.$Message.error('用户名或密码错误');
+          }
         } else {
-          this.$Message.error('登陆失败')
+          this.$Message.error('请填写正确的用户名或密码');
         }
-      })
+      });
     }
   },
   components: {
     Footer
-  }
-}
+  },
+  store
+};
 </script>
 
 <style scoped>
@@ -80,11 +92,13 @@ export default {
 }
 .login-img-box {
   height: 485px;
+  overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .login-img-box>img {
-  width: 100%;
+  width: 68%;
 }
 .login-box {
   height: 485px;

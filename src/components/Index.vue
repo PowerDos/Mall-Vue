@@ -115,11 +115,11 @@
 </template>
 
 <script>
-import Sreach from '@/components/Sreach'
-import HomeNav from '@/components/nav/HomeNav'
-import Footer from '@/components/footer/Footer'
-import store from '@/vuex/store'
-import { mapState } from 'vuex'
+import Sreach from '@/components/Sreach';
+import HomeNav from '@/components/nav/HomeNav';
+import Footer from '@/components/footer/Footer';
+import store from '@/vuex/store';
+import { mapState } from 'vuex';
 export default {
   name: 'Index',
   data () {
@@ -127,22 +127,22 @@ export default {
       hour: 3,
       minute: 50,
       seconds: 30
-    }
+    };
   },
   mounted () {
-    const father = this
+    const father = this;
     setInterval(function () {
-      father.seconds--
+      father.seconds--;
       if (father.seconds === -1) {
-        father.seconds = 59
-        father.minute--
+        father.seconds = 59;
+        father.minute--;
         if (father.minute === -1) {
-          father.minute = 59
-          father.hour--
+          father.minute = 59;
+          father.hour--;
         }
       }
       // console.log(father.seconds)
-    }, 1000)
+    }, 1000);
   },
   methods: {
 
@@ -150,13 +150,13 @@ export default {
   computed: {
     ...mapState([ 'seckills', 'computer', 'eat' ]),
     hourStr: function () {
-      return this.hour < 10 ? '0' + this.hour : this.hour
+      return this.hour < 10 ? '0' + this.hour : this.hour;
     },
     minuteStr: function () {
-      return this.minute < 10 ? '0' + this.minute : this.minute
+      return this.minute < 10 ? '0' + this.minute : this.minute;
     },
     secondStr: function () {
-      return this.seconds < 10 ? `0${this.hour}` : this.seconds
+      return this.seconds < 10 ? `0${this.hour}` : this.seconds;
     }
   },
   components: {
@@ -165,7 +165,7 @@ export default {
     Footer
   },
   store
-}
+};
 </script>
 
 <style scoped>

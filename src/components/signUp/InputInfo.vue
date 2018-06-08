@@ -19,20 +19,20 @@
 </template>
 
 <script>
-import store from '@/vuex/store'
-import { mapMutations } from 'vuex'
+import store from '@/vuex/store';
+import { mapMutations } from 'vuex';
 export default {
   name: 'InputInfo',
   data () {
     const validatePassCheck = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'))
+        callback(new Error('请再次输入密码'));
       } else if (value !== this.formValidate.password) {
-        callback(new Error('两次输入的密码不一样'))
+        callback(new Error('两次输入的密码不一样'));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       formValidate: {
         name: '',
@@ -56,26 +56,26 @@ export default {
           { validator: validatePassCheck, trigger: 'blur' }
         ]
       }
-    }
+    };
   },
   methods: {
-    ...mapMutations(['changeSignUpStep']),
+    ...mapMutations(['SET_SIGN_UP_SETP']),
     handleSubmit (name) {
-      const father = this
+      const father = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('注册成功')
+          this.$Message.success('注册成功');
           // this.$Message.success(father.$route.query.phone)
-          father.changeSignUpStep(2)
-          this.$router.push({ path: '/SignUp/signUpDone' })
+          father.SET_SIGN_UP_SETP(2);
+          this.$router.push({ path: '/SignUp/signUpDone' });
         } else {
-          this.$Message.error('注册失败')
+          this.$Message.error('注册失败');
         }
-      })
+      });
     }
   },
   store
-}
+};
 </script>
 
 <style scoped>

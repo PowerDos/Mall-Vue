@@ -18,19 +18,21 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first">你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><router-link to="/SignUp">免费注册</router-link></span></li>
-        <li><a href="#">购物车</a> <span class="glyphicon glyphicon-menu-down"></span></li>
-        <li><a href="#">手机商城</a></li>
-        <li><a href="#">网站导航</a></li>
-        <li><a href="help.html">客户服务</a></li>
-        <li><a href="#">企业采购</a></li>
-        <li><a href="#">商城会员</a></li>
+        <li class="first" v-show="!userInfo.username">你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><router-link to="/SignUp">免费注册</router-link></span></li>
+        <li v-show="!!userInfo.username"><Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span></li>
+        <li><router-link to="/">购物车</router-link> <span class="glyphicon glyphicon-menu-down"></span></li>
+        <li><router-link to="/">网站导航</router-link></li>
+        <li><router-link to="/">客户服务</router-link></li>
+        <li><router-link to="/">企业采购</router-link></li>
+        <li><router-link to="/">商城首页</router-link></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/vuex/store';
+import { mapState } from 'vuex';
 export default {
   name: 'M-Header',
   data () {
@@ -42,14 +44,18 @@ export default {
         ['江西', '四川', '海南', '贵州', '云南'],
         ['西藏', '陕西', '甘肃', '青海', '珠海']
       ]
-    }
+    };
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   methods: {
     changeCity (city) {
-      this.city = city
+      this.city = city;
     }
-  }
-}
+  },
+  store
+};
 </script>
 
 <style scoped>
@@ -111,5 +117,12 @@ export default {
 }
 .city-item:hover {
   color: #d9534f;
+}
+.person-icon {
+  color: #d9534f;
+  background-color:  #f0cdb2;
+}
+.username {
+  color: #999999;
 }
 </style>

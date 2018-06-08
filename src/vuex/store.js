@@ -1,10 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    userInfo: {
+      username: ''
+    },
     signUpStep: 0,
     CarouselItems: [
       'static/img/nav/1.jpg',
@@ -179,8 +182,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    changeSignUpStep (state, step) {
-      state.signUpStep = step
+    SET_SIGN_UP_SETP (state, step) {
+      state.signUpStep = step;
+    },
+    SET_USER_LOGIN_INFO (state, username) {
+      state.userInfo.username = username;
     }
   }
-})
+});

@@ -399,33 +399,33 @@
 </template>
 
 <script>
-import store from '@/vuex/store'
-import { mapState } from 'vuex'
+import store from '@/vuex/store';
+import { mapState } from 'vuex';
 export default {
   name: 'HomeNav',
   data () {
     return {
       panel1: false,
       panel2: false
-    }
+    };
   },
   computed: {
     ...mapState([ 'CarouselItems' ])
   },
   methods: {
     showDetail (index) {
-      index === 1 ? this.panel1 = true : this.panel2 = true
+      index === 1 ? this.panel1 = true : this.panel2 = true;
     },
     hideDetail (index) {
-      index === 1 ? this.panel1 = false : this.panel2 = false
+      index === 1 ? this.panel1 = false : this.panel2 = false;
     }
   },
   mounted () {
-    this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
-    this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px'
+    this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px';
+    this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px';
   },
   store
-}
+};
 </script>
 
 <style scoped>

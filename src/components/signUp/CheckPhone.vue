@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import store from '@/vuex/store'
-import { mapMutations } from 'vuex'
+import store from '@/vuex/store';
+import { mapMutations } from 'vuex';
 export default {
   name: 'CheckPhone',
   data () {
@@ -35,42 +35,42 @@ export default {
           { type: 'string', min: 4, max: 4, message: '验证码长度错误', trigger: 'blur' }
         ]
       }
-    }
+    };
   },
   methods: {
-    ...mapMutations(['changeSignUpStep']),
+    ...mapMutations(['SET_SIGN_UP_SETP']),
     getcheckNum () {
       if (this.formValidate.phone.length === 11) {
         this.$Message.success({
           content: '验证码为: 1234',
           duration: 6,
           closable: true
-        })
+        });
       } else {
         this.$Message.error({
           content: '请输入正确的手机号',
           duration: 6,
           closable: true
-        })
+        });
       }
     },
     handleSubmit (name) { // 提交验证
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$router.push({ path: '/SignUp/inputInfo', query: { phone: this.formValidate.phone } })
-          this.changeSignUpStep(1)
+          this.$router.push({ path: '/SignUp/inputInfo', query: { phone: this.formValidate.phone } });
+          this.SET_SIGN_UP_SETP(1);
         } else {
           this.$Message.error({
             content: '请填写正确的信息',
             duration: 6,
             closable: true
-          })
+          });
         }
-      })
+      });
     }
   },
   store
-}
+};
 </script>
 
 <style scoped>
