@@ -16,14 +16,27 @@ npm run build
 ```
 
 ## TO-DO-LIST
-[x] 首页
-[x] 登陆
-[x] 注册
-[] 商品搜索页面
-[] 商品详情页面
-[] 商家店铺页面
-[] 购物车页面
-[] 支付页面
-[] 购买成功页面
-[] 反馈页面
-[] 帮助页面
+- [x] 首页
+- [x] 登陆
+- [x] 注册
+- [ ] 商品搜索页面
+- [ ] 商品详情页面
+- [ ] 商家店铺页面
+- [ ] 购物车页面
+- [ ] 支付页面
+- [ ] 购买成功页面
+- [ ] 反馈页面
+- [ ] 帮助页面
+
+## PAGE 
+
+### 首页
+![首页1](https://i.imgur.com/cNtx70M.png)
+![首页2](https://i.imgur.com/ju5lfUc.png)
+![首页3](https://i.imgur.com/K8MMYGq.png)
+
+### 登陆页面
+![登陆页面](https://i.imgur.com/s02MCdz.png)
+
+### 注册页面
+![注册页面](https://i.imgur.com/no4Cb65.png)
