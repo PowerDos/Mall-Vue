@@ -43,11 +43,11 @@
         <div class="goods-list-box">
           <div class="goods-list-tool">
             <ul>
-              <li v-for="(item,index) in goodsTool" :key="index"><span>{{item}} <Icon type="arrow-down-a"></Icon></span></li>
+              <li v-for="(item,index) in goodsTool" :key="index" @click="orderBy(item.en)"><span :class="{ 'goods-list-tool-active': isAction[index]}">{{item.title}} <Icon type="arrow-down-a"></Icon></span></li>
             </ul>
           </div>
           <div class="goods-list">
-            <div class="goods-show-info" v-for="(item, index) in goodsList" :key="index">
+            <div class="goods-show-info" v-for="(item, index) in orderGoodsList" :key="index">
               <div class="goods-show-img">
                 <img :src="item.img"/>
               </div>
@@ -61,7 +61,7 @@
                 <span>{{item.intro}}</span>
               </div>
               <div class="goods-show-num">
-                已有<span>{{item.sale}}</span>人评价
+                已有<span>{{item.remarks}}</span>人评价
               </div>
               <div class="goods-show-seller">
                 <span>{{item.shopName}}</span>
@@ -73,8 +73,8 @@
       <div class="goods-page">
         <Page :total="100" show-sizer></Page>
       </div>
-      <Spin size="large" fix v-if="false"></Spin>
     </div>
+    <Spin size="large" fix v-if="isLoading"></Spin>
     <Footer></Footer>
   </div>
 </template>
@@ -84,165 +84,35 @@ import Sreach from '@/components/Sreach';
 import GoodsListNav from '@/components/nav/GoodsListNav';
 import GoodsClassNav from '@/components/nav/GoodsClassNav';
 import Footer from '@/components/footer/Footer';
+import store from '@/vuex/store';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'GoodsList',
   data () {
     return {
       sreachItem: '',
-      asItems: [
-        {
-          img: 'static/img/goodsList/item-as-img-1.jpg',
-          price: 39.9,
-          intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-          num: 3140
-        },
-        {
-          img: 'static/img/goodsList/item-as-img-2.jpg',
-          price: 36.6,
-          intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-          num: 6160
-        },
-        {
-          img: 'static/img/goodsList/item-as-img-1.jpg',
-          price: 38.6,
-          intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-          num: 9160
-        },
-        {
-          img: 'static/img/goodsList/item-as-img-2.jpg',
-          price: 35.6,
-          intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-          num: 6160
-        },
-        {
-          img: 'static/img/goodsList/item-as-img-1.jpg',
-          price: 38.6,
-          intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-          num: 9160
-        },
-        {
-          img: 'static/img/goodsList/item-as-img-2.jpg',
-          price: 35.6,
-          intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-          num: 6160
-        }
-      ],
-      goodsTool: [ '综合', '销量', '评论数', '新品', '价格' ],
-      goodsList: [
-        {
-          img: 'static/img/goodsList/item-show-1.jpg',
-          price: 36.60,
-          intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬壳男女磨砂防摔 火影红(苹',
-          sale: 6160,
-          shopName: '元亨利配件专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-2.jpg',
-          price: 28.00,
-          intro: '蒙奇奇 苹果6s手机壳磨砂防摔保护套 适用于iphone6/6s/6sPlus/6plus 6/6s 4.7英',
-          sale: 3000,
-          shopName: 'monqiqi旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-3.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 2800,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-4.jpg',
-          price: 29.90,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 9000,
-          shopName: '歌乐力手配专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-5.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 6160,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-6.jpg',
-          price: 28.00,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 9006,
-          shopName: '歌乐力手配专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-7.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 8666,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-8.jpg',
-          price: 29.90,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 6080,
-          shopName: '歌乐力手配专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-1.jpg',
-          price: 36.60,
-          intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬壳男女磨砂防摔 火影红(苹',
-          sale: 6160,
-          shopName: '元亨利配件专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-2.jpg',
-          price: 28.00,
-          intro: '蒙奇奇 苹果6s手机壳磨砂防摔保护套 适用于iphone6/6s/6sPlus/6plus 6/6s 4.7英',
-          sale: 3000,
-          shopName: 'monqiqi旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-3.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 2800,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-4.jpg',
-          price: 29.90,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 9000,
-          shopName: '歌乐力手配专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-5.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 6160,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-6.jpg',
-          price: 28.00,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 9006,
-          shopName: '歌乐力手配专营店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-7.jpg',
-          price: 15.00,
-          intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-          sale: 8666,
-          shopName: 'BIAZE官方旗舰店'
-        },
-        {
-          img: 'static/img/goodsList/item-show-8.jpg',
-          price: 29.90,
-          intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-          sale: 6080,
-          shopName: '歌乐力手配专营店'
-        }
+      isAction: [ true, false, false ],
+      goodsTool: [
+        {title: '综合', en: 'all'},
+        {title: '评论数', en: 'remarks'},
+        {title: '价格', en: 'price'}
       ]
     };
+  },
+  computed: {
+    ...mapState(['asItems', 'isLoading']),
+    ...mapGetters(['orderGoodsList'])
+  },
+  methods: {
+    ...mapActions(['loadGoodsList']),
+    ...mapMutations(['SET_GOODS_ORDER_BY']),
+    orderBy (data) {
+      console.log(data);
+      this.SET_GOODS_ORDER_BY(data);
+    }
+  },
+  created () {
+    this.loadGoodsList();
   },
   mounted () {
     this.sreachItem = this.$route.query.sreachData;
@@ -252,7 +122,8 @@ export default {
     GoodsListNav,
     GoodsClassNav,
     Footer
-  }
+  },
+  store
 };
 </script>
 
@@ -351,10 +222,10 @@ export default {
 .goods-list-tool i:hover{
   color: #E4393C;
 }
-.goods-list-tool li:first-child>span{
+.goods-list-tool-active {
   color: #fff;
   border-left: 1px solid #ccc;
-  background-color: #E4393C;
+  background-color: #E4393C !important;
 }
 
 .goods-list {
