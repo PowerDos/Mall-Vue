@@ -1,6 +1,6 @@
 # MALL-VUE
 
-> 这是一个基于VUE + VUEX + iView做的一个电商网站前端, 欢迎fork或star
+> 这是一个基于VUE + VUEX + iView做的一个电商网站前端项目, 欢迎fork或star
 
 ## Build Setup
 
@@ -28,7 +28,7 @@ npm run build
 - [ ] 反馈页面
 - [ ] 帮助页面
 
-## PAGE 
+## PAGE
 
 ### 首页
 ![首页1](https://i.imgur.com/cNtx70M.png)
