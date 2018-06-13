@@ -7,6 +7,7 @@ import CheckPhone from '@/components/signUp/CheckPhone';
 import InputInfo from '@/components/signUp/InputInfo';
 import SignUpDone from '@/components/signUp/SignUpDone';
 import GoodsList from '@/components/GoodsList';
+import GoodsDetail from '@/components/GoodsDetail';
 
 Vue.use(Router);
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/goodsList', // 商品列表
       name: 'GoodsList',
       component: GoodsList
+    },
+    {
+      path: '/goodsDetail', // 商品详情
+      name: 'GoodsDetail',
+      component: GoodsDetail
     }
   ]
 });

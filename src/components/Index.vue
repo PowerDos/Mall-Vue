@@ -29,7 +29,7 @@
         <div class="seckill-content">
           <div class="seckill-item" v-for="(item, index) in seckills" :key="index">
             <div class="seckill-item-img">
-              <img :src="item.img">
+              <router-link to="/goodsList"><img :src="item.img"></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{item.intro}}</p>

@@ -43,13 +43,13 @@
         <div class="goods-list-box">
           <div class="goods-list-tool">
             <ul>
-              <li v-for="(item,index) in goodsTool" :key="index" @click="orderBy(item.en)"><span :class="{ 'goods-list-tool-active': isAction[index]}">{{item.title}} <Icon type="arrow-down-a"></Icon></span></li>
+              <li v-for="(item,index) in goodsTool" :key="index" @click="orderBy(item.en, index)"><span :class="{ 'goods-list-tool-active': isAction[index]}">{{item.title}} <Icon :type="icon[index]"></Icon></span></li>
             </ul>
           </div>
           <div class="goods-list">
             <div class="goods-show-info" v-for="(item, index) in orderGoodsList" :key="index">
               <div class="goods-show-img">
-                <img :src="item.img"/>
+                <router-link to="/goodsDetail"><img :src="item.img"/></router-link>
               </div>
               <div class="goods-show-price">
                 <span>
@@ -74,8 +74,8 @@
         <Page :total="100" show-sizer></Page>
       </div>
     </div>
-    <Spin size="large" fix v-if="isLoading"></Spin>
     <Footer></Footer>
+    <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
 
@@ -88,12 +88,17 @@ import store from '@/vuex/store';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'GoodsList',
+  beforeRouteEnter (to, from, next) {
+    window.scrollTo(0, 0);
+    next();
+  },
   data () {
     return {
       sreachItem: '',
       isAction: [ true, false, false ],
+      icon: [ 'arrow-up-a', 'arrow-down-a', 'arrow-down-a' ],
       goodsTool: [
-        {title: '综合', en: 'all'},
+        {title: '综合', en: 'sale'},
         {title: '评论数', en: 'remarks'},
         {title: '价格', en: 'price'}
       ]
@@ -106,8 +111,12 @@ export default {
   methods: {
     ...mapActions(['loadGoodsList']),
     ...mapMutations(['SET_GOODS_ORDER_BY']),
-    orderBy (data) {
+    orderBy (data, index) {
       console.log(data);
+      this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
+      this.isAction = [ false, false, false ];
+      this.isAction[index] = true;
+      this.icon[index] = 'arrow-up-a';
       this.SET_GOODS_ORDER_BY(data);
     }
   },
