@@ -46,7 +46,7 @@ npm run build
 ![商品详情页面4](https://i.imgur.com/vRpvcvj.png)
 
 ### 登陆页面
-![登陆页面](https://i.imgur.com/s02MCdz.png)
+![登陆页面](https://i.imgur.com/d16GjOi.png)
 
 ### 注册页面
 ![注册页面](https://i.imgur.com/no4Cb65.png)
