@@ -139,7 +139,7 @@ export default {
 <style scoped>
 .container {
   margin: 15px auto;
-  width: 80%;
+  width: 93%;
   min-width: 1000px;
 }
 .text-danger {
@@ -245,7 +245,7 @@ export default {
 .goods-show-info{
   width: 240px;
   padding: 10px;
-  margin: 15px;
+  margin: 15px 0px;
   border: 1px solid #fff;
   cursor: pointer;
 }
