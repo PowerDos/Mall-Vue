@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     isLoading: false,
     orderBy: 'sale',
+    goodsInfo: {},
     userInfo: {
       username: ''
     },

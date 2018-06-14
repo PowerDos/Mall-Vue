@@ -98,7 +98,7 @@
         <br>
         <div class="add-buy-car-box">
           <div class="add-buy-car">
-            <InputNumber v-model="count" size="large"></InputNumber>
+            <InputNumber :min="1" v-model="count" size="large"></InputNumber>
             <Button type="error" size="large">加入购物车</Button>
           </div>
         </div>
@@ -126,9 +126,9 @@
       <div class="item-intro-detail" ref="itemIntroDetail">
         <div class="item-intro-nav item-tabs">
           <Tabs>
-              <TabPane label="商品介绍" ref="itemIntroGoods">
+              <TabPane label="商品介绍">
                 <div class="remarks-title"><span>商品介绍</span></div>
-                <div class="item-intro-img">
+                <div class="item-intro-img" ref="itemIntroGoods">
                   <img :src="item" alt="" v-for="(item,index) in goodsInfo.goodsDetail" :key="index">
                 </div>
               </TabPane>
@@ -189,7 +189,7 @@
                   <div class="remarks-title"><span>商品评价</span></div>
                   <div class="remarks-analyse-box">
                     <div class="remarks-analyse-goods">
-                      <i-circle :percent="80" stroke-color="#e4393c">
+                      <i-circle :percent="goodsInfo.remarks.goodAnalyse" stroke-color="#e4393c">
                         <span class="remarks-analyse-num">{{goodsInfo.remarks.goodAnalyse}}%</span>
                         <p class="remarks-analyse-title">好评率</p>
                       </i-circle>
@@ -386,7 +386,7 @@ export default {
           }
         ],
         remarks: {
-          goodAnalyse: 96,
+          goodAnalyse: 90,
           remarksTags: [ '颜色可人', '实惠优选', '严丝合缝', '极致轻薄', '质量没话说', '比定做还合适', '完美品质', '正品行货', '包装有档次', '不容易发热', '已经买第二个', '是全覆盖' ],
           remarksNumDetail: [ 2000, 3000, 900, 1 ],
           detail: [
@@ -441,7 +441,6 @@ export default {
     select (index1, index2) {
       this.selectBoxIndex = index1 * 3 + index2;
       this.price = this.goodsInfo.setMeal[index1][index2].price;
-      console.log(index1, index2);
     },
     showBigImg (index) {
       this.imgIndex = index;
@@ -479,9 +478,10 @@ export default {
   },
   mounted () {
     this.price = this.goodsInfo.setMeal[0][0].price;
-    let heightCss = window.getComputedStyle(this.$refs.itemIntroGoods.$el).height;
+    let heightCss = window.getComputedStyle(this.$refs.itemIntroGoods).height;
+    console.log(this.$refs.itemIntroGoods);
     console.log(heightCss);
-    heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 53;
+    heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
     console.log(heightCss);
     this.$refs.itemIntroDetail.style.height = heightCss + 'px';
   },
