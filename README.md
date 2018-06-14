@@ -37,7 +37,7 @@ npm run build
 
 ### 商品搜索页面
 ![商品搜索页面1](https://i.imgur.com/Wu7TJ4G.png)
-![商品搜索页面2](https://i.imgur.com/QAvIG8f.png)
+![商品搜索页面2](https://i.imgur.com/ZTDRB2X.png)
 
 ### 商品详情页面
 ![商品详情页面1](https://i.imgur.com/0SQxUCN.png)
