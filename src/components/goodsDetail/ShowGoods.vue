@@ -86,7 +86,7 @@
         <div class="add-buy-car-box">
           <div class="add-buy-car">
             <InputNumber :min="1" v-model="count" size="large"></InputNumber>
-            <Button type="error" size="large">加入购物车</Button>
+            <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'ShowGoods',
   data () {
@@ -139,12 +139,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addShoppingCart']),
     select (index1, index2) {
       this.selectBoxIndex = index1 * 3 + index2;
       this.price = this.goodsInfo.setMeal[index1][index2].price;
     },
     showBigImg (index) {
       this.imgIndex = index;
+    },
+    addShoppingCartBtn () {
+      const index1 = this.selectBoxIndex / 3;
+      const index2 = this.selectBoxIndex % 3;
+      const data = {
+        title: this.goodsInfo.title,
+        count: this.count,
+        package: this.goodsInfo.setMeal[index1][index2]
+      };
+      this.addShoppingCart(data);
+      this.$router.push('/shoppingCart');
     }
   },
   mounted () {

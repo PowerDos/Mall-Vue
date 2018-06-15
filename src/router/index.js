@@ -8,6 +8,7 @@ import InputInfo from '@/components/signUp/InputInfo';
 import SignUpDone from '@/components/signUp/SignUpDone';
 import GoodsList from '@/components/GoodsList';
 import GoodsDetail from '@/components/GoodsDetail';
+import ShoppingCart from '@/components/ShoppingCart';
 
 Vue.use(Router);
 
@@ -59,6 +60,11 @@ export default new Router({
       path: '/goodsDetail', // 商品详情
       name: 'GoodsDetail',
       component: GoodsDetail
+    },
+    {
+      path: '/shoppingCart', // 商品详情
+      name: 'ShoppingCart',
+      component: ShoppingCart
     }
   ]
 });

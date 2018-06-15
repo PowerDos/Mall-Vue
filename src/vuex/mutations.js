@@ -63,3 +63,14 @@ export const SET_GOODS_ORDER_BY = (state, data) => {
 export const SET_GOODS_INFO = (state, data) => {
   state.goodsInfo = data;
 };
+
+// 添加购物车
+export const ADD_SHOPPING_CART = (state, data) => {
+  state.shoppingCart.push(data);
+  state.newShoppingCart = data;
+};
+
+// 设置推荐信息
+export const SET_RECOMMEND_INFO = (state, data) => {
+  state.recommend = data;
+};

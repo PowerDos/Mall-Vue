@@ -602,3 +602,63 @@ export const loadGoodsList = ({ commit }) => {
     });
   });
 };
+
+// 添加购物车
+export const addShoppingCart = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    commit('ADD_SHOPPING_CART', data);
+  });
+};
+
+// 获取用户推荐
+export const loadRecommend = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const data = [
+      [
+        {
+          img: '/static/img/otherBuy/1.jpg',
+          intro: 'iPhone7/6s/8钢化膜苹果7Plus全屏全覆盖3D抗蓝',
+          price: 29.00
+        },
+        {
+          img: '/static/img/otherBuy/2.jpg',
+          intro: '苹果数据线 苹果iPhoneX/6s/7plus/8充电线',
+          price: 36.00
+        },
+        {
+          img: '/static/img/otherBuy/3.jpg',
+          intro: '苹果8/7/6/6s钢化膜 iphone8/7/6s/6钢化玻璃',
+          price: 19.00
+        },
+        {
+          img: '/static/img/otherBuy/4.jpg',
+          intro: 'iPhone6s/7钢化膜苹果8 Plus手机膜抗蓝光非全屏',
+          price: 28.00
+        }
+      ],
+      [
+        {
+          img: '/static/img/otherBuy/5.jpg',
+          intro: '苹果6s手机壳iPhone6s Plus保护壳防摔全',
+          price: 28.00
+        },
+        {
+          img: '/static/img/otherBuy/6.jpg',
+          intro: 'iPhone7/8手机壳手机套防摔磨砂保护壳星空黑☆全包保护',
+          price: 30.00
+        },
+        {
+          img: '/static/img/otherBuy/7.jpg',
+          intro: '数据线 适用于苹果iPhone 6s/6plus/7plus/8/X',
+          price: 18.00
+        },
+        {
+          img: '/static/img/otherBuy/8.jpg',
+          intro: 'iPhone8/7/6S/6钢化膜 苹果8/7/6s/6玻璃膜 手机高',
+          price: 15.00
+        }
+      ]
+    ];
+    commit('SET_RECOMMEND_INFO', data);
+  });
+};
