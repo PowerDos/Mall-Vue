@@ -2,32 +2,8 @@
   <div>
     <div class="nav-item">
       <ul>
-        <li>
-          <a href="#">秒杀</a>
-        </li>
-        <li>
-          <a href="#">优惠券</a>
-        </li>
-        <li>
-          <a href="#">闪购</a>
-        </li>
-        <li>
-          <a href="#">拍卖</a>
-        </li>
-        <li>
-          <a href="#">服装城</a>
-        </li>
-        <li>
-          <a href="#">超市</a>
-        </li>
-        <li>
-          <a href="#">生鲜</a>
-        </li>
-        <li>
-          <a href="#">全球购</a>
-        </li>
-        <li>
-          <a href="#">金融</a>
+        <li v-for="(item,index) in nav" :key="index">
+          <a href="#">{{item}}</a>
         </li>
       </ul>
     </div>
@@ -107,17 +83,14 @@
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
-            <CarouselItem v-for="(item, index) in CarouselItems" :key="index">
+            <CarouselItem v-for="(item, index) in marketing.CarouselItems" :key="index">
               <img :src="item" alt="">
             </CarouselItem>
           </Carousel>
         </div>
         <div class="nav-show">
-          <div class="nav-show-img">
-            <img src="static/img/nav/nav_showimg1.jpg">
-          </div>
-          <div class="nav-show-img">
-            <img src="static/img/nav/nav_showimg2.jpg">
+          <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
+            <img :src="item">
           </div>
         </div>
       </div>
@@ -406,11 +379,15 @@ export default {
   data () {
     return {
       panel1: false,
-      panel2: false
+      panel2: false,
+      nav: [ '秒杀', '优惠券', '闪购', '拍卖', '服装城', '超市', '生鲜', '全球购', '金融' ]
     };
   },
+  created () {
+
+  },
   computed: {
-    ...mapState([ 'CarouselItems' ])
+    ...mapState([ 'marketing' ])
   },
   methods: {
     showDetail (index) {

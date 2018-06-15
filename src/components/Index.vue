@@ -17,17 +17,17 @@
           </div>
           <div class="count-down">
             <span class="count-down-text">当前场次</span>
-            <span class="count-down-num count-down-hour">{{ hourStr }}</span>
+            <span class="count-down-num count-down-hour">{{ seckillsHours }}</span>
             <span class="count-down-point">:</span>
-            <span class="count-down-num count-down-minute">{{ minuteStr }}</span>
+            <span class="count-down-num count-down-minute">{{ seckillsMinutes }}</span>
             <span class="count-down-point">:</span>
-            <span class="count-down-num count-down-seconds">{{ secondStr }}</span>
+            <span class="count-down-num count-down-seconds">{{ seckillsSeconds }}</span>
             <span class="count-down-text">后结束抢购</span>
           </div>
         </div>
         <!-- 内容 -->
         <div class="seckill-content">
-          <div class="seckill-item" v-for="(item, index) in seckills" :key="index">
+          <div class="seckill-item" v-for="(item, index) in seckills.goodsList" :key="index">
             <div class="seckill-item-img">
               <router-link to="/goodsList"><img :src="item.img"></router-link>
             </div>
@@ -119,45 +119,28 @@ import Sreach from '@/components/Sreach';
 import HomeNav from '@/components/nav/HomeNav';
 import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'Index',
-  data () {
-    return {
-      hour: 3,
-      minute: 50,
-      seconds: 30
-    };
+  created () {
+    this.loadSeckillsInfo();
+    this.loadCarouselItems();
+    this.loadComputer();
+    this.loadEat();
   },
   mounted () {
     const father = this;
     setInterval(function () {
-      father.seconds--;
-      if (father.seconds === -1) {
-        father.seconds = 59;
-        father.minute--;
-        if (father.minute === -1) {
-          father.minute = 59;
-          father.hour--;
-        }
-      }
-      // console.log(father.seconds)
+      father.REDUCE_SECKILLS_TIME();
     }, 1000);
   },
   methods: {
-
+    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat']),
+    ...mapMutations(['REDUCE_SECKILLS_TIME'])
   },
   computed: {
     ...mapState([ 'seckills', 'computer', 'eat' ]),
-    hourStr: function () {
-      return this.hour < 10 ? '0' + this.hour : this.hour;
-    },
-    minuteStr: function () {
-      return this.minute < 10 ? '0' + this.minute : this.minute;
-    },
-    secondStr: function () {
-      return this.seconds < 10 ? `0${this.hour}` : this.seconds;
-    }
+    ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds' ])
   },
   components: {
     Sreach,
