@@ -130,9 +130,14 @@ export default {
   },
   mounted () {
     const father = this;
-    setInterval(function () {
+    this.setIntervalObj = setInterval(function () {
       father.REDUCE_SECKILLS_TIME();
     }, 1000);
+  },
+  data () {
+    return {
+      setIntervalObj: null
+    };
   },
   methods: {
     ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat']),
@@ -146,6 +151,9 @@ export default {
     Sreach,
     HomeNav,
     Footer
+  },
+  destroyed () {
+    clearInterval(this.setIntervalObj);
   },
   store
 };
