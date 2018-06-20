@@ -26,7 +26,7 @@
             <router-link to="/goodsDetail">
               <button class="btn-car btn-car-to-detail">查看商品详情</button>
             </router-link>
-            <router-link to="/pay">
+            <router-link to="/order">
               <button class="btn-car btn-car-to-pay">去购物车结算 > </button>
             </router-link>
           </div>

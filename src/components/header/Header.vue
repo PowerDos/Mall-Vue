@@ -104,7 +104,7 @@ export default {
       this.city = city;
     },
     goToPay () {
-      this.$router.push('/pay');
+      this.$router.push('/order');
     }
   },
   store
