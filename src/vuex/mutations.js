@@ -67,11 +67,12 @@ export const SET_GOODS_INFO = (state, data) => {
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
   const item = {
+    goods_id: data.goods_id,
     count: data.count,
     img: data.package.img,
     package: data.package.intro,
     price: data.package.price,
-    item: data.title
+    title: data.title
   };
   state.shoppingCart.push(item);
   state.newShoppingCart = data;
@@ -80,4 +81,9 @@ export const ADD_SHOPPING_CART = (state, data) => {
 // 设置推荐信息
 export const SET_RECOMMEND_INFO = (state, data) => {
   state.recommend = data;
+};
+
+// 设置收获地址
+export const SET_USER_ADDRESS = (state, data) => {
+  state.address = data;
 };

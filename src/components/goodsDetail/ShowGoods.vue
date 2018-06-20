@@ -150,9 +150,10 @@ export default {
     addShoppingCartBtn () {
       const index1 = parseInt(this.selectBoxIndex / 3);
       const index2 = this.selectBoxIndex % 3;
-      console.log(index1);
-      console.log(index2);
+      const date = new Date();
+      const goodsId = date.getTime();
       const data = {
+        goods_id: goodsId,
         title: this.goodsInfo.title,
         count: this.count,
         package: this.goodsInfo.setMeal[index1][index2]
@@ -162,9 +163,10 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      this.price = this.goodsInfo.setMeal[0][0].price || 0;
-    });
+    const father = this;
+    setTimeout(() => {
+      father.price = father.goodsInfo.setMeal[0][0].price || 0;
+    }, 300);
   },
   store
 };

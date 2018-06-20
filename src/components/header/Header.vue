@@ -42,7 +42,7 @@
                   </div>
                   <div class="shopping-cart-info">
                     <div class="shopping-cart-title">
-                      <p>{{item.item.substring(0, 22)}}...</p>
+                      <p>{{item.title.substring(0, 22)}}...</p>
                     </div>
                     <div class="shopping-cart-detail">
                       <p>

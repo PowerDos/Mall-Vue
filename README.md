@@ -23,6 +23,7 @@ npm run build
 - [x] 商品详情页面
 - [ ] 商家店铺页面
 - [x] 购物车页面
+- [x] 确认订单页面
 - [ ] 支付页面
 - [ ] 购买成功页面
 - [ ] 反馈页面
@@ -47,6 +48,9 @@ npm run build
 
 ### 购物车页面
 ![购物车页面](https://i.imgur.com/m5tftN7.png)
+
+### 确认订单页面
+![确认订单页面](https://i.imgur.com/iNM3CQH.png)
 
 ### 登陆页面
 ![登陆页面](https://i.imgur.com/d16GjOi.png)

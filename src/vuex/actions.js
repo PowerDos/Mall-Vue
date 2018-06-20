@@ -412,7 +412,7 @@ export const loadGoodsInfo = ({ commit }) => {
       };
       commit('SET_GOODS_INFO', data);
       commit('SET_LOAD_STATUS', false);
-    }, 500);
+    }, 300);
   });
 };
 
@@ -660,5 +660,33 @@ export const loadRecommend = ({ commit }) => {
       ]
     ];
     commit('SET_RECOMMEND_INFO', data);
+  });
+};
+
+export const loadAddress = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const address = [
+      {
+        addressId: '123456',
+        name: 'Gavin',
+        province: '广东省',
+        city: '广州市',
+        area: '天河区',
+        address: '燕岭路633号',
+        phone: '152****0609',
+        postalcode: '510000'
+      },
+      {
+        addressId: '123458',
+        name: 'Kevin',
+        province: '上海市',
+        city: '上海市',
+        area: '浦东新区',
+        address: '沙新镇',
+        phone: '158****0888',
+        postalcode: '200120'
+      }
+    ];
+    commit('SET_USER_ADDRESS', address);
   });
 };
