@@ -11,6 +11,7 @@ import GoodsDetail from '@/components/GoodsDetail';
 import ShoppingCart from '@/components/ShoppingCart';
 import Order from '@/components/Order';
 import Pay from '@/components/Pay';
+import PayDone from '@/components/PayDone';
 
 Vue.use(Router);
 
@@ -77,6 +78,11 @@ export default new Router({
       path: '/pay', // 支付页面
       name: 'Pay',
       component: Pay
+    },
+    {
+      path: '/payDone', // 支付成功页面
+      name: 'PayDone',
+      component: PayDone
     }
   ]
 });

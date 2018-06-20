@@ -46,12 +46,13 @@ export default {
 }
 .pay-demo {
   width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .pay-demo img{
-  width: 60%;
+  height: 80%;
 }
 .pay-qr-scan {
   width: 50%;
