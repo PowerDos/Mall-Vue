@@ -148,8 +148,10 @@ export default {
       this.imgIndex = index;
     },
     addShoppingCartBtn () {
-      const index1 = this.selectBoxIndex / 3;
+      const index1 = parseInt(this.selectBoxIndex / 3);
       const index2 = this.selectBoxIndex % 3;
+      console.log(index1);
+      console.log(index2);
       const data = {
         title: this.goodsInfo.title,
         count: this.count,
@@ -160,7 +162,9 @@ export default {
     }
   },
   mounted () {
-    this.price = this.goodsInfo.setMeal[0][0].price || 0;
+    this.$nextTick(() => {
+      this.price = this.goodsInfo.setMeal[0][0].price || 0;
+    });
   },
   store
 };

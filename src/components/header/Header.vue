@@ -18,9 +18,59 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.username">你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><router-link to="/SignUp">免费注册</router-link></span></li>
-        <li v-show="!!userInfo.username"><Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span></li>
-        <li><router-link to="/">购物车</router-link> <span class="glyphicon glyphicon-menu-down"></span></li>
+        <li class="first" v-show="!userInfo.username">
+          你好，请<router-link to="/login">登录</router-link>|<span class="text-color-red"><router-link to="/SignUp">免费注册</router-link></span>
+        </li>
+        <li v-show="!!userInfo.username">
+          <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+        </li>
+        <li>
+          <Dropdown  placement="bottom-start">
+            <a href="javascript:void(0)">
+              <Icon type="ios-cart-outline"></Icon> 购物车
+            </a>
+            <DropdownMenu slot="list">
+              <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
+                <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
+                <span>你的购物车没有空空哦</span>
+                <span>赶快去添加商品吧~</span>
+              </div>
+              <div class="shopping-cart-list" v-show="shoppingCart.length > 0">
+                <div class="shopping-cart-box" v-for="(item,index) in shoppingCart" :key="index">
+                  <div class="shopping-cart-img">
+                    <img :src="item.img">
+                  </div>
+                  <div class="shopping-cart-info">
+                    <div class="shopping-cart-title">
+                      <p>{{item.item.substring(0, 22)}}...</p>
+                    </div>
+                    <div class="shopping-cart-detail">
+                      <p>
+                        套餐:
+                        <span class="shopping-cart-text">
+                          {{item.package}}
+                        </span>
+                        数量:
+                        <span class="shopping-cart-text">
+                          {{item.count}}
+                        </span>
+                        价钱:
+                        <span class="shopping-cart-text">
+                          {{item.price}}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="go-to-buy">
+                  <Button type="error" size="small" @click="goToPay">
+                    去结账
+                  </Button>
+                </div>
+              </div>
+            </DropdownMenu>
+          </Dropdown>
+        </li>
         <li><router-link to="/">网站导航</router-link></li>
         <li><router-link to="/">客户服务</router-link></li>
         <li><router-link to="/">企业采购</router-link></li>
@@ -47,11 +97,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['userInfo', 'shoppingCart'])
   },
   methods: {
     changeCity (city) {
       this.city = city;
+    },
+    goToPay () {
+      this.$router.push('/pay');
     }
   },
   store
@@ -124,5 +177,65 @@ export default {
 }
 .username {
   color: #999999;
+}
+.shopping-cart-list {
+  padding: 3px 15px;
+}
+.shopping-cart-box {
+  margin: 8px 0px;
+  margin-top: 15px;
+  padding-bottom: 15px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px #ccc dotted;
+}
+.shopping-cart-box:first-child {
+  margin-top: 8px;
+}
+.shopping-cart-img {
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
+}
+.shopping-cart-img img {
+  width: 100%;
+}
+.shopping-cart-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  width: 200px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 20px;
+  color: #999999;
+}
+.shopping-cart-detail {
+  color: #999999;
+}
+.shopping-cart-text {
+  color: #ccc;
+}
+.go-to-buy {
+  display: flex;
+  justify-content: flex-end;
+}
+.shopping-cart-null {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cart-null-icon {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+.shopping-cart-null span {
+  color: #999999;
+  font-size: 12px;
+  line-height: 16px;
 }
 </style>

@@ -66,7 +66,14 @@ export const SET_GOODS_INFO = (state, data) => {
 
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
-  state.shoppingCart.push(data);
+  const item = {
+    count: data.count,
+    img: data.package.img,
+    package: data.package.intro,
+    price: data.package.price,
+    item: data.title
+  };
+  state.shoppingCart.push(item);
   state.newShoppingCart = data;
 };
 

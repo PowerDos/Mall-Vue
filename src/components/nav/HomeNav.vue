@@ -83,289 +83,54 @@
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
-            <CarouselItem v-for="(item, index) in marketing.CarouselItems" :key="index">
-              <img :src="item" alt="">
-            </CarouselItem>
+              <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
+                <router-link to="/goodsList">
+                  <img :src="item">
+                </router-link>
+              </CarouselItem>
           </Carousel>
         </div>
         <div class="nav-show">
           <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
-            <img :src="item">
+            <router-link to="/goodsList">
+              <img :src="item">
+            </router-link>
           </div>
         </div>
       </div>
     </div>
     <transition name="fade">
-      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1"  @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
+      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
         <div class="nav-detail-item">
-          <span>清洁用品 > </span>
-          <span>美妆商城 > </span>
-          <span>美妆馆 > </span>
-          <span>妆比社 > </span>
-          <span>全球购美妆 > </span>
-          <span>宠物馆 > </span>
+          <span v-for="(item, index) in panelData1.navTags" :key="index">{{item}} > </span>
         </div>
         <ul>
-          <li>
-            <span class="detail-item-title">面部护肤 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">补水保湿</span>
-              <span class="detail-item">卸妆</span>
-              <span class="detail-item">洁面</span>
-              <span class="detail-item">爽肤水</span>
-              <span class="detail-item">乳液面霜</span>
-              <span class="detail-item">精华</span>
-              <span class="detail-item">眼霜</span>
-              <span class="detail-item">防晒</span>
-              <span class="detail-item">面膜</span>
-              <span class="detail-item">剃须</span>
-              <span class="detail-item">套装</span>
-            </li>
-            <li>
-              <span class="detail-item-title">洗发护发 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">洗发</span>
-              <span class="detail-item">护发</span>
-              <span class="detail-item">染发</span>
-              <span class="detail-item">造型</span>
-              <span class="detail-item">假发</span>
-              <span class="detail-item">美发工具</span>
-              <span class="detail-item">套装</span>
-            </li>
-            <li>
-              <span class="detail-item-title">身体护理 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">补水保湿</span>
-              <span class="detail-item">沐浴</span>
-              <span class="detail-item">润肤</span>
-              <span class="detail-item">精油</span>
-              <span class="detail-item">颈部</span>
-              <span class="detail-item">手足</span>
-              <span class="detail-item">纤体塑形</span>
-              <span class="detail-item">美胸</span>
-              <span class="detail-item">套装</span>
-            </li>
-            <li>
-              <span class="detail-item-title">口腔护理 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">牙膏/牙粉</span>
-              <span class="detail-item">牙刷/牙线</span>
-              <span class="detail-item">漱口水</span>
-              <span class="detail-item">套装</span>
-            </li>
-            <li>
-              <span class="detail-item-title">女性护理 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">卫生巾</span>
-              <span class="detail-item">卫生护垫</span>
-              <span class="detail-item">私密护理</span>
-              <span class="detail-item">脱毛膏</span>
-            </li>
-            <li>
-              <span class="detail-item-title">香水彩妆 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">BB霜</span>
-              <span class="detail-item">化妆棉</span>
-              <span class="detail-item">女士香水</span>
-              <span class="detail-item">男士香水</span>
-              <span class="detail-item">底妆</span>
-              <span class="detail-item">眉笔</span>
-              <span class="detail-item">睫毛膏</span>
-              <span class="detail-item">眼线</span>
-              <span class="detail-item">眼影</span>
-              <span class="detail-item">唇膏/彩</span>
-            </li>
-            <li>
-              <span class="detail-item-title">清洁用品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">纸品湿巾</span>
-              <span class="detail-item">衣物清洁</span>
-              <span class="detail-item">清洁工具</span>
-              <span class="detail-item">家庭清洁</span>
-              <span class="detail-item">一次性用品</span>
-              <span class="detail-item">驱虫用品</span>
-              <span class="detail-item">皮具护理</span>
-            </li>
-            <li>
-              <span class="detail-item-title">宠物生活 <span class="glyphicon glyphicon-menu-right"> </span></span>
-              <span class="detail-item">水族世界</span>
-              <span class="detail-item">狗粮</span>
-              <span class="detail-item">猫粮</span>
-              <span class="detail-item">猫狗罐头</span>
-              <span class="detail-item">狗零食</span>
-              <span class="detail-item">猫零食</span>
-              <span class="detail-item">医疗保健</span>
-              <span class="detail-item">宠物玩具</span>
-              <span class="detail-item">宠物服饰</span>
-            </li>
-            <li>
-              <span class="detail-item-title">香水彩妆 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">BB霜</span>
-              <span class="detail-item">化妆棉</span>
-              <span class="detail-item">女士香水</span>
-              <span class="detail-item">男士香水</span>
-              <span class="detail-item">底妆</span>
-              <span class="detail-item">眉笔</span>
-              <span class="detail-item">睫毛膏</span>
-              <span class="detail-item">眼线</span>
-              <span class="detail-item">眼影</span>
-              <span class="detail-item">唇膏/彩</span>
-            </li>
-            <li>
-              <span class="detail-item-title">清洁用品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">纸品湿巾</span>
-              <span class="detail-item">衣物清洁</span>
-              <span class="detail-item">清洁工具</span>
-              <span class="detail-item">家庭清洁</span>
-              <span class="detail-item">一次性用品</span>
-              <span class="detail-item">驱虫用品</span>
-              <span class="detail-item">皮具护理</span>
-            </li>
-            <li>
-              <span class="detail-item-title">宠物生活 <span class="glyphicon glyphicon-menu-right"> </span></span>
-              <span class="detail-item">水族世界</span>
-              <span class="detail-item">狗粮</span>
-              <span class="detail-item">猫粮</span>
-              <span class="detail-item">猫狗罐头</span>
-              <span class="detail-item">狗零食</span>
-              <span class="detail-item">猫零食</span>
-              <span class="detail-item">医疗保健</span>
-              <span class="detail-item">宠物玩具</span>
-              <span class="detail-item">宠物服饰</span>
-            </li>
-          </ul>
+          <li v-for="(items, index) in panelData1.classNav" :key="index" class="detail-item-row">
+            <span class="detail-item-title">{{items.title}}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
+              <span class="detail-item">{{item}}</span>
+            </router-link>
+          </li>
+        </ul>
       </div>
     </transition>
     <transition name="fade">
       <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">
         <div class="nav-detail-item">
-          <span>赛事 > </span>
-          <span>运动城 > </span>
-          <span>户外馆 > </span>
-          <span>健身房 > </span>
-          <span>骑行馆 > </span>
-          <span>钟表城 > </span>
+          <span v-for="(item, index) in panelData2.navTags" :key="index">{{item}} > </span>
         </div>
         <ul>
-          <li>
-            <span class="detail-item-title">2017新品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">休闲鞋</span>
-              <span class="detail-item">商务休闲鞋</span>
-              <span class="detail-item">正装鞋</span>
-              <span class="detail-item">帆布鞋</span>
-              <span class="detail-item">凉鞋</span>
-              <span class="detail-item">拖鞋</span>
-              <span class="detail-item">功能鞋</span>
-              <span class="detail-item">增高鞋</span>
-              <span class="detail-item">工装鞋</span>
-              <span class="detail-item">雨鞋</span>
-            </li>
-            <li>
-              <span class="detail-item-title">运动鞋包 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">跑步鞋</span>
-              <span class="detail-item">休闲鞋</span>
-              <span class="detail-item">篮球鞋</span>
-              <span class="detail-item">帆布鞋</span>
-              <span class="detail-item">板鞋</span>
-              <span class="detail-item">拖鞋</span>
-              <span class="detail-item">运动包</span>
-            </li>
-            <li>
-              <span class="detail-item-title">健身训练 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">跑步机</span>
-              <span class="detail-item">健身车/动感单车</span>
-              <span class="detail-item">椭圆机</span>
-              <span class="detail-item">综合训练器</span>
-              <span class="detail-item">划船机</span>
-              <span class="detail-item">甩脂机</span>
-              <span class="detail-item">倒立机</span>
-              <span class="detail-item">武术搏击</span>
-            </li>
-            <li>
-              <span class="detail-item-title">骑行运动 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">山地车</span>
-              <span class="detail-item">公路车</span>
-              <span class="detail-item">折叠车</span>
-              <span class="detail-item">骑行服</span>
-              <span class="detail-item">电动车</span>
-              <span class="detail-item">电动滑板车</span>
-              <span class="detail-item">城市自行车</span>
-              <span class="detail-item">平衡车</span>
-            </li>
-            <li>
-              <span class="detail-item-title">体育用品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">乒乓球</span>
-              <span class="detail-item">羽毛球</span>
-              <span class="detail-item">篮球</span>
-              <span class="detail-item">足球</span>
-              <span class="detail-item">轮滑滑板</span>
-              <span class="detail-item">网球</span>
-              <span class="detail-item">高尔夫</span>
-              <span class="detail-item">台球</span>
-              <span class="detail-item">排球</span>
-            </li>
-            <li>
-              <span class="detail-item-title">户外鞋服 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">户外风衣</span>
-              <span class="detail-item">徒步鞋</span>
-              <span class="detail-item">T恤</span>
-              <span class="detail-item">冲锋衣裤</span>
-              <span class="detail-item">速干衣裤</span>
-              <span class="detail-item">越野跑鞋</span>
-              <span class="detail-item">滑雪服</span>
-              <span class="detail-item">羽绒服/棉服</span>
-              <span class="detail-item">休闲衣裤</span>
-            </li>
-            <li>
-              <span class="detail-item-title">户外装备 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">背包</span>
-              <span class="detail-item">帐篷/垫子</span>
-              <span class="detail-item">望远镜</span>
-              <span class="detail-item">烧烤用具</span>
-              <span class="detail-item">便携桌椅床</span>
-              <span class="detail-item">户外配饰</span>
-              <span class="detail-item">军迷用品</span>
-              <span class="detail-item">野餐用品</span>
-            </li>
-            <li>
-              <span class="detail-item-title">垂钓用品 <span class="glyphicon glyphicon-menu-right"> </span></span>
-              <span class="detail-item">钓竿</span>
-              <span class="detail-item">鱼线</span>
-              <span class="detail-item">浮漂</span>
-              <span class="detail-item">鱼饵</span>
-              <span class="detail-item">钓鱼配件</span>
-              <span class="detail-item">渔具包</span>
-              <span class="detail-item">钓箱钓椅</span>
-              <span class="detail-item">鱼线轮</span>
-              <span class="detail-item">钓鱼灯</span>
-            </li>
-            <li>
-              <span class="detail-item-title">游泳用品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">女士泳衣</span>
-              <span class="detail-item">比基尼</span>
-              <span class="detail-item">男士泳衣</span>
-              <span class="detail-item">泳镜</span>
-              <span class="detail-item">游泳圈</span>
-              <span class="detail-item">游泳包防水包</span>
-              <span class="detail-item">泳帽</span>
-              <span class="detail-item">游泳配件</span>
-            </li>
-            <li>
-              <span class="detail-item-title">垂钓用品 <span class="glyphicon glyphicon-menu-right"> </span></span>
-              <span class="detail-item">钓竿</span>
-              <span class="detail-item">鱼线</span>
-              <span class="detail-item">浮漂</span>
-              <span class="detail-item">鱼饵</span>
-              <span class="detail-item">钓鱼配件</span>
-              <span class="detail-item">渔具包</span>
-              <span class="detail-item">钓箱钓椅</span>
-              <span class="detail-item">鱼线轮</span>
-            </li>
-            <li>
-              <span class="detail-item-title">游泳用品 <span class="glyphicon glyphicon-menu-right"></span></span>
-              <span class="detail-item">女士泳衣</span>
-              <span class="detail-item">比基尼</span>
-              <span class="detail-item">男士泳衣</span>
-              <span class="detail-item">泳镜</span>
-              <span class="detail-item">游泳圈</span>
-              <span class="detail-item">游泳包防水包</span>
-              <span class="detail-item">泳帽</span>
-              <span class="detail-item">游泳配件</span>
-            </li>
-          </ul>
+          <li v-for="(items, index) in panelData2.classNav" :key="index" class="detail-item-row">
+            <span class="detail-item-title">{{items.title}}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
+              <span class="detail-item">{{item}}</span>
+            </router-link>
+          </li>
+        </ul>
       </div>
     </transition>
   </div>
@@ -380,26 +145,134 @@ export default {
     return {
       panel1: false,
       panel2: false,
-      nav: [ '秒杀', '优惠券', '闪购', '拍卖', '服装城', '超市', '生鲜', '全球购', '金融' ]
+      nav: [
+        '秒杀',
+        '优惠券',
+        '闪购',
+        '拍卖',
+        '服装城',
+        '超市',
+        '生鲜',
+        '全球购',
+        '金融'
+      ],
+      panelData1: {
+        navTags: [ '清洁用品', '美妆商城', '美妆馆', '妆比社', '全球购美妆', '宠物馆' ],
+        classNav: [
+          {
+            title: '面部护肤',
+            tags: [ '补水保湿', '卸妆', '洁面', '爽肤水', '乳液面霜', '精华', '眼霜', '防晒', '面膜', '剃须', '套装' ]
+          },
+          {
+            title: '洗发护发',
+            tags: [ '洗发', '护发', '染发', '造型', '假发', '美发工具', '套装' ]
+          },
+          {
+            title: '身体护理',
+            tags: [ '补水保湿', '沐浴', '润肤', '精油', '颈部', '手足', '纤体塑形', '美胸', '套装' ]
+          },
+          {
+            title: '口腔护理',
+            tags: [ '牙膏/牙粉', '牙刷/牙线', '漱口水', '套装' ]
+          },
+          {
+            title: '女性护理',
+            tags: [ '卫生巾', '卫生护垫', '私密护理', '脱毛膏' ]
+          },
+          {
+            title: '香水彩妆',
+            tags: [ 'BB霜', '化妆棉', '女士香水', '男士香水', '底妆', '眉笔', '睫毛膏', '眼线', '眼影', '唇膏/彩' ]
+          },
+          {
+            title: '清洁用品',
+            tags: [ '纸品湿巾', '衣物清洁', '清洁工具', '家庭清洁', '一次性用品', '驱虫用品', '皮具护理' ]
+          },
+          {
+            title: '宠物生活',
+            tags: [ '水族世界', '狗粮', '猫粮', '猫狗罐头', '狗零食', '猫零食', '医疗保健', '宠物玩具', '宠物服饰' ]
+          },
+          {
+            title: '香水彩妆',
+            tags: [ 'BB霜', '化妆棉', '女士香水', '男士香水', '底妆', '眉笔', '睫毛膏', '眼线', '眼影', '唇膏/彩' ]
+          },
+          {
+            title: '清洁用品',
+            tags: [ '纸品湿巾', '衣物清洁', '清洁工具', '家庭清洁', '一次性用品', '驱虫用品', '皮具护理' ]
+          },
+          {
+            title: '宠物生活',
+            tags: [ '水族世界', '狗粮', '猫粮', '猫狗罐头', '狗零食', '猫零食', '医疗保健', '宠物玩具', '宠物服饰' ]
+          }
+        ]
+      },
+      panelData2: {
+        navTags: [ '赛事', '运动城', '户外馆', '健身房', '骑行馆', '钟表城' ],
+        classNav: [
+          {
+            title: '2017新品',
+            tags: [ '休闲鞋', '商务休闲鞋', '正装鞋', '帆布鞋', '凉鞋', '拖鞋', '功能鞋', '增高鞋', '工装鞋', '雨鞋' ]
+          },
+          {
+            title: '运动鞋包',
+            tags: [ '跑步鞋', '休闲鞋', '篮球鞋', '帆布鞋', '板鞋', '拖鞋', '运动包' ]
+          },
+          {
+            title: '健身训练',
+            tags: [ '跑步机', '健身车/动感单车', '椭圆机', '综合训练器', '划船机', '甩脂机', '倒立机', '武术搏击' ]
+          },
+          {
+            title: '骑行运动',
+            tags: [ '山地车', '公路车', '折叠车', '骑行服', '电动车', '电动滑板车', '城市自行车', '平衡车' ]
+          },
+          {
+            title: '体育用品',
+            tags: [ '乒乓球', '羽毛球', '篮球', '足球', '轮滑滑板', '网球', '高尔夫', '台球', '排球' ]
+          },
+          {
+            title: '户外鞋服',
+            tags: [ '户外风衣', '徒步鞋', 'T恤', '冲锋衣裤', '速干衣裤', '越野跑鞋', '滑雪服', '羽绒服/棉服', '休闲衣裤' ]
+          },
+          {
+            title: '户外装备',
+            tags: [ '背包', '帐篷/垫子', '望远镜', '烧烤用具', '便携桌椅床', '户外配饰', '军迷用品', '野餐用品' ]
+          },
+          {
+            title: '垂钓用品',
+            tags: [ '钓竿', '鱼线', '浮漂', '鱼饵', '钓鱼配件', '渔具包', '钓箱钓椅', '鱼线轮', '钓鱼灯' ]
+          },
+          {
+            title: '游泳用品',
+            tags: [ '女士泳衣', '比基尼', '男士泳衣', '泳镜', '游泳圈', '游泳包防水包', '泳帽', '游泳配件' ]
+          },
+          {
+            title: '垂钓用品',
+            tags: [ '钓竿', '鱼线', '浮漂', '鱼饵', '钓鱼配件', '渔具包', '钓箱钓椅', '鱼线轮', '钓鱼灯' ]
+          },
+          {
+            title: '游泳用品',
+            tags: [ '女士泳衣', '比基尼', '男士泳衣', '泳镜', '游泳圈', '游泳包防水包', '泳帽', '游泳配件' ]
+          }
+        ]
+      }
     };
   },
-  created () {
-
-  },
+  created () {},
   computed: {
-    ...mapState([ 'marketing' ])
+    ...mapState(['marketing'])
   },
   methods: {
     showDetail (index) {
-      index === 1 ? this.panel1 = true : this.panel2 = true;
+      index === 1 ? (this.panel1 = true) : (this.panel2 = true);
     },
     hideDetail (index) {
-      index === 1 ? this.panel1 = false : this.panel2 = false;
+      index === 1 ? (this.panel1 = false) : (this.panel2 = false);
     }
   },
   mounted () {
-    this.$refs.itemPanel1.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px';
-    this.$refs.itemPanel2.style.left = (this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth) + 'px';
+    this.$refs.itemPanel1.style.left =
+      this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth + 'px';
+    this.$refs.itemPanel2.style.left =
+      this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth + 'px';
   },
   store
 };
@@ -483,8 +356,8 @@ export default {
   width: 100%;
 }
 /*显示商品详细信息*/
-.detail-item-panel{
-  width:815px;
+.detail-item-panel {
+  width: 815px;
   height: 485px;
   background-color: #fff;
   position: absolute;
@@ -492,40 +365,43 @@ export default {
   left: 389px;
   z-index: 999;
 }
-.nav-detail-item{
+.nav-detail-item {
   margin-left: 26px;
   margin-top: 15px;
   margin-bottom: 15px;
   cursor: pointer;
   color: #eee;
 }
-.nav-detail-item span{
+.nav-detail-item span {
   padding: 6px;
   padding-left: 12px;
   margin-left: 15px;
   font-size: 12px;
-  background-color: #6E6568;
+  background-color: #6e6568;
 }
-.nav-detail-item span:hover{
+.nav-detail-item span:hover {
   margin-left: 15px;
-  background-color: #F44336;
+  background-color: #f44336;
 }
-.detail-item-panel ul{
+.detail-item-panel ul {
   list-style: none;
 }
-.detail-item-panel li{
+.detail-item-panel li {
   line-height: 38px;
   margin-left: 40px;
 }
-.detail-item-title{
+.detail-item-title {
   padding-right: 6px;
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;
   color: #555555;
 }
-.detail-item-title:hover{
-  color: #D9534F;
+.detail-item-title:hover {
+  color: #d9534f;
+}
+.detail-item-row a {
+  color: #555555;
 }
 .detail-item{
   font-size: 14px;
@@ -534,7 +410,7 @@ export default {
   cursor: pointer;
   border-left: 1px solid #ccc;
 }
-.detail-item:hover{
-  color: #D9534F;
+.detail-item:hover {
+  color: #d9534f;
 }
 </style>

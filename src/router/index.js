@@ -9,6 +9,7 @@ import SignUpDone from '@/components/signUp/SignUpDone';
 import GoodsList from '@/components/GoodsList';
 import GoodsDetail from '@/components/GoodsDetail';
 import ShoppingCart from '@/components/ShoppingCart';
+import Pay from '@/components/Pay';
 
 Vue.use(Router);
 
@@ -65,6 +66,11 @@ export default new Router({
       path: '/shoppingCart', // 商品详情
       name: 'ShoppingCart',
       component: ShoppingCart
+    },
+    {
+      path: '/pay', // 支付页面
+      name: 'Pay',
+      component: Pay
     }
   ]
 });

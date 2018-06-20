@@ -47,14 +47,16 @@
           <span class="item-class-title">{{computer.title}}</span>
           <ul>
             <li v-for="(item, index) in computer.link" :key="index">
-              <a href="#">{{item}}</a>
+              <router-link to="/goodsList">{{item}}</router-link>
             </li>
           </ul>
         </div>
         <div class="item-class-content" v-for="(item, index) in computer.detail" :key="index">
           <div class="item-content-top">
             <div class="item-big-img">
-              <img :src="item.bigImg" alt="">
+              <router-link to="/goodsList">
+                <img :src="item.bigImg" alt="">
+              </router-link>
             </div>
             <div class="item-four-img">
               <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
@@ -63,14 +65,18 @@
                   <p class="pt_bi_promo">{{subItem.intro}}</p>
                 </div>
                 <div class="item-four-detail-img">
-                  <img :src="subItem.img" alt="">
+                  <router-link to="/goodsList">
+                    <img :src="subItem.img" alt="">
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
           <div class="item-content-bottom">
             <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <img :src="subImg">
+              <router-link to="/goodsList">
+                <img :src="subImg">
+              </router-link>
             </div>
           </div>
         </div>
@@ -81,7 +87,7 @@
           <span class="item-class-title">{{eat.title}}</span>
           <ul>
             <li v-for="(item, index) in eat.link" :key="index">
-              <a href="#">{{item}}</a>
+              <router-link to="/goodsList">{{item}}</router-link>
             </li>
           </ul>
         </div>
@@ -97,14 +103,18 @@
                   <p class="pt_bi_promo">{{subItem.intro}}</p>
                 </div>
                 <div class="item-four-detail-img">
-                  <img :src="subItem.img" alt="">
+                  <router-link to="/goodsList">
+                    <img :src="subItem.img" alt="">
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
           <div class="item-content-bottom">
             <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <img :src="subImg">
+              <router-link to="/goodsList">
+                <img :src="subImg">
+              </router-link>
             </div>
           </div>
         </div>
