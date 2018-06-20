@@ -12,6 +12,7 @@ import ShoppingCart from '@/components/ShoppingCart';
 import Order from '@/components/Order';
 import Pay from '@/components/Pay';
 import PayDone from '@/components/PayDone';
+import Freeback from '@/components/Freeback';
 
 Vue.use(Router);
 
@@ -83,6 +84,11 @@ export default new Router({
       path: '/payDone', // 支付成功页面
       name: 'PayDone',
       component: PayDone
+    },
+    {
+      path: '/freeback', // 反馈页面
+      name: 'Freeback',
+      component: Freeback
     }
   ]
 });
