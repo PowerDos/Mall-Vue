@@ -92,7 +92,7 @@ export default {
   position: absolute;
   width: 36px;
   height: 42px;
-  background-image: url(/static/img/footer/ico_service.png);
+  background-image: url("../../../static/img/footer/ico_service.png");
   text-indent: -999px;
 }
 .footer-icon-child-2 {
