@@ -25,10 +25,4 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.pay-done-info {
-  font-size: 16px;
-}
-.pay-done-icon {
-  font-size: 120px;
-}
 </style>
