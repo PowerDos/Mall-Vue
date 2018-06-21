@@ -21,13 +21,13 @@ npm run build
 - [x] 注册
 - [x] 商品搜索页面
 - [x] 商品详情页面
-- [ ] 商家店铺页面
 - [x] 购物车页面
 - [x] 确认订单页面
 - [x] 支付页面
-- [ ] 购买成功页面
-- [ ] 反馈页面
-- [ ] 帮助页面
+- [x] 购买成功页面
+- [x] 反馈页面
+- [ ] 商家店铺页面
+- [ ] 用户页面
 
 ## PAGE
 
@@ -54,6 +54,12 @@ npm run build
 
 ### 支付页面
 ![支付页面](https://i.imgur.com/4OdCynR.png)
+
+### 购买成功页面
+![购买成功页面](https://i.imgur.com/tOATGZP.png)
+
+### 反馈页面
+![反馈页面](https://i.imgur.com/fbOZAH8.png)
 
 ### 登陆页面
 ![登陆页面](https://i.imgur.com/d16GjOi.png)

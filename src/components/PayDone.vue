@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="pay-done-box">
-      <p class="pay-done-icon"><Icon type="ios-checkmark-outline"></Icon></p>
-      <p class="pay-done-info">支付成功</p>
+      <img src="/static/img/pay-success.png">
     </div>
     <Footer></Footer>
   </div>

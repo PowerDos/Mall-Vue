@@ -2,7 +2,7 @@
   <div>
     <div class="freeback-container">
       <div class="freeback-img-box">
-        <img src="/static/img/freeback.jpg" alt="">
+        <img src="/static/img/freeback.png" alt="">
       </div>
       <div class="freeback-box-border">
         <div class="freeback-box">
@@ -83,7 +83,7 @@ export default {
   border: 1px #ccc dotted;
 }
 .freeback-form {
-  margin: 15px auto;
+  margin: 30px auto;
   width: 90%;
 }
 </style>
