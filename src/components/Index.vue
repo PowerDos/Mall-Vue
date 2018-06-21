@@ -9,7 +9,7 @@
         <!-- 头部 -->
         <div class="seckill-head">
           <div class="seckill-icon">
-            <img src="/static/img/index/clock.png">
+            <img src="static/img/index/clock.png">
           </div>
           <div class="seckill-text">
             <span class="seckill-title">限时秒杀</span>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pay-done-box">
-      <img src="/static/img/pay-success.png">
+      <img src="static/img/pay-success.png">
     </div>
     <Footer></Footer>
   </div>

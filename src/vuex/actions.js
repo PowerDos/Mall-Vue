@@ -4,31 +4,31 @@ export const loadSeckillsInfo = ({ commit }) => {
     const data = [
       {
         intro: '【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱',
-        img: '/static/img/index/seckill/seckill-item1.jpg',
+        img: 'static/img/index/seckill/seckill-item1.jpg',
         price: 71.9,
         realPrice: 89.6
       },
       {
         intro: 'Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水',
-        img: '/static/img/index/seckill/seckill-item2.jpg',
+        img: 'static/img/index/seckill/seckill-item2.jpg',
         price: 989.0,
         realPrice: 1299.0
       },
       {
         intro: '粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒',
-        img: '/static/img/index/seckill/seckill-item3.jpg',
+        img: 'static/img/index/seckill/seckill-item3.jpg',
         price: 21.8,
         realPrice: 49.0
       },
       {
         intro: '【京东超市】清风（APP）抽纸 原木纯品金装系列 3层',
-        img: '/static/img/index/seckill/seckill-item4.jpg',
+        img: 'static/img/index/seckill/seckill-item4.jpg',
         price: 49.9,
         realPrice: 59.0
       },
       {
         intro: 'NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫',
-        img: '/static/img/index/seckill/seckill-item5.jpg',
+        img: 'static/img/index/seckill/seckill-item5.jpg',
         price: 559.9,
         realPrice: 759.9
       }
@@ -76,63 +76,63 @@ export const loadComputer = ({ commit }) => {
       link: [ '电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊' ],
       detail: [
         {
-          bigImg: '/static/img/index/computer/item-computer-1.jpg',
+          bigImg: 'static/img/index/computer/item-computer-1.jpg',
           itemFour: [
             {
               title: '电脑馆',
               intro: '笔记本999元限量秒！',
-              img: '/static/img/index/computer/item-computer-2.jpg'
+              img: 'static/img/index/computer/item-computer-2.jpg'
             },
             {
               title: '外设装备',
               intro: '1000减618',
-              img: '/static/img/index/computer/item-computer-1-3.jpg'
+              img: 'static/img/index/computer/item-computer-1-3.jpg'
             },
             {
               title: '电脑配件',
               intro: '联合满减最高省618',
-              img: '/static/img/index/computer/item-computer-1-4.jpg'
+              img: 'static/img/index/computer/item-computer-1-4.jpg'
             },
             {
               title: '办公生活',
               intro: '5折神券 精品文具',
-              img: '/static/img/index/computer/item-computer-1-5.jpg'
+              img: 'static/img/index/computer/item-computer-1-5.jpg'
             }
           ],
           itemContent: [
-            '/static/img/index/computer/item-computer-1-6.jpg',
-            '/static/img/index/computer/item-computer-1-7.jpg',
-            '/static/img/index/computer/item-computer-1-8.jpg'
+            'static/img/index/computer/item-computer-1-6.jpg',
+            'static/img/index/computer/item-computer-1-7.jpg',
+            'static/img/index/computer/item-computer-1-8.jpg'
           ]
         },
         {
-          bigImg: '/static/img/index/computer/item-computer-2-1.jpg',
+          bigImg: 'static/img/index/computer/item-computer-2-1.jpg',
           itemFour: [
             {
               title: '平板电脑',
               intro: '爆款平板12期免息',
-              img: '/static/img/index/computer/item-computer-2-2.jpg'
+              img: 'static/img/index/computer/item-computer-2-2.jpg'
             },
             {
               title: '智能酷玩',
               intro: '抢999减666神券',
-              img: '/static/img/index/computer/item-computer-2-3.jpg'
+              img: 'static/img/index/computer/item-computer-2-3.jpg'
             },
             {
               title: '娱乐影音',
               intro: '大牌耳机低至5折',
-              img: '/static/img/index/computer/item-computer-2-4.jpg'
+              img: 'static/img/index/computer/item-computer-2-4.jpg'
             },
             {
               title: '摄影摄像',
               intro: '大牌相机5折抢',
-              img: '/static/img/index/computer/item-computer-2-5.jpg'
+              img: 'static/img/index/computer/item-computer-2-5.jpg'
             }
           ],
           itemContent: [
-            '/static/img/index/computer/item-computer-2-6.jpg',
-            '/static/img/index/computer/item-computer-2-7.jpg',
-            '/static/img/index/computer/item-computer-2-8.jpg'
+            'static/img/index/computer/item-computer-2-6.jpg',
+            'static/img/index/computer/item-computer-2-7.jpg',
+            'static/img/index/computer/item-computer-2-8.jpg'
           ]
         }
       ]
@@ -149,63 +149,63 @@ export const loadEat = ({ commit }) => {
       link: [ '休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃' ],
       detail: [
         {
-          bigImg: '/static/img/index/eat/item-eat-1-1.jpg',
+          bigImg: 'static/img/index/eat/item-eat-1-1.jpg',
           itemFour: [
             {
               title: '粮油调味',
               intro: '买2免1',
-              img: '/static/img/index/eat/item-eat-1-2.jpg'
+              img: 'static/img/index/eat/item-eat-1-2.jpg'
             },
             {
               title: '饮料冲调',
               intro: '第二件半价',
-              img: '/static/img/index/eat/item-eat-1-3.jpg'
+              img: 'static/img/index/eat/item-eat-1-3.jpg'
             },
             {
               title: '休闲零食',
               intro: '满99减40',
-              img: '/static/img/index/eat/item-eat-1-4.jpg'
+              img: 'static/img/index/eat/item-eat-1-4.jpg'
             },
             {
               title: '中外名酒',
               intro: '满199减100',
-              img: '/static/img/index/eat/item-eat-1-5.jpg'
+              img: 'static/img/index/eat/item-eat-1-5.jpg'
             }
           ],
           itemContent: [
-            '/static/img/index/eat/item-eat-1-6.jpg',
-            '/static/img/index/eat/item-eat-1-7.jpg',
-            '/static/img/index/eat/item-eat-1-8.jpg'
+            'static/img/index/eat/item-eat-1-6.jpg',
+            'static/img/index/eat/item-eat-1-7.jpg',
+            'static/img/index/eat/item-eat-1-8.jpg'
           ]
         },
         {
-          bigImg: '/static/img/index/eat/item-eat-2-1.jpg',
+          bigImg: 'static/img/index/eat/item-eat-2-1.jpg',
           itemFour: [
             {
               title: '东家菜',
               intro: '丰富好味',
-              img: '/static/img/index/eat/item-eat-2-2.jpg'
+              img: 'static/img/index/eat/item-eat-2-2.jpg'
             },
             {
               title: '东家菜',
               intro: '丰富好味',
-              img: '/static/img/index/eat/item-eat-2-2.jpg'
+              img: 'static/img/index/eat/item-eat-2-2.jpg'
             },
             {
               title: '东家菜',
               intro: '丰富好味',
-              img: '/static/img/index/eat/item-eat-2-2.jpg'
+              img: 'static/img/index/eat/item-eat-2-2.jpg'
             },
             {
               title: '东家菜',
               intro: '丰富好味',
-              img: '/static/img/index/eat/item-eat-2-2.jpg'
+              img: 'static/img/index/eat/item-eat-2-2.jpg'
             }
           ],
           itemContent: [
-            '/static/img/index/eat/item-eat-2-6.jpg',
-            '/static/img/index/eat/item-eat-2-7.jpg',
-            '/static/img/index/eat/item-eat-2-8.jpg'
+            'static/img/index/eat/item-eat-2-6.jpg',
+            'static/img/index/eat/item-eat-2-7.jpg',
+            'static/img/index/eat/item-eat-2-8.jpg'
           ]
         }
       ]
@@ -221,10 +221,10 @@ export const loadGoodsInfo = ({ commit }) => {
     setTimeout(() => {
       const data = {
         goodsImg: [
-          '/static/img/goodsDetail/item-detail-1.jpg',
-          '/static/img/goodsDetail/item-detail-2.jpg',
-          '/static/img/goodsDetail/item-detail-3.jpg',
-          '/static/img/goodsDetail/item-detail-4.jpg'
+          'static/img/goodsDetail/item-detail-1.jpg',
+          'static/img/goodsDetail/item-detail-2.jpg',
+          'static/img/goodsDetail/item-detail-3.jpg',
+          'static/img/goodsDetail/item-detail-4.jpg'
         ],
         title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
         tags: ['满69-20元', '关注产品★送钢化膜', 'BIT配次日达'],
@@ -234,51 +234,51 @@ export const loadGoodsInfo = ({ commit }) => {
         setMeal: [
           [
             {
-              img: '/static/img/goodsDetail/pack/1.jpg',
+              img: 'static/img/goodsDetail/pack/1.jpg',
               intro: '4.7英寸-深邃蓝',
               price: 28.0
             },
             {
-              img: '/static/img/goodsDetail/pack/2.jpg',
+              img: 'static/img/goodsDetail/pack/2.jpg',
               intro: '4.7英寸-星空黑',
               price: 29.0
             },
             {
-              img: '/static/img/goodsDetail/pack/3.jpg',
+              img: 'static/img/goodsDetail/pack/3.jpg',
               intro: '5.5英寸-香槟金',
               price: 28.5
             }
           ],
           [
             {
-              img: '/static/img/goodsDetail/pack/4.jpg',
+              img: 'static/img/goodsDetail/pack/4.jpg',
               intro: '5.5英寸-玫瑰金',
               price: 32.0
             },
             {
-              img: '/static/img/goodsDetail/pack/5.jpg',
+              img: 'static/img/goodsDetail/pack/5.jpg',
               intro: '5.5英寸-深邃蓝',
               price: 32.0
             },
             {
-              img: '/static/img/goodsDetail/pack/6.jpg',
+              img: 'static/img/goodsDetail/pack/6.jpg',
               intro: '5.5英寸-星空黑',
               price: 35.0
             }
           ],
           [
             {
-              img: '/static/img/goodsDetail/pack/7.jpg',
+              img: 'static/img/goodsDetail/pack/7.jpg',
               intro: '4.7英寸-香槟金',
               price: 26.0
             },
             {
-              img: '/static/img/goodsDetail/pack/8.jpg',
+              img: 'static/img/goodsDetail/pack/8.jpg',
               intro: '4.7英寸-玫瑰金',
               price: 25.0
             },
             {
-              img: '/static/img/goodsDetail/pack/9.jpg',
+              img: 'static/img/goodsDetail/pack/9.jpg',
               intro: '4.7英寸-中国红',
               price: 28.0
             }
@@ -616,44 +616,44 @@ export const loadRecommend = ({ commit }) => {
     const data = [
       [
         {
-          img: '/static/img/otherBuy/1.jpg',
+          img: 'static/img/otherBuy/1.jpg',
           intro: 'iPhone7/6s/8钢化膜苹果7Plus全屏全覆盖3D抗蓝',
           price: 29.00
         },
         {
-          img: '/static/img/otherBuy/2.jpg',
+          img: 'static/img/otherBuy/2.jpg',
           intro: '苹果数据线 苹果iPhoneX/6s/7plus/8充电线',
           price: 36.00
         },
         {
-          img: '/static/img/otherBuy/3.jpg',
+          img: 'static/img/otherBuy/3.jpg',
           intro: '苹果8/7/6/6s钢化膜 iphone8/7/6s/6钢化玻璃',
           price: 19.00
         },
         {
-          img: '/static/img/otherBuy/4.jpg',
+          img: 'static/img/otherBuy/4.jpg',
           intro: 'iPhone6s/7钢化膜苹果8 Plus手机膜抗蓝光非全屏',
           price: 28.00
         }
       ],
       [
         {
-          img: '/static/img/otherBuy/5.jpg',
+          img: 'static/img/otherBuy/5.jpg',
           intro: '苹果6s手机壳iPhone6s Plus保护壳防摔全',
           price: 28.00
         },
         {
-          img: '/static/img/otherBuy/6.jpg',
+          img: 'static/img/otherBuy/6.jpg',
           intro: 'iPhone7/8手机壳手机套防摔磨砂保护壳星空黑☆全包保护',
           price: 30.00
         },
         {
-          img: '/static/img/otherBuy/7.jpg',
+          img: 'static/img/otherBuy/7.jpg',
           intro: '数据线 适用于苹果iPhone 6s/6plus/7plus/8/X',
           price: 18.00
         },
         {
-          img: '/static/img/otherBuy/8.jpg',
+          img: 'static/img/otherBuy/8.jpg',
           intro: 'iPhone8/7/6S/6钢化膜 苹果8/7/6s/6玻璃膜 手机高',
           price: 15.00
         }
