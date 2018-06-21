@@ -2,6 +2,9 @@
 
 > 这是一个基于VUE + VUEX + iView做的一个电商网站前端项目, 欢迎fork或star
 
+
+> 项目预览地址： [https://powerdos.github.io/Mall-Vue/index.html](https://powerdos.github.io/Mall-Vue/index.html "Mall-Vue")
+
 ## Build Setup
 
 ``` bash
