@@ -7,8 +7,8 @@
           <i class="fa fa-fire"></i>
         </div>
         <div class="shop-title-content">
-          <p>{{ shopIntro.shopName }}</p>
-          <p>{{ shopIntro.slogen }}</p>
+          <p><router-link to="/merchant">{{ shopIntro.shopName }}</router-link></p>
+          <p><router-link to="/merchant">{{ shopIntro.slogen }}</router-link></p>
         </div>
       </div>
       <div class="shop-another-item">
@@ -88,8 +88,12 @@ export default {
 }
 
 .shop-title-content p {
-  line-height: 20px;
+  line-height: 26px;
   font-size: 20px;
+}
+
+.shop-title-content a {
+  color: #fff;
 }
 
 .shop-another-item {

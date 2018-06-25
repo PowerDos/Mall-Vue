@@ -18,6 +18,7 @@ import MyAddress from '@/components/home/MyAddress';
 import AddAddress from '@/components/home/AddAddress';
 import MyOrder from '@/components/home/MyOrder';
 import MyShoppingCart from '@/components/home/MyShoppingCart';
+import Merchant from '@/components/Merchant';
 
 Vue.use(Router);
 
@@ -126,6 +127,11 @@ export default new Router({
           component: MyShoppingCart
         }
       ]
+    },
+    {
+      path: '/merchant',
+      name: 'Merchant',
+      component: Merchant
     }
   ]
 });
