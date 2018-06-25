@@ -16,7 +16,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'CheckPhone',
   data () {
@@ -25,6 +25,7 @@ export default {
         phone: '',
         checkNum: ''
       },
+      flag: false,
       ruleValidate: {
         phone: [
           { required: true, message: '手机号不能为空', trigger: 'blur' },
@@ -39,12 +40,25 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SIGN_UP_SETP']),
+    ...mapActions(['isExist']),
     getcheckNum () {
+      const father = this;
       if (this.formValidate.phone.length === 11) {
-        this.$Message.success({
-          content: '验证码为: 1234',
-          duration: 6,
-          closable: true
+        this.isExist(this.formValidate.phone).then(data => {
+          if (!data.isExist) {
+            father.$Message.success({
+              content: `手机验证码为: ${data.checkNum}`,
+              duration: 8,
+              closable: true
+            });
+            father.flag = true;
+          } else {
+            father.$Message.error({
+              content: '该手机号已注册过，请直接登陆',
+              duration: 6,
+              closable: true
+            });
+          }
         });
       } else {
         this.$Message.error({
@@ -56,6 +70,14 @@ export default {
     },
     handleSubmit (name) { // 提交验证
       this.$refs[name].validate((valid) => {
+        if (!this.flag) {
+          this.$Message.error({
+            content: '请先验证手机号',
+            duration: 6,
+            closable: true
+          });
+          return;
+        }
         if (valid) {
           this.$router.push({ path: '/SignUp/inputInfo', query: { phone: this.formValidate.phone } });
           this.SET_SIGN_UP_SETP(1);

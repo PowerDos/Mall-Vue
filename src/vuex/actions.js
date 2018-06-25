@@ -1,3 +1,50 @@
+import * as baseApi from '@/api/baseApi';
+// 判断手机是否存在
+export const isExist = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    baseApi.isExist(data).then(res => {
+      const data = res.data;
+      const result = { isExist: data.result.isExist };
+      if (!data.result.isExist) {
+        const checkNum = Math.floor(Math.random() * 9000 + 1000);
+        commit('SET_CHECK_NUM', checkNum);
+        result.checkNum = checkNum;
+      }
+      resolve(result);
+    });
+  });
+};
+
+// 注册
+export const signUp = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    baseApi.signUp(data).then(res => {
+      if (res.data.rcode === 0) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// 登陆
+export const login = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    baseApi.login(data).then(res => {
+      const data = res.data;
+      if (data.rcode === 0) {
+        commit('SET_USER_LOGIN_INFO', data.result);
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    }).catch(error => {
+      reject(error);
+    });
+  });
+};
+
 // 获取秒杀数据
 export const loadSeckillsInfo = ({ commit }) => {
   return new Promise((resolve, reject) => {

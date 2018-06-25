@@ -4,8 +4,22 @@ export const SET_SIGN_UP_SETP = (state, step) => {
 };
 
 // 设置用户登录信息
-export const SET_USER_LOGIN_INFO = (state, username) => {
-  state.userInfo.username = username;
+export const SET_USER_LOGIN_INFO = (state, data) => {
+  console.log(data);
+  const info = {
+    data: data,
+    exp: new Date().getTime() + (3600 * 6)
+  };
+  localStorage.setItem('info', JSON.stringify(info));
+  state.userInfo = info;
+};
+
+// 更新用户信息
+export const FLASH_USER_INFO = (state, data) => {
+  const info = localStorage.getItem('info');
+  console.log(JSON.parse(info));
+  console.log(new Date().getTime());
+  state.userInfo = JSON.parse(info);
 };
 
 // 设置加载状态
@@ -86,4 +100,9 @@ export const SET_RECOMMEND_INFO = (state, data) => {
 // 设置收获地址
 export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
+};
+
+// 设置验证码
+export const SET_CHECK_NUM = (state, data) => {
+  state.checkNum = data;
 };

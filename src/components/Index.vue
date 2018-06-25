@@ -133,6 +133,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'Index',
   created () {
+    window.scrollTo(0, 0);
     this.loadSeckillsInfo();
     this.loadCarouselItems();
     this.loadComputer();

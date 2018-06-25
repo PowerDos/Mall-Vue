@@ -23,9 +23,7 @@ export default new Vuex.Store({
       param: [],
       remarks: []
     },
-    userInfo: { // 用户信息
-      username: ''
-    },
+    userInfo: {}, // 用户信息
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销
       CarouselItems: [], // 轮播图

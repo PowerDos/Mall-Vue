@@ -20,7 +20,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'InputInfo',
   data () {
@@ -60,16 +60,29 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SIGN_UP_SETP']),
+    ...mapActions(['signUp']),
     handleSubmit (name) {
       const father = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('注册成功');
-          // this.$Message.success(father.$route.query.phone)
-          father.SET_SIGN_UP_SETP(2);
-          this.$router.push({ path: '/SignUp/signUpDone' });
+          const data = {
+            username: this.formValidate.name,
+            phone: this.$route.query.phone,
+            password: this.formValidate.password,
+            mail: this.formValidate.mail,
+            status: 0
+          };
+          this.signUp(data).then(data => {
+            if (data) {
+              father.$Message.success('注册成功');
+              father.SET_SIGN_UP_SETP(2);
+              father.$router.push({ path: '/SignUp/signUpDone' });
+            } else {
+              this.$Message.error('注册失败, 请重新注册');
+            }
+          });
         } else {
-          this.$Message.error('注册失败');
+          this.$Message.error('注册失败, 请先填写完正确信息');
         }
       });
     }

@@ -13,7 +13,7 @@
           <div class="form-box">
             <Form ref="formInline" :model="formDate" :rules="ruleInline">
               <FormItem prop="username">
-                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="用户名">
+                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="手机号">
                       <Icon type="person" slot="prepend"></Icon>
                   </i-input>
               </FormItem>
@@ -37,7 +37,8 @@
 <script>
 import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
-import { mapMutations } from 'vuex';
+import { sign } from '@/utils/tool';
+import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'Login',
   data () {
@@ -48,7 +49,8 @@ export default {
       },
       ruleInline: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { type: 'string', pattern: /^1[3|4|5|7|8][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -59,18 +61,24 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_USER_LOGIN_INFO']),
+    ...mapActions(['login']),
     handleSubmit (name) {
       const father = this;
       console.log(this.formDate.username);
       this.$refs[name].validate((valid) => {
         if (valid) {
-          if (father.formDate.username === 'Gavin' && father.formDate.password === '123456') {
-            this.SET_USER_LOGIN_INFO('Gavin');
-            this.$Message.success('登陆成功');
-            father.$router.push('/');
-          } else {
-            this.$Message.error('用户名或密码错误');
-          }
+          const data = {
+            phone: this.formDate.username,
+            password: sign(this.formDate.password)
+          };
+          this.login(data).then(data => {
+            if (data) {
+              this.$Message.success('登陆成功');
+              father.$router.push('/');
+            } else {
+              this.$Message.error('用户名或密码错误');
+            }
+          });
         } else {
           this.$Message.error('请填写正确的用户名或密码');
         }

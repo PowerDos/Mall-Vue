@@ -18,11 +18,21 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.username">
+        <li class="first" v-show="!userInfo.data.username">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!!userInfo.username">
-          <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+        <li v-show="!!userInfo.data.username">
+          <Dropdown>
+            <p class="username-p">
+              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.data.username}} </span>
+            </p>
+            <DropdownMenu slot="list">
+                <div class="my-page">
+                  <Button type="error">我的信息</Button>
+                </div>
+            </DropdownMenu>
+          </Dropdown>
+
         </li>
         <li>
           <Dropdown  placement="bottom-start">
@@ -81,7 +91,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'M-Header',
   data () {
@@ -99,12 +109,18 @@ export default {
     ...mapState(['userInfo', 'shoppingCart'])
   },
   methods: {
+    ...mapMutations(['FLASH_USER_INFO']),
     changeCity (city) {
       this.city = city;
     },
     goToPay () {
       this.$router.push('/order');
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.FLASH_USER_INFO();
+    });
   },
   store
 };
@@ -236,5 +252,16 @@ export default {
   color: #999999;
   font-size: 12px;
   line-height: 16px;
+}
+.username-p {
+  cursor: pointer;
+}
+.my-page {
+  padding: 8px 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
