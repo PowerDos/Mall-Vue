@@ -30,7 +30,7 @@ npm run build
 - [x] 购买成功页面
 - [x] 反馈页面
 - [ ] 商家店铺页面
-- [ ] 用户页面
+- [x] 用户页面
 
 ## PAGE
 
@@ -63,6 +63,9 @@ npm run build
 
 ### 反馈页面
 ![反馈页面](https://i.imgur.com/fbOZAH8.png)
+
+### 用户页面
+![用户页面](https://i.imgur.com/ttCwhyT.png)
 
 ### 登陆页面
 ![登陆页面](https://i.imgur.com/d16GjOi.png)

@@ -13,6 +13,11 @@ import Order from '@/components/Order';
 import Pay from '@/components/Pay';
 import PayDone from '@/components/PayDone';
 import Freeback from '@/components/Freeback';
+import Home from '@/components/Home';
+import MyAddress from '@/components/home/MyAddress';
+import AddAddress from '@/components/home/AddAddress';
+import MyOrder from '@/components/home/MyOrder';
+import MyShoppingCart from '@/components/home/MyShoppingCart';
 
 Vue.use(Router);
 
@@ -89,6 +94,38 @@ export default new Router({
       path: '/freeback', // 反馈页面
       name: 'Freeback',
       component: Freeback
+    },
+    {
+      path: '/home', // 主页
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/',
+          name: 'index',
+          component: MyOrder
+        },
+        {
+          path: 'myAddress',
+          name: 'MyAddress',
+          component: MyAddress
+        },
+        {
+          path: 'addAddress',
+          name: 'AddAddress',
+          component: AddAddress
+        },
+        {
+          path: 'myOrder',
+          name: 'MyOrder',
+          component: MyOrder
+        },
+        {
+          path: 'myShoppingCart',
+          name: 'MyShoppingCart',
+          component: MyShoppingCart
+        }
+      ]
     }
   ]
 });

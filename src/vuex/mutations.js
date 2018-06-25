@@ -78,6 +78,11 @@ export const ADD_SHOPPING_CART = (state, data) => {
   state.newShoppingCart = data;
 };
 
+// 设置购物车信息
+export const SET_SHOPPING_CART = (state, data) => {
+  state.shoppingCart = data;
+};
+
 // 设置推荐信息
 export const SET_RECOMMEND_INFO = (state, data) => {
   state.recommend = data;

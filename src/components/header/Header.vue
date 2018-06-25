@@ -22,7 +22,16 @@
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
         <li v-show="!!userInfo.username">
-          <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+          <Dropdown>
+            <p class="username-p">
+              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+            </p>
+            <DropdownMenu slot="list">
+                <div class="my-page">
+                  <router-link to="/home"><Button type="error">我的信息</Button></router-link>
+                </div>
+            </DropdownMenu>
+          </Dropdown>
         </li>
         <li>
           <Dropdown  placement="bottom-start">
@@ -236,5 +245,21 @@ export default {
   color: #999999;
   font-size: 12px;
   line-height: 16px;
+}
+.username-p {
+  cursor: pointer;
+}
+.my-page {
+  padding: 8px 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-page a {
+  margin: 0px;
+  padding: 0px;
+  border: none;
 }
 </style>

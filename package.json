@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "iview": "^2.13.1",
+    "v-distpicker": "^1.0.17",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
