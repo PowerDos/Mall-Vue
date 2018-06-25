@@ -17,9 +17,13 @@ export const SET_USER_LOGIN_INFO = (state, data) => {
 // 更新用户信息
 export const FLASH_USER_INFO = (state, data) => {
   const info = localStorage.getItem('info');
-  console.log(JSON.parse(info));
-  console.log(new Date().getTime());
-  state.userInfo = JSON.parse(info);
+  state.userInfo = info === null ? {} : JSON.parse(info);
+};
+
+// 用户登出
+export const SIGN_OUT_USER = (state) => {
+  localStorage.removeItem('info');
+  state.userInfo = {};
 };
 
 // 设置加载状态
@@ -90,6 +94,11 @@ export const ADD_SHOPPING_CART = (state, data) => {
   };
   state.shoppingCart.push(item);
   state.newShoppingCart = data;
+};
+
+// 设置购物车信息
+export const SET_SHOPPING_CART = (state, data) => {
+  state.shoppingCart = data;
 };
 
 // 设置推荐信息

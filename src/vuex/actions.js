@@ -737,3 +737,17 @@ export const loadAddress = ({ commit }) => {
     commit('SET_USER_ADDRESS', address);
   });
 };
+
+export const loadShoppingCart = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const data = [{
+      goods_id: 1529931938150,
+      count: 1,
+      img: 'static/img/goodsDetail/pack/1.jpg',
+      package: '4.7英寸-深邃蓝',
+      price: 28,
+      title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
+    }];
+    commit('SET_SHOPPING_CART', data);
+  });
+};

@@ -138,6 +138,7 @@ export default {
     this.loadCarouselItems();
     this.loadComputer();
     this.loadEat();
+    this.loadShoppingCart();
   },
   mounted () {
     const father = this;
@@ -151,7 +152,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat']),
+    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat', 'loadShoppingCart']),
     ...mapMutations(['REDUCE_SECKILLS_TIME'])
   },
   computed: {

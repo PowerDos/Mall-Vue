@@ -18,21 +18,21 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.data.username">
+        <li class="first" v-show="isShow">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!!userInfo.data.username">
+        <li v-show="!isShow">
           <Dropdown>
             <p class="username-p">
-              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.data.username}} </span>
+              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{ username }} </span>
             </p>
             <DropdownMenu slot="list">
                 <div class="my-page">
-                  <Button type="error">我的信息</Button>
+                  <router-link to="/home"><Button type="error">我的信息</Button></router-link>
+                  <Button class="sign-out" @click="signOut" type="warning">退出登陆</Button>
                 </div>
             </DropdownMenu>
           </Dropdown>
-
         </li>
         <li>
           <Dropdown  placement="bottom-start">
@@ -106,15 +106,30 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userInfo', 'shoppingCart'])
+    ...mapState(['userInfo', 'shoppingCart']),
+    username () {
+      console.log(this.userInfo);
+      if (!this.userInfo.data) {
+        return '';
+      } else {
+        return this.userInfo.data.username;
+      }
+    },
+    isShow () {
+      return !this.userInfo.data;
+    }
   },
   methods: {
-    ...mapMutations(['FLASH_USER_INFO']),
+    ...mapMutations(['FLASH_USER_INFO', 'SIGN_OUT_USER']),
     changeCity (city) {
       this.city = city;
     },
     goToPay () {
       this.$router.push('/order');
+    },
+    signOut () {
+      this.SIGN_OUT_USER();
+      this.$router.push('/');
     }
   },
   mounted () {
@@ -263,5 +278,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.my-page a {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+.sign-out {
+  margin-left: 15px;
 }
 </style>
