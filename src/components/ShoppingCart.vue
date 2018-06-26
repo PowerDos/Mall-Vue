@@ -12,11 +12,11 @@
           </div>
           <div class="add-info-box-row">
             <div class="add-info-img">
-              <img :src="newShoppingCart.package.img" alt="">
+              <img :src="newShoppingCart.img" alt="">
             </div>
             <div class="add-info-intro">
-              <p>{{newShoppingCart.title}} {{newShoppingCart.package.intro}}...</p>
-              <p class="add-info-intro-detail">颜色：{{newShoppingCart.package.intro}}/ 数量：{{newShoppingCart.count}}</p>
+              <p>{{newShoppingCart.title.substring(0, 30)}} {{newShoppingCart.attr_title}}...</p>
+              <p class="add-info-intro-detail">套餐：{{newShoppingCart.attr_title}}/ 数量：{{newShoppingCart.count}}</p>
             </div>
           </div>
         </div>

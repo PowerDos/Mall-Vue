@@ -43,3 +43,20 @@ export const editAddress = (data) => {
     }
   });
 };
+
+// 添加购物车
+export const addShoppingCart = (data) => {
+  return post({
+    url: '/u/cart_add',
+    data: {
+      shoppingCart: data
+    }
+  });
+};
+
+// 获取购物车信息
+export const getShoppingCart = () => {
+  return post({
+    url: '/u/cart_list'
+  });
+};

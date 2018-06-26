@@ -43,7 +43,7 @@ export default {
         {
           title: '套餐',
           width: 198,
-          key: 'package',
+          key: 'attrTitle',
           align: 'center'
         },
         {
@@ -56,7 +56,10 @@ export default {
           title: '价格',
           width: 68,
           key: 'price',
-          align: 'center'
+          align: 'center',
+          render: function (h, params) {
+            return h('span', this.row.price.toFixed(2)); // 这里的this.row能够获取当前行的数据
+          }
         }
       ]
     };
@@ -69,6 +72,10 @@ export default {
   },
   methods: {
     ...mapActions(['loadShoppingCart']),
+    select (data) {
+      console.log('选择购物车.....');
+      console.log(data);
+    },
     goTo () {
       this.$router.push('/order');
     }

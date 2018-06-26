@@ -22,21 +22,21 @@
             <span>商品精选</span>
             <span>广告</span>
           </div>
-          <div class="item-as" v-for="(item,index) in asItems" :key="index">
+          <div class="item-as" v-for="(item,index) in asItem" :key="index">
             <div class="item-as-img">
-              <img :src="item.img" alt="">
+              <img :src="item.goodsImgs" alt="">
             </div>
             <div class="item-as-price">
               <span>
                 <Icon type="social-yen text-danger"></Icon>
-                <span class="seckill-price text-danger">{{item.price}}</span>
+                <span class="seckill-price text-danger">{{item.price.toFixed(2)}}</span>
               </span>
             </div>
             <div class="item-as-intro">
-              <span>{{item.intro}}</span>
+              <span>{{item.goodsName}}</span>
             </div>
             <div class="item-as-selled">
-              已有<span>{{item.num}}</span>人评价
+              已有<span>{{item.salesNum}}</span>人购买
             </div>
           </div>
         </div>
@@ -47,24 +47,24 @@
             </ul>
           </div>
           <div class="goods-list">
-            <div class="goods-show-info" v-for="(item, index) in orderGoodsList" :key="index">
+            <div class="goods-show-info" v-for="(item, index) in goodsInfoByNameFilter" :key="index">
               <div class="goods-show-img">
-                <router-link to="/goodsDetail"><img :src="item.img"/></router-link>
+                <router-link :to="{ path: '/goodsDetail', query: { goodsId: item.goodsId, merchantId: item.merchantId } }"><img :src="item.goodsImgs"/></router-link>
               </div>
               <div class="goods-show-price">
                 <span>
                   <Icon type="social-yen text-danger"></Icon>
-                  <span class="seckill-price text-danger">{{item.price}}</span>
+                  <span class="seckill-price text-danger">{{item.price.toFixed(2)}}</span>
                 </span>
               </div>
               <div class="goods-show-detail">
-                <span>{{item.intro}}</span>
+                <span>{{item.goodsName}}</span>
               </div>
               <div class="goods-show-num">
-                已有<span>{{item.remarks}}</span>人评价
+                已有<span>{{item.salesNum || 0}}</span>人购买
               </div>
               <div class="goods-show-seller">
-                <span>{{item.shopName}}</span>
+                <span>{{item.merchantName}}</span>
               </div>
             </div>
           </div>
@@ -105,11 +105,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(['asItems', 'isLoading']),
-    ...mapGetters(['orderGoodsList'])
+    ...mapState(['isLoading']),
+    ...mapGetters(['goodsInfoByNameFilter', 'asItem'])
   },
   methods: {
-    ...mapActions(['loadGoodsList']),
+    ...mapActions(['getGoodsByName']),
     ...mapMutations(['SET_GOODS_ORDER_BY']),
     orderBy (data, index) {
       console.log(data);
@@ -121,7 +121,8 @@ export default {
     }
   },
   created () {
-    this.loadGoodsList();
+    // this.loadGoodsList();
+    this.getGoodsByName(this.$route.query.sreachData);
   },
   mounted () {
     this.sreachItem = this.$route.query.sreachData;
@@ -182,6 +183,9 @@ export default {
   width: 160px;
   height: 160px;
   margin: 0px auto;
+}
+.item-as-img img {
+  width: 100%;
 }
 .item-as-price span{
   font-size: 18px;
@@ -255,6 +259,9 @@ export default {
 }
 .goods-show-price{
   margin-top: 6px;
+}
+.goods-show-img img {
+  width: 100%;
 }
 .goods-show-detail{
   font-size: 12px;

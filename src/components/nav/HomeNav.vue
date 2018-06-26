@@ -11,71 +11,61 @@
       <!-- 侧边导航 -->
       <div class="nav-side" ref="navSide">
         <ul>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
+          <li @mouseenter="showDetail(0)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">3C数码</span> /
             <span class="nav-side-item">家用电器</span>
           </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">手机</span> /
-            <span class="nav-side-item">运营商</span> /
-            <span class="nav-side-item">数码</span>
+          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">服饰</span> /
+            <span class="nav-side-item">鞋类箱包</span>
           </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">电脑</span> /
-            <span class="nav-side-item">办公</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">家居</span> /
-            <span class="nav-side-item">家具</span> /
-            <span class="nav-side-item">家装</span> /
-            <span class="nav-side-item">厨具</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">男装</span> /
-            <span class="nav-side-item">女装</span> /
-            <span class="nav-side-item">童装</span> /
-            <span class="nav-side-item">内衣</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">美妆个护</span> /
-            <span class="nav-side-item">宠物</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">女鞋</span> /
-            <span class="nav-side-item">箱包</span> /
-            <span class="nav-side-item">钟表</span> /
-            <span class="nav-side-item">珠宝</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">男鞋</span> /
-            <span class="nav-side-item">运动</span> /
-            <span class="nav-side-item">户外</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">汽车</span> /
-            <span class="nav-side-item">汽车用品</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
+          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail()">
             <span class="nav-side-item">母婴</span> /
-            <span class="nav-side-item">玩具乐器</span>
+            <span class="nav-side-item">居家日用</span>
           </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
+          <li @mouseenter="showDetail(3)" @mouseleave="hideDetail()">
             <span class="nav-side-item">食品</span> /
-            <span class="nav-side-item">酒类</span> /
-            <span class="nav-side-item">生鲜</span> /
-            <span class="nav-side-item">特产</span>
+            <span class="nav-side-item">餐饮美食</span>
           </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">礼品鲜花</span> /
-            <span class="nav-side-item">农资绿植</span>
+          <li @mouseenter="showDetail(4)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">休闲娱乐</span> /
+            <span class="nav-side-item">旅游酒店</span>
           </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">医药保健</span> /
-            <span class="nav-side-item">计生情趣</span>
+          <li @mouseenter="showDetail(5)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">商务办公</span> /
+            <span class="nav-side-item">金融理财</span>
           </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">图书</span> /
-            <span class="nav-side-item">音像</span> /
-            <span class="nav-side-item">电子书</span>
+          <li @mouseenter="showDetail(6)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">学习培训</span> /
+            <span class="nav-side-item">文化体育</span>
+          </li>
+          <li @mouseenter="showDetail(7)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">便民生活</span> /
+            <span class="nav-side-item">话费通信</span>
+          </li>
+          <li @mouseenter="showDetail(8)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">美妆护肤</span> /
+            <span class="nav-side-item">丽人</span>
+          </li>
+          <li @mouseenter="showDetail(9)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">房地产</span> /
+            <span class="nav-side-item">汽车/交通</span>
+          </li>
+          <li @mouseenter="showDetail(10)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">珠宝配饰</span> /
+            <span class="nav-side-item">古董收藏</span>
+          </li>
+          <li @mouseenter="showDetail(11)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">美妆护肤</span> /
+            <span class="nav-side-item">丽人</span>
+          </li>
+          <li @mouseenter="showDetail(12)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">房地产</span> /
+            <span class="nav-side-item">汽车/交通</span>
+          </li>
+          <li @mouseenter="showDetail(13)" @mouseleave="hideDetail()">
+            <span class="nav-side-item">珠宝配饰</span> /
+            <span class="nav-side-item">古董收藏</span>
           </li>
         </ul>
       </div>
@@ -99,34 +89,50 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
+    <!-- 菜单栏 -->
+    <transition name="fade" v-for="(item, index) in panelData" :key="index">
+      <div class="detail-item-panel" :duration="{ enter: 100, leave: 100 }" v-show="actionNav === index" @mouseenter="showDetail(index)" :ref="index" :style="{left: left + 'px', top: top + 'px'}" @mouseleave="hideDetail(index)">
         <div class="nav-detail-item">
-          <span v-for="(item, index) in panelData1.navTags" :key="index">{{item}} > </span>
+          <span v-for="(item, index) in item.navTags" :key="index">{{item}} > </span>
         </div>
         <ul>
-          <li v-for="(items, index) in panelData1.classNav" :key="index" class="detail-item-row">
+          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
             <span class="detail-item-title">{{items.title}}
               <span class="glyphicon glyphicon-menu-right"></span>
             </span>
-            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
+            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
               <span class="detail-item">{{item}}</span>
             </router-link>
           </li>
-        </ul>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">
-        <div class="nav-detail-item">
-          <span v-for="(item, index) in panelData2.navTags" :key="index">{{item}} > </span>
-        </div>
-        <ul>
-          <li v-for="(items, index) in panelData2.classNav" :key="index" class="detail-item-row">
+          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
             <span class="detail-item-title">{{items.title}}
               <span class="glyphicon glyphicon-menu-right"></span>
             </span>
-            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
+            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
+              <span class="detail-item">{{item}}</span>
+            </router-link>
+          </li>
+          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
+            <span class="detail-item-title">{{items.title}}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
+              <span class="detail-item">{{item}}</span>
+            </router-link>
+          </li>
+          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
+            <span class="detail-item-title">{{items.title}}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
+              <span class="detail-item">{{item}}</span>
+            </router-link>
+          </li>
+          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
+            <span class="detail-item-title">{{items.title}}
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </span>
+            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
               <span class="detail-item">{{item}}</span>
             </router-link>
           </li>
@@ -143,8 +149,9 @@ export default {
   name: 'HomeNav',
   data () {
     return {
-      panel1: false,
-      panel2: false,
+      left: 0,
+      top: 0,
+      actionNav: 99,
       nav: [
         '秒杀',
         '优惠券',
@@ -156,104 +163,190 @@ export default {
         '全球购',
         '金融'
       ],
-      panelData1: {
-        navTags: [ '清洁用品', '美妆商城', '美妆馆', '妆比社', '全球购美妆', '宠物馆' ],
-        classNav: [
-          {
-            title: '面部护肤',
-            tags: [ '补水保湿', '卸妆', '洁面', '爽肤水', '乳液面霜', '精华', '眼霜', '防晒', '面膜', '剃须', '套装' ]
-          },
-          {
-            title: '洗发护发',
-            tags: [ '洗发', '护发', '染发', '造型', '假发', '美发工具', '套装' ]
-          },
-          {
-            title: '身体护理',
-            tags: [ '补水保湿', '沐浴', '润肤', '精油', '颈部', '手足', '纤体塑形', '美胸', '套装' ]
-          },
-          {
-            title: '口腔护理',
-            tags: [ '牙膏/牙粉', '牙刷/牙线', '漱口水', '套装' ]
-          },
-          {
-            title: '女性护理',
-            tags: [ '卫生巾', '卫生护垫', '私密护理', '脱毛膏' ]
-          },
-          {
-            title: '香水彩妆',
-            tags: [ 'BB霜', '化妆棉', '女士香水', '男士香水', '底妆', '眉笔', '睫毛膏', '眼线', '眼影', '唇膏/彩' ]
-          },
-          {
-            title: '清洁用品',
-            tags: [ '纸品湿巾', '衣物清洁', '清洁工具', '家庭清洁', '一次性用品', '驱虫用品', '皮具护理' ]
-          },
-          {
-            title: '宠物生活',
-            tags: [ '水族世界', '狗粮', '猫粮', '猫狗罐头', '狗零食', '猫零食', '医疗保健', '宠物玩具', '宠物服饰' ]
-          },
-          {
-            title: '香水彩妆',
-            tags: [ 'BB霜', '化妆棉', '女士香水', '男士香水', '底妆', '眉笔', '睫毛膏', '眼线', '眼影', '唇膏/彩' ]
-          },
-          {
-            title: '清洁用品',
-            tags: [ '纸品湿巾', '衣物清洁', '清洁工具', '家庭清洁', '一次性用品', '驱虫用品', '皮具护理' ]
-          },
-          {
-            title: '宠物生活',
-            tags: [ '水族世界', '狗粮', '猫粮', '猫狗罐头', '狗零食', '猫零食', '医疗保健', '宠物玩具', '宠物服饰' ]
-          }
-        ]
-      },
-      panelData2: {
-        navTags: [ '赛事', '运动城', '户外馆', '健身房', '骑行馆', '钟表城' ],
-        classNav: [
-          {
-            title: '2017新品',
-            tags: [ '休闲鞋', '商务休闲鞋', '正装鞋', '帆布鞋', '凉鞋', '拖鞋', '功能鞋', '增高鞋', '工装鞋', '雨鞋' ]
-          },
-          {
-            title: '运动鞋包',
-            tags: [ '跑步鞋', '休闲鞋', '篮球鞋', '帆布鞋', '板鞋', '拖鞋', '运动包' ]
-          },
-          {
-            title: '健身训练',
-            tags: [ '跑步机', '健身车/动感单车', '椭圆机', '综合训练器', '划船机', '甩脂机', '倒立机', '武术搏击' ]
-          },
-          {
-            title: '骑行运动',
-            tags: [ '山地车', '公路车', '折叠车', '骑行服', '电动车', '电动滑板车', '城市自行车', '平衡车' ]
-          },
-          {
-            title: '体育用品',
-            tags: [ '乒乓球', '羽毛球', '篮球', '足球', '轮滑滑板', '网球', '高尔夫', '台球', '排球' ]
-          },
-          {
-            title: '户外鞋服',
-            tags: [ '户外风衣', '徒步鞋', 'T恤', '冲锋衣裤', '速干衣裤', '越野跑鞋', '滑雪服', '羽绒服/棉服', '休闲衣裤' ]
-          },
-          {
-            title: '户外装备',
-            tags: [ '背包', '帐篷/垫子', '望远镜', '烧烤用具', '便携桌椅床', '户外配饰', '军迷用品', '野餐用品' ]
-          },
-          {
-            title: '垂钓用品',
-            tags: [ '钓竿', '鱼线', '浮漂', '鱼饵', '钓鱼配件', '渔具包', '钓箱钓椅', '鱼线轮', '钓鱼灯' ]
-          },
-          {
-            title: '游泳用品',
-            tags: [ '女士泳衣', '比基尼', '男士泳衣', '泳镜', '游泳圈', '游泳包防水包', '泳帽', '游泳配件' ]
-          },
-          {
-            title: '垂钓用品',
-            tags: [ '钓竿', '鱼线', '浮漂', '鱼饵', '钓鱼配件', '渔具包', '钓箱钓椅', '鱼线轮', '钓鱼灯' ]
-          },
-          {
-            title: '游泳用品',
-            tags: [ '女士泳衣', '比基尼', '男士泳衣', '泳镜', '游泳圈', '游泳包防水包', '泳帽', '游泳配件' ]
-          }
-        ]
-      }
+      panelData: [
+        {
+          navTags: [ '手机', '手机配件', '电脑整机', '智能数码' ],
+          classNav: [
+            {
+              title: '3C数码',
+              tags: [ '手机', '手机配件', '电脑整机', '智能数码', '摄影摄像', '影音娱乐', '硬件存储', '数码配件', '办公设备' ]
+            },
+            {
+              title: '家用电器',
+              tags: [ '电视空调', '冰箱', '洗衣机', '厨房小电', '生活电器', '个护健康', '厨卫大电' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '男鞋', '女鞋', '潮流女包', '精品男包', '功能箱包' ],
+          classNav: [
+            {
+              title: '服饰',
+              tags: [ '服饰配件/皮带/帽子/围巾', '女装', '男装', '女士内衣/男士内衣/家居服', '运动户外' ]
+            },
+            {
+              title: '鞋类箱包',
+              tags: [ '男鞋', '女鞋', '潮流女包', '精品男包', '功能箱包' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '居家日用', '餐具水具', '厨具锅具', '床上用品', '家纺布艺' ],
+          classNav: [
+            {
+              title: '母婴',
+              tags: [ '奶粉', '辅食/营养品', '纸尿裤/湿巾', '哺育喂养', '清洁洗护', '童装童鞋', '孕妈专区' ]
+            },
+            {
+              title: '居家日用',
+              tags: [ '居家日用', '餐具水具', '厨具锅具', '床上用品', '家纺布艺', '宠物园艺', '收纳洗晒', '家装建材', '家具', '家饰' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '进口食品', '营养保健', '粮油干货', '冲饮乳品', '酒类' ],
+          classNav: [
+            {
+              title: '食品',
+              tags: [ '进口食品', '营养保健', '粮油干货', '冲饮乳品', '酒类', '茶叶', '生鲜水果' ]
+            },
+            {
+              title: '餐饮美食',
+              tags: [ '火锅', '自助餐', '日韩料理', '小吃快餐', '西餐', '中式料理', '烧烤', '咖啡酒吧茶馆', '甜点饮品' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '酒吧夜店', 'KTV', '桑拿足浴', '洗浴汗蒸', '按摩' ],
+          classNav: [
+            {
+              title: '休闲娱乐',
+              tags: [ '酒吧夜店', 'KTV', '桑拿足浴', '洗浴汗蒸', '按摩', '电影院', '会馆会所', '文艺演出', '私人影院' ]
+            },
+            {
+              title: '旅游酒店',
+              tags: [ '酒店', '度假村/农家乐/客栈', '旅馆旅社', '票务服务', '签证服务', '周边游', '其他游玩' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '基金证券', '银行服务', '保险产品', '金融投资' ],
+          classNav: [
+            {
+              title: '商务办公',
+              tags: [ '法律咨询', '财务会计评估', '广告策划公关', '人力资源', '网站建站', '翻译速记', '咨询顾问', '办公耗材' ]
+            },
+            {
+              title: '金融理财',
+              tags: [ '基金证券', '银行服务', '保险产品', '金融投资', '理财产品', '金融理财-其他' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '职业培训', '考试升学', '留学出国', '婴幼儿教育' ],
+          classNav: [
+            {
+              title: '学习培训',
+              tags: [ '职业培训', '考试升学', '留学出国', '婴幼儿教育', '外语培训', '远程教育', '家教' ]
+            },
+            {
+              title: '文化体育',
+              tags: [ '比赛/文化活动/展览', '体育户外活动', '文化出版', '体育场馆', '图书馆', '文化体育-其他' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '家政服务', '婚庆婚纱摄影', '搬家搬运', '维修疏通' ],
+          classNav: [
+            {
+              title: '便民生活',
+              tags: [ '家政服务', '搬家搬运', '维修疏通', '鲜花速递', '交友征婚', '摄影摄像', '物流快递', '洗衣店' ]
+            },
+            {
+              title: '话费通信',
+              tags: [ '移动/联通/电信充值', '手机号码/套餐/增值业务', '话费通信-其他' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '美发', '美容/SPA', '美甲美睫', '瘦身纤体' ],
+          classNav: [
+            {
+              title: '美妆护肤',
+              tags: [ '美容护肤', '彩妆/香水/美妆工具', '美发/护发/假发', '沐浴/个人清洁', '美体/精油', '口腔护理' ]
+            },
+            {
+              title: '丽人',
+              tags: [ '美发', '美容/SPA', '美甲美睫', '瘦身纤体', '瑜伽舞蹈', '纹绣', '产后塑性', '整形', '丽人-其他' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '商务租赁', '房产中介', '装潢设计', '楼盘销售' ],
+          classNav: [
+            {
+              title: '房地产',
+              tags: [ '商务租赁', '房产中介', '装潢设计', '楼盘销售', '建材施工', '房地产-其他' ]
+            },
+            {
+              title: '汽车/交通',
+              tags: [ '新车/二手车（品牌商）', '汽车（经销商）', '汽车租赁', '汽车美容/保养/用品', '汽车改装', '汽车陪练' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '玉器', '古董', '收藏', '字画' ],
+          classNav: [
+            {
+              title: '珠宝配饰',
+              tags: [ '珠宝/钻石/翡翠/黄金', '腕表', '时尚饰品', '眼镜', '打火机/瑞士军刀' ]
+            },
+            {
+              title: '古董收藏',
+              tags: [ '玉器', '古董', '收藏', '字画' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '美发', '美容/SPA', '美甲美睫', '瘦身纤体' ],
+          classNav: [
+            {
+              title: '美妆护肤',
+              tags: [ '美容护肤', '彩妆/香水/美妆工具', '美发/护发/假发', '沐浴/个人清洁', '美体/精油', '口腔护理' ]
+            },
+            {
+              title: '丽人',
+              tags: [ '美发', '美容/SPA', '美甲美睫', '瘦身纤体', '瑜伽舞蹈', '纹绣', '产后塑性', '整形' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '商务租赁', '房产中介', '装潢设计', '楼盘销售' ],
+          classNav: [
+            {
+              title: '房地产',
+              tags: [ '商务租赁', '房产中介', '装潢设计', '楼盘销售', '建材施工', '房地产-其他' ]
+            },
+            {
+              title: '汽车/交通',
+              tags: [ '汽车美容/保养/用品', '汽车改装', '汽车陪练', '各类配件', '停车场', '航空公司', '汽车/交通-其他' ]
+            }
+          ]
+        },
+        {
+          navTags: [ '玉器', '古董', '收藏', '字画' ],
+          classNav: [
+            {
+              title: '珠宝配饰',
+              tags: [ '珠宝/钻石/翡翠/黄金', '腕表', '时尚饰品', '眼镜', '打火机/瑞士军刀' ]
+            },
+            {
+              title: '古董收藏',
+              tags: [ '玉器', '古董', '收藏', '字画' ]
+            }
+          ]
+        }
+      ]
     };
   },
   created () {},
@@ -262,17 +355,15 @@ export default {
   },
   methods: {
     showDetail (index) {
-      index === 1 ? (this.panel1 = true) : (this.panel2 = true);
+      this.actionNav = index;
     },
-    hideDetail (index) {
-      index === 1 ? (this.panel1 = false) : (this.panel2 = false);
+    hideDetail () {
+      this.actionNav = 99;
     }
   },
   updated () {
-    this.$refs.itemPanel1.style.left =
-      this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth + 'px';
-    this.$refs.itemPanel2.style.left =
-      this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth + 'px';
+    this.left = this.$refs.navSide.offsetLeft + this.$refs.navSide.offsetWidth;
+    this.top = this.$refs.navSide.offsetTop;
   },
   store
 };

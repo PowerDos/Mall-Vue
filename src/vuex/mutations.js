@@ -65,33 +65,30 @@ export const REDUCE_SECKILLS_TIME = state => {
   }
 };
 
-// 设置商品列表(搜索)
-export const SET_GOODS_LIST = (state, data) => {
-  state.goodsList = data.goodsList;
-  state.asItems = data.asItems;
-};
-
 // 设置商品列表排序
 export const SET_GOODS_ORDER_BY = (state, data) => {
   state.orderBy = data;
 };
 
+// 设置商品列表(搜索)
+export const SET_GOODS_INFO_BY_NAME = (state, data) => {
+  state.goodsInfoByName = data;
+};
+
+// 设置商户商品列表
+export const SET_GOODS_INFO_BY_MERCHANT_ID = (state, data) => {
+  state.goodsInfoByMerchanrtId = data;
+};
+
 // 设置商品详细信息
-export const SET_GOODS_INFO = (state, data) => {
-  state.goodsInfo = data;
+export const SET_GOODS_DETAIL = (state, data) => {
+  console.log(data);
+  state.goodsDetail = data;
 };
 
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
-  const item = {
-    goods_id: data.goods_id,
-    count: data.count,
-    img: data.package.img,
-    package: data.package.intro,
-    price: data.package.price,
-    title: data.title
-  };
-  state.shoppingCart.push(item);
+  state.shoppingCart.push(data);
   state.newShoppingCart = data;
 };
 

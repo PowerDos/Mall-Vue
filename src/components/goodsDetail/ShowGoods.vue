@@ -3,10 +3,10 @@
     <div class="item-detail-show">
       <div class="item-detail-left">
         <div class="item-detail-big-img">
-          <img :src="goodsInfo.goodsImg[imgIndex]" alt="">
+          <img :src="getGoodsDetailBase.goodsImg[imgIndex]" alt="">
         </div>
         <div class="item-detail-img-row">
-          <div class="item-detail-img-small" v-for="(item, index) in goodsInfo.goodsImg" :key="index" @mouseover="showBigImg(index)">
+          <div class="item-detail-img-small" v-for="(item, index) in getGoodsDetailBase.goodsImg" :key="index" @mouseover="showBigImg(index)">
             <img :src="item" alt="">
           </div>
         </div>
@@ -14,11 +14,11 @@
       <div class="item-detail-right">
         <div class="item-detail-title">
           <p>
-            <span class="item-detail-express">校园配送</span> {{goodsInfo.title}}</p>
+            <span class="item-detail-express">校园配送</span> {{getGoodsDetailBase.title}}</p>
         </div>
         <div class="item-detail-tag">
           <p>
-            <span v-for="(item,index) in goodsInfo.tags" :key="index">【{{item}}】</span>
+            <span v-for="(item,index) in getGoodsDetailBase.tags" :key="index">【{{item}}】</span>
           </p>
         </div>
         <div class="item-detail-price-row">
@@ -32,21 +32,21 @@
             <div class="item-price-row">
               <p>
                 <span class="item-price-title">优 惠 价</span>
-                <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.discount" :key="index">{{item}}</span>
+                <span class="item-price-full-cut" v-for="(item,index) in getGoodsDetailBase.discount" :key="index">{{item}}</span>
               </p>
             </div>
             <div class="item-price-row">
               <p>
                 <span class="item-price-title">促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</span>
-                <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.promotion" :key="index">{{item}}</span>
+                <span class="item-price-full-cut" v-for="(item,index) in getGoodsDetailBase.promotion" :key="index">{{item}}</span>
               </p>
             </div>
           </div>
           <div class="item-price-right">
             <div class="item-remarks-sum">
-              <p>累计评价</p>
+              <p>累计销售</p>
               <p>
-                <span class="item-remarks-num">{{goodsInfo.remarksNum}} 条</span>
+                <span class="item-remarks-num">{{getGoodsDetailBase.salesNum}} </span>
               </p>
             </div>
           </div>
@@ -56,14 +56,14 @@
           <div class="item-select-title">
             <p>选择颜色</p>
           </div>
-          <div class="item-select-column">
-            <div class="item-select-row" v-for="(items, index) in goodsInfo.setMeal" :key="index">
-              <div class="item-select-box" v-for="(item, index1) in items" :key="index1" @click="select(index, index1)" :class="{'item-select-box-active': ((index * 3) + index1) === selectBoxIndex}">
+          <div class="item-select-container">
+            <div class="" v-for="(item, index) in getGoodsDetailBase.setMeal" :key="index">
+              <div class="item-select-box" @click="select(index)" :class="{'item-select-box-active': index === selectBoxIndex}">
                 <div class="item-select-img">
-                  <img :src="item.img" alt="">
+                  <img :src="item.attrImgUrl" alt="">
                 </div>
                 <div class="item-select-intro">
-                  <p>{{item.intro}}</p>
+                  <p>{{item.attrTitle}}</p>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ShowGoods',
   data () {
@@ -109,6 +109,7 @@ export default {
   },
   computed: {
     ...mapState(['goodsInfo']),
+    ...mapGetters(['getGoodsDetailBase']),
     hirePurchase () {
       const three = this.price * this.count / 3;
       const sex = this.price * this.count / 6;
@@ -140,33 +141,33 @@ export default {
   },
   methods: {
     ...mapActions(['addShoppingCart']),
-    select (index1, index2) {
-      this.selectBoxIndex = index1 * 3 + index2;
-      this.price = this.goodsInfo.setMeal[index1][index2].price;
+    select (index) {
+      this.selectBoxIndex = index;
+      this.price = this.getGoodsDetailBase.setMeal[index].attrPrice;
     },
     showBigImg (index) {
       this.imgIndex = index;
     },
     addShoppingCartBtn () {
-      const index1 = parseInt(this.selectBoxIndex / 3);
-      const index2 = this.selectBoxIndex % 3;
-      const date = new Date();
-      const goodsId = date.getTime();
       const data = {
-        goods_id: goodsId,
-        title: this.goodsInfo.title,
+        goods_id: this.getGoodsDetailBase.goodsId,
+        merchant_id: this.getGoodsDetailBase.merchantId,
+        title: this.getGoodsDetailBase.title,
         count: this.count,
-        package: this.goodsInfo.setMeal[index1][index2]
+        package: this.getGoodsDetailBase.setMeal[this.selectBoxIndex]
       };
-      this.addShoppingCart(data);
-      this.$router.push('/shoppingCart');
+      this.addShoppingCart(data).then(data => {
+        if (data) {
+          this.$Message.success('添加购物车成功');
+          this.$router.push('/shoppingCart');
+        } else {
+          this.$Message.error('添加购物车出错');
+        }
+      });
     }
   },
   mounted () {
-    const father = this;
-    setTimeout(() => {
-      father.price = father.goodsInfo.setMeal[0][0].price || 0;
-    }, 300);
+    this.price = this.getGoodsDetailBase.price || 0;
   },
   store
 };
@@ -297,20 +298,25 @@ export default {
   flex-direction: row;
   margin-bottom: 8px;
 }
+.item-select-container {
+  display: flex;
+  display: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
 .item-select-box {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-.item-select-img {
-  width: 36px;
-}
-.item-select-box {
   padding: 5px;
   margin-right: 8px;
+  margin-bottom: 15px;
   background-color: #f7f7f7;
   border: 0.5px solid #ccc;
   cursor: pointer;
+}
+.item-select-img {
+  width: 36px;
 }
 .item-select-box:hover {
   border: 0.5px solid #e3393c;

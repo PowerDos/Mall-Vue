@@ -6,7 +6,7 @@
           <p>店铺热销</p>
         </div>
         <div class="item-intro-recommend-column">
-          <div class="item-recommend-column" v-for="(item, index) in goodsInfo.hot" :key="index">
+          <div class="item-recommend-column" v-for="(item, index) in merchantItem" :key="index">
             <div class="item-recommend-img">
               <img :src="item.img" alt="">
             </div>
@@ -26,7 +26,7 @@
                 <span>商品介绍</span>
               </div>
               <div class="item-intro-img" ref="itemIntroGoods">
-                <img :src="item" alt="" v-for="(item,index) in goodsInfo.goodsDetail" :key="index">
+                <img :src="item" alt="" v-for="(item,index) in getGoodsDetail.goodsDesc" :key="index">
               </div>
             </TabPane>
             <TabPane label="规格参数">
@@ -34,7 +34,7 @@
                 <span>规格参数</span>
               </div>
               <div class="item-param-container">
-                <span class="item-param-box" v-for="(item,index) in goodsInfo.param" :key="index">
+                <span class="item-param-box" v-for="(item,index) in getGoodsDetail.param" :key="index">
                   <span class="item-param-title">{{item.title}}: </span>
                   <span class="item-param-content">{{item.content}}</span>
                 </span>
@@ -50,22 +50,22 @@
                 </div>
                 <div class="remarks-analyse-box">
                   <div class="remarks-analyse-goods">
-                    <i-circle :percent="goodsInfo.remarks.goodAnalyse" stroke-color="#e4393c">
-                      <span class="remarks-analyse-num">{{goodsInfo.remarks.goodAnalyse}}%</span>
+                    <i-circle :percent="getGoodsDetail.remarks.goodAnalyse" stroke-color="#e4393c">
+                      <span class="remarks-analyse-num">{{getGoodsDetail.remarks.goodAnalyse}}%</span>
                       <p class="remarks-analyse-title">好评率</p>
                     </i-circle>
                   </div>
                   <div class="remarks-analyse-tags">
-                    <Tag checkable :color="tagsColor[index % 4]" v-for="(item,index) in goodsInfo.remarks.remarksTags" :key="index">{{item}}</Tag>
+                    <Tag checkable :color="tagsColor[index % 4]" v-for="(item,index) in getGoodsDetail.remarks.remarksTags" :key="index">{{item}}</Tag>
                   </div>
                 </div>
                 <div class="remarks-bar">
-                  <span>追评({{goodsInfo.remarks.remarksNumDetail[0]}})</span>
-                  <span>好评({{goodsInfo.remarks.remarksNumDetail[1]}})</span>
-                  <span>中评({{goodsInfo.remarks.remarksNumDetail[2]}})</span>
-                  <span>差评({{goodsInfo.remarks.remarksNumDetail[3]}})</span>
+                  <span>追评({{getGoodsDetail.remarks.remarksNumDetail[0]}})</span>
+                  <span>好评({{getGoodsDetail.remarks.remarksNumDetail[1]}})</span>
+                  <span>中评({{getGoodsDetail.remarks.remarksNumDetail[2]}})</span>
+                  <span>差评({{getGoodsDetail.remarks.remarksNumDetail[3]}})</span>
                 </div>
-                <div class="remarks-box" v-for="(item,index) in goodsInfo.remarks.detail" :key="index">
+                <div class="remarks-box" v-for="(item,index) in getGoodsDetail.remarks.detail" :key="index">
                   <div class="remarks-user">
                     <Avatar icon="person" />
                     <span class="remarks-user-name">{{item.username}}</span>
@@ -96,7 +96,7 @@
 <script>
 import ShowProductWarranty from '@/components/goodsDetail/ShowProductWarranty';
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 export default {
   name: 'ShowGoodsDetail',
   data () {
@@ -105,7 +105,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(['goodsInfo'])
+    ...mapState(['goodsInfo']),
+    ...mapGetters(['merchantItem', 'getGoodsDetail'])
   },
   updated () {
     this.$nextTick(() => {

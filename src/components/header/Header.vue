@@ -52,13 +52,13 @@
                   </div>
                   <div class="shopping-cart-info">
                     <div class="shopping-cart-title">
-                      <p>{{item.title.substring(0, 22)}}...</p>
+                      <p>{{item.title.substring(0, 18)}}...</p>
                     </div>
                     <div class="shopping-cart-detail">
                       <p>
                         套餐:
                         <span class="shopping-cart-text">
-                          {{item.package}}
+                          {{item.attrTitle.substring(0, 5)}}
                         </span>
                         数量:
                         <span class="shopping-cart-text">
@@ -66,7 +66,7 @@
                         </span>
                         价钱:
                         <span class="shopping-cart-text">
-                          {{item.price}}
+                          {{item.price.toFixed(2)}}
                         </span>
                       </p>
                     </div>
@@ -102,6 +102,7 @@ export default {
         this.FLASH_USER_INFO();
       }
     });
+    this.loadShoppingCart();
   },
   data () {
     return {
@@ -129,7 +130,7 @@ export default {
   },
   methods: {
     ...mapMutations(['FLASH_USER_INFO', 'SIGN_OUT_USER']),
-    ...mapActions(['isExp']),
+    ...mapActions(['isExp', 'loadShoppingCart']),
     changeCity (city) {
       this.city = city;
     },
