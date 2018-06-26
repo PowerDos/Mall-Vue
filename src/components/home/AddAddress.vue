@@ -5,7 +5,7 @@
         <h1>添加收货地址</h1>
       </div>
       <div class="add-box">
-        <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
+        <Form ref="formInline" :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
           <FormItem label="收件人" prop="name">
             <i-input v-model="formData.name" size="large"></i-input>
           </FormItem>
@@ -24,7 +24,7 @@
         </Form>
       </div>
       <div class="add-submit">
-        <Button type="primary">添加地址</Button>
+        <Button type="primary" @click="handleSubmit('formInline')">添加地址</Button>
       </div>
     </div>
   </div>
@@ -32,6 +32,8 @@
 
 <script>
 import Distpicker from 'v-distpicker';
+import store from '@/vuex/store';
+import { mapActions } from 'vuex';
 export default {
   name: 'AddAddress',
   data () {
@@ -63,6 +65,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['addAddress']),
     getProvince (data) {
       this.formData.province = data.value;
     },
@@ -71,11 +74,30 @@ export default {
     },
     getArea (data) {
       this.formData.area = data.value;
+    },
+    handleSubmit (name) {
+      // const father = this;
+      console.log(this.formData.name);
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.addAddress(this.formData).then(data => {
+            if (data) {
+              this.$Message.success('添加成功');
+              this.$router.push('/home/myAddress');
+            } else {
+              this.$Message.error('添加失败，请重新尝试');
+            }
+          });
+        } else {
+          this.$Message.error('请填写正确的地址信息');
+        }
+      });
     }
   },
   components: {
     Distpicker
-  }
+  },
+  store
 };
 </script>
 

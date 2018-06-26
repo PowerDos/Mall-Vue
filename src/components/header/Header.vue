@@ -91,9 +91,18 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
   name: 'M-Header',
+  created () {
+    // 验证登陆信息是否过期
+    this.isExp().then(result => {
+      if (!result) {
+        localStorage.removeItem('info');
+        this.FLASH_USER_INFO();
+      }
+    });
+  },
   data () {
     return {
       city: '珠海',
@@ -108,7 +117,6 @@ export default {
   computed: {
     ...mapState(['userInfo', 'shoppingCart']),
     username () {
-      console.log(this.userInfo);
       if (!this.userInfo.data) {
         return '';
       } else {
@@ -121,6 +129,7 @@ export default {
   },
   methods: {
     ...mapMutations(['FLASH_USER_INFO', 'SIGN_OUT_USER']),
+    ...mapActions(['isExp']),
     changeCity (city) {
       this.city = city;
     },

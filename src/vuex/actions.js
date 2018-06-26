@@ -1,4 +1,5 @@
 import * as baseApi from '@/api/baseApi';
+import * as userApi from '@/api/userApi';
 // 判断手机是否存在
 export const isExist = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
@@ -42,6 +43,24 @@ export const login = ({ commit }, data) => {
     }).catch(error => {
       reject(error);
     });
+  });
+};
+
+// 判断登陆有没有过期
+export const isExp = () => {
+  return new Promise((resolve, reject) => {
+    let info = localStorage.getItem('info');
+    if (!info) {
+      resolve(false);
+      return;
+    }
+    info = JSON.parse(info);
+    const now = new Date().getTime();
+    if (info.exp > now) {
+      resolve(true);
+      return;
+    }
+    resolve(false);
   });
 };
 
@@ -710,34 +729,44 @@ export const loadRecommend = ({ commit }) => {
   });
 };
 
+// 加载收货地址
 export const loadAddress = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    const address = [
-      {
-        addressId: '123456',
-        name: 'Gavin',
-        province: '广东省',
-        city: '广州市',
-        area: '天河区',
-        address: '燕岭路633号',
-        phone: '152****0609',
-        postalcode: '510000'
-      },
-      {
-        addressId: '123458',
-        name: 'Kevin',
-        province: '上海市',
-        city: '上海市',
-        area: '浦东新区',
-        address: '沙新镇',
-        phone: '158****0888',
-        postalcode: '200120'
+    userApi.getAddressList().then(res => {
+      if (res.data.rcode === 0) {
+        commit('SET_USER_ADDRESS', res.data.result.data);
       }
-    ];
-    commit('SET_USER_ADDRESS', address);
+    });
   });
 };
 
+// 删除收货地址
+export const delAddress = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    userApi.delAddress(data).then(res => {
+      if (res.data.rcode === 0) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// 修改收货地址
+export const editAddress = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    userApi.editAddress(data).then(res => {
+      if (res.data.rcode === 0) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// 加载购物车
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const data = [{
@@ -749,5 +778,18 @@ export const loadShoppingCart = ({ commit }) => {
       title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
     }];
     commit('SET_SHOPPING_CART', data);
+  });
+};
+
+// 添加收货地址
+export const addAddress = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    userApi.addAddress(data).then(res => {
+      if (res.data.rcode === 0) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
   });
 };

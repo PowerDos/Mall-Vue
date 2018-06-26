@@ -5,10 +5,9 @@ export const SET_SIGN_UP_SETP = (state, step) => {
 
 // 设置用户登录信息
 export const SET_USER_LOGIN_INFO = (state, data) => {
-  console.log(data);
   const info = {
     data: data,
-    exp: new Date().getTime() + (3600 * 6)
+    exp: new Date().getTime() + (3600 * 60 * 1000)
   };
   localStorage.setItem('info', JSON.stringify(info));
   state.userInfo = info;
