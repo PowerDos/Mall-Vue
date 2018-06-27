@@ -74,7 +74,7 @@
         <div>
           <Carousel autoplay loop>
               <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
-                <router-link to="/goodsList">
+                <router-link :to="{path: '/goodsList', query: { sreachData: '电脑'}}">
                   <img :src="item">
                 </router-link>
               </CarouselItem>
@@ -82,7 +82,7 @@
         </div>
         <div class="nav-show">
           <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
-            <router-link to="/goodsList">
+            <router-link :to="{path: '/goodsList', query: { sreachData: '电脑'}}">
               <img :src="item">
             </router-link>
           </div>

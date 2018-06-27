@@ -166,7 +166,7 @@ export default {
       });
     }
   },
-  mounted () {
+  updated () {
     this.price = this.getGoodsDetailBase.price || 0;
   },
   store

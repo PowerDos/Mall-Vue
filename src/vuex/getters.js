@@ -11,14 +11,14 @@ const compare = property => {
 export const goodsInfoByNameFilter = state => {
   const goodsList = [];
   for (const item of state.goodsInfoByName) {
-    console.log(item.goodsAttrs[0].attrPrice);
+    console.log(item.basicPrice);
     const temp = {
       goodsId: item.id,
       goodsName: item.goodsName.substring(0, 39) + '...',
       merchantName: item.merchant.merchantName,
       merchantId: item.merchant.id,
       goodsImgs: item.goodsImgs.split(',')[0],
-      price: item.goodsAttrs[0].attrPrice,
+      price: item.basicPrice,
       salesNum: item.salesNum
     };
     goodsList.push(temp);
@@ -38,7 +38,7 @@ export const merchantItem = state => {
       merchantName: asAll[i].merchant.merchantName,
       merchantId: asAll[i].merchant.id,
       img: asAll[i].goodsImgs.split(',')[0],
-      price: asAll[i].goodsAttrs[0].attrPrice,
+      price: asAll[i].basicPrice,
       sale: asAll[i].salesNum
     };
     asItem.push(temp);
@@ -58,7 +58,7 @@ export const asItem = state => {
       merchantName: asAll[i].merchant.merchantName,
       merchantId: asAll[i].merchant.id,
       goodsImgs: asAll[i].goodsImgs.split(',')[0],
-      price: asAll[i].goodsAttrs[0].attrPrice,
+      price: asAll[i].basicPrice,
       salesNum: asAll[i].salesNum
     };
     asItem.push(temp);
@@ -69,7 +69,7 @@ export const asItem = state => {
 // 获取商品详情基础展示
 export const getGoodsDetailBase = state => {
   const goodsImgs = state.goodsDetail.goodsImgs ? state.goodsDetail.goodsImgs.split(',') : [];
-  const price = state.goodsDetail.goodsAttrs ? state.goodsDetail.goodsAttrs[0].attrPrice : 0;
+  const price = state.goodsDetail.basicPrice;
   const data = {
     goodsImg: goodsImgs,
     goodsId: state.goodsDetail.id || 0,
