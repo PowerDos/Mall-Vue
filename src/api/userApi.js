@@ -60,3 +60,18 @@ export const getShoppingCart = () => {
     url: '/u/cart_list'
   });
 };
+
+// 生成订单
+export const addOrder = (data) => {
+  return post({
+    url: '/u/order_add',
+    data: data
+  });
+};
+
+// 获取订单
+export const getOrder = () => {
+  return post({
+    url: '/u/order_list'
+  });
+};

@@ -1,6 +1,27 @@
 <template>
   <div>
-    <Table border :columns="columns" :data="order" size="large" no-data-text="你还有订单，快点去购物吧"></Table>
+    <div class="order-container" v-for="(item, index) in order" :key="index">
+      <div class="order-header">
+        <h2>订单号: {{item.orderid}}</h2>
+      </div>
+      <div>
+        <p><span class="order-content-title"> 收 货 人 :</span> {{item.name}}</p>
+        <p><span class="order-content-title"> 收货地址 :</span> {{item.address}}</p>
+        <p><span class="order-content-title"> 付款总额 :</span> {{item.price}}</p>
+        <h3>下面是订单详情</h3>
+      </div>
+      <div>
+        <Collapse accordion>
+          <Panel :name="getIndex(index, oIndex)" v-for="(orderDetail, oIndex) in item.orderDetail" :key="oIndex">
+              {{orderDetail.goodsName.substring(0, 50) + '...'}}
+              <p slot="content"><span class="order-content-title"> 商品名称 :</span>{{orderDetail.goodsName}}</p>
+              <p slot="content"><span class="order-content-title"> 商品数量 :</span>{{orderDetail.count}}</p>
+              <p slot="content"><span class="order-content-title"> 商品套餐 :</span>{{orderDetail.attrTitle}}</p>
+              <p slot="content"><span class="order-content-title"> 商品图片 :</span><img :src="orderDetail.img"></p>
+          </Panel>
+      </Collapse>
+      </div>
+    </div>
     <div class="page-size">
       <Page :total="100" show-sizer></Page>
     </div>
@@ -8,81 +29,57 @@
 </template>
 
 <script>
+import store from '@/vuex/store';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'MyOrder',
+  created () {
+    this.getOrder();
+  },
   data () {
     return {
-      order: [{
-        order_id: 1529931938150,
-        goods_id: 1529931938150,
-        count: 1,
-        img: 'static/img/goodsDetail/pack/1.jpg',
-        package: '4.7英寸-深邃蓝',
-        price: 28,
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
-        createAt: '2018-06-06 20:06:08'
-      }],
-      columns: [
-        {
-          title: '订单号',
-          key: 'order_id',
-          width: 180,
-          align: 'center'
-        },
-        {
-          title: '图片',
-          key: 'img',
-          width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
-          align: 'center'
-        },
-        {
-          title: '标题',
-          key: 'title',
-          align: 'center'
-        },
-        {
-          title: '套餐',
-          width: 198,
-          key: 'package',
-          align: 'center'
-        },
-        {
-          title: '数量',
-          key: 'count',
-          width: 68,
-          align: 'center'
-        },
-        {
-          title: '价格',
-          width: 68,
-          key: 'price',
-          align: 'center',
-          render: function (h, params) {
-            return h('span', this.row.price.toFixed(2)); // 这里的this.row能够获取当前行的数据*/
-          }
-        },
-        {
-          title: '购买时间',
-          width: 120,
-          key: 'createAt',
-          align: 'center'
-        }
-      ]
+      action: 999
     };
-  }
+  },
+  computed: {
+    ...mapState(['order'])
+  },
+  methods: {
+    ...mapActions(['getOrder']),
+    getIndex (index1, index2) {
+      let index = index2;
+      for (let i = 0; i < index1; i++) {
+        index += this.order[i].orderDetail.length;
+      }
+      console.log(index);
+      return String(index);
+    }
+  },
+  store
 };
 </script>
 
 <style scoped>
+.order-container {
+  width: 80%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px #ccc;
+}
+.order-header {
+  height: 38px;
+}
+.order-container p {
+  font-size: 14px;
+  line-height: 26px;
+}
+.order-container h3 {
+  line-height: 30px;
+}
+.order-content-title {
+  color: #999;
+}
 .page-size {
   margin: 15px 0px;
   display: flex;

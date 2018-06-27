@@ -111,3 +111,9 @@ export const SET_USER_ADDRESS = (state, data) => {
 export const SET_CHECK_NUM = (state, data) => {
   state.checkNum = data;
 };
+
+// 设置订单信息
+export const SET_USER_ORDER_INFO = (state, data) => {
+  console.log(data);
+  state.order = data;
+};

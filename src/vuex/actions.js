@@ -453,3 +453,28 @@ export const getGoodsByMerchantId = ({ commit }, data) => {
     });
   });
 };
+
+// 生成订单
+export const addOrder = ({ commit }, data) => {
+  return new Promise((resolve, reject) => {
+    userApi.addOrder(data).then(res => {
+      if (res.data.rcode === 0) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// 获取订单
+export const getOrder = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    userApi.getOrder().then(res => {
+      if (res.data.rcode === 0) {
+        commit('SET_USER_ORDER_INFO', res.data.result.data);
+        console.log(res.data);
+      }
+    });
+  });
+};

@@ -25,7 +25,7 @@
                 选择地址
                 <p slot="content">
                   <RadioGroup vertical size="large" @on-change="changeAddress">
-                    <Radio :label="item.addressId" v-for="(item, index) in address" :key="index">
+                    <Radio :label="item.address_id" v-for="(item, index) in address" :key="index">
                       <span>{{item.name}} {{item.province}} {{item.city}} {{item.address}} {{item.phone}} {{item.postalcode}}</span>
                     </Radio>
                   </RadioGroup>
@@ -46,7 +46,7 @@
         <div class="pay-box">
           <p><span>提交订单应付总额：</span> <span class="money"><Icon type="social-yen"></Icon> {{totalPrice.toFixed(2)}}</span></p>
           <div class="pay-btn">
-            <router-link to="/pay"><Button type="error" size="large">支付订单</Button></router-link>
+            <Button type="error" @click="pay" size="large">支付订单</Button>
           </div>
         </div>
       </div>
@@ -118,6 +118,8 @@ export default {
         }
       ],
       checkAddress: {
+        flag: false,
+        index: 999,
         name: '未选择',
         address: '请选择地址'
       },
@@ -135,20 +137,75 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['loadAddress']),
+    ...mapActions(['loadAddress', 'addOrder']),
     select (selection, row) {
-      console.log(selection);
       this.goodsCheckList = selection;
     },
     changeAddress (data) {
       const father = this;
-      this.address.forEach(item => {
-        if (item.addressId === data) {
+      this.address.forEach((item, index) => {
+        if (item.address_id === data) {
+          father.checkAddress.index = index;
+          father.checkAddress.flag = true;
           father.checkAddress.name = item.name;
           father.checkAddress.address = `${item.name} ${item.province} ${item.city} ${item.address} ${item.phone} ${item.postalcode}`;
         }
       });
+    },
+    pay () {
+      if (!this.checkAddress.flag) {
+        this.$Message.error('请选择地址');
+        return false;
+      }
+
+      if (this.goodsCheckList.length <= 0) {
+        this.$Message.error('请选择货物');
+        return false;
+      }
+      console.log(this.remarks);
+      console.log(this.address[this.checkAddress.index]);
+      console.log(this.goodsCheckList);
+      const goodsList = [];
+      let cartId = [];
+      for (const item of this.goodsCheckList) {
+        const goods = {
+          attrId: item.attrId,
+          attrTitle: item.attrTitle,
+          count: item.count,
+          goodsCode: item.goodsCode,
+          goodsId: item.goodsId,
+          img: item.img,
+          merchantId: item.merchantId,
+          price: item.price,
+          goodsName: item.title
+        };
+        cartId.push(item.id);
+        goodsList.push(goods);
+      }
+      const data = {
+        cart: cartId,
+        order: {
+          orderId: '1',
+          name: this.checkAddress.name,
+          address: this.checkAddress.address,
+          addressId: this.address[this.checkAddress.index].address_id,
+          price: this.totalPrice,
+          orderDetail: goodsList
+        }
+      };
+      this.addOrder(data).then(result => {
+        if (result) {
+          this.$router.push('/pay');
+        } else {
+          this.$Message.error('下单失败');
+        }
+      });
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$refs.selection.selectAll(true);
+    }, 500);
   },
   components: {
     Sreach,

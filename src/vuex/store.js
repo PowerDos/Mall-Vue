@@ -19,6 +19,7 @@ export default new Vuex.Store({
       CarouselItems: [], // 轮播图
       activity: [] // 活动
     },
+    order: [], // 订单信息
     seckills: { // 秒杀
       deadline: {
         hours: 0,
