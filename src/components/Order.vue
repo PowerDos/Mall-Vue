@@ -63,6 +63,10 @@ import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 export default {
   name: 'Order',
+  beforeRouteEnter (to, from, next) {
+    window.scrollTo(0, 0);
+    next();
+  },
   created () {
     this.loadAddress();
   },
@@ -146,6 +150,11 @@ export default {
         }
       });
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$refs.selection.selectAll(true);
+    }, 500);
   },
   components: {
     Sreach,

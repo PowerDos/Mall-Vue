@@ -72,6 +72,10 @@ import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 export default {
   name: 'ShoppingCart',
+  beforeRouteEnter (to, from, next) {
+    window.scrollTo(0, 0);
+    next();
+  },
   created () {
     this.loadRecommend();
   },
