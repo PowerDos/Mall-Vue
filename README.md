@@ -6,7 +6,7 @@
 > 项目预览地址(demo)： [https://powerdos.github.io/Mall-Vue/index.html](https://powerdos.github.io/Mall-Vue/index.html "Mall-Vue")
 
 ## 说明
-> **master**分支是单纯的前端项目，**forMallServer**分支为与后端接口结合的前端项目，附后端API项目地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server)
+> **master**分支是单纯的前端项目，**forMallServer**分支为与后端接口结合的前端项目，附后端API项目地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server), 本项目仅供学习参考
 
 
 > master 分支为纯前端项目，所以登陆密码是写死的，体验账号：Gavin,密码： 123456
