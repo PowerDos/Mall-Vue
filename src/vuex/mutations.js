@@ -37,7 +37,10 @@ export const SET_SECKILLS_INFO = (state, seckills) => {
 };
 
 // 设置轮播(营销)图
-export const SET_CAROUSELITEMS_INFO = (state, { carouselItems, activity }) => {
+export const SET_CAROUSELITEMS_INFO = (state, {
+  carouselItems,
+  activity
+}) => {
   state.marketing.CarouselItems = carouselItems;
   state.marketing.activity = activity;
 };
@@ -116,4 +119,16 @@ export const SET_CHECK_NUM = (state, data) => {
 export const SET_USER_ORDER_INFO = (state, data) => {
   console.log(data);
   state.order = data;
+};
+
+// 移除购物车信息
+export const REMOVE_SHOPPING_CART = (state, data) => {
+  for (const item of data) {
+    for (let i = 0; i < state.shoppingCart.length; i++) {
+      if (item === state.shoppingCart[i].id) {
+        state.shoppingCart.splice(i, 1);
+        break;
+      }
+    }
+  }
 };

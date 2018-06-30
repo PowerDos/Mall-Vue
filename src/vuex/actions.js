@@ -460,6 +460,7 @@ export const addOrder = ({ commit }, data) => {
     userApi.addOrder(data).then(res => {
       if (res.data.rcode === 0) {
         resolve(true);
+        commit('REMOVE_SHOPPING_CART', data.cart);
       } else {
         resolve(false);
       }
