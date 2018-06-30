@@ -116,6 +116,18 @@ export default {
         heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
         father.$refs.itemIntroDetail.style.height = heightCss + 'px';
       }, 100);
+      setTimeout(() => {
+        let heightCss = window.getComputedStyle(father.$refs.itemIntroGoods).height;
+        console.log(heightCss);
+        heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
+        father.$refs.itemIntroDetail.style.height = heightCss + 'px';
+      }, 1000);
+      setTimeout(() => {
+        let heightCss = window.getComputedStyle(father.$refs.itemIntroGoods).height;
+        console.log(heightCss);
+        heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
+        father.$refs.itemIntroDetail.style.height = heightCss + 'px';
+      }, 3000);
     });
   },
   components: {
