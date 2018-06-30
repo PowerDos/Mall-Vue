@@ -1,12 +1,12 @@
 # MALL-VUE
 
-> This is a front-end project of an e-commerce website based on VUE + VUEX + iView UI, and the version that (in **forMallServer** branch)，welcome to fork or star
+> This is a front-end project of an e-commerce website based on VUE + VUEX + iView UI, and the version that combines with the backend API server is on **forMallServer** branch，welcome to fork or star
 
 
 > The online demo: [https://powerdos.github.io/Mall-Vue/index.html](https://powerdos.github.io/Mall-Vue/index.html "Mall-Vue")
 
 ## Document
-[中文](https://github.com/PowerDos/Mall-Server/README-ZH.md) | [English](https://github.com/PowerDos/Mall-Server/README.md)
+[中文](https://github.com/PowerDos/Mall-Vue/blob/master/README-ZH.md) | [English](https://github.com/PowerDos/Mall-Vue/blob/master/README.md)
 
 ## Prerequisites
 > The **master** branch is a pure front-end project，and the **forMallServer** branch is a front-end project that combines with the backend API server. The mall api server:[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server)
