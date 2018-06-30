@@ -9,7 +9,7 @@
 > **master**分支是单纯的前端项目，**forMallServer**分支为与后端接口结合的前端项目，附后端API项目地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server)
 
 
-> master 分支为纯前端项目，所以密码是写死的，体验账号：Gavin,密码： 123456
+> master 分支为纯前端项目，所以登陆密码是写死的，体验账号：Gavin,密码： 123456
 
 ## Build Setup
 
@@ -34,7 +34,7 @@ npm run build
 - [x] [确认订单页面 ORDER PAGE](#确认订单页面-order-page)
 - [x] [支付页面 PAY PAGE](#支付页面-pay-page)
 - [x] [购买成功页面 SUCCESS PAGE](#购买成功页面-success-page)
-- [x] [反馈页面 FREEBACK PACE](#反馈页面-freeback-page)
+- [x] [反馈页面 FREEBACK PACE](#%E5%8F%8D%E9%A6%88%E9%A1%B5%E9%9D%A2-freeback-page)
 - [x] [商家店铺页面 MERCHANT PAGE](#商家店铺页面-merchant-page)
 - [x] [用户页面 USER PAGE](#用户页面-user-page)
 
