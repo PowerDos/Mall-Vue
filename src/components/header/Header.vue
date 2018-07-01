@@ -28,7 +28,14 @@
             </p>
             <DropdownMenu slot="list">
                 <div class="my-page">
-                  <router-link to="/home"><Button type="error">我的信息</Button></router-link>
+                  <div class="my-info" @click="myInfo">
+                    <Icon type="home"></Icon>
+                    <p>我的主页</p>
+                  </div>
+                  <div class="sign-out" @click="signOutFun">
+                    <Icon type="log-out"></Icon>
+                    <p>退出登陆</p>
+                  </div>
                 </div>
             </DropdownMenu>
           </Dropdown>
@@ -90,9 +97,12 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'M-Header',
+  created () {
+    this.isLogin();
+  },
   data () {
     return {
       city: '珠海',
@@ -108,11 +118,19 @@ export default {
     ...mapState(['userInfo', 'shoppingCart'])
   },
   methods: {
+    ...mapActions(['signOut', 'isLogin']),
     changeCity (city) {
       this.city = city;
     },
     goToPay () {
       this.$router.push('/order');
+    },
+    myInfo () {
+      this.$router.push('/home');
+    },
+    signOutFun () {
+      this.signOut();
+      this.$router.push('/');
     }
   },
   store
@@ -250,8 +268,8 @@ export default {
   cursor: pointer;
 }
 .my-page {
-  padding: 8px 15px;
-  width: 100%;
+  padding: 3px 5px;
+  width: 180px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -261,5 +279,37 @@ export default {
   margin: 0px;
   padding: 0px;
   border: none;
+}
+.my-info {
+  padding: 5px;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.my-info:hover {
+  box-shadow: 0px 0px 5px #ccc;
+}
+.my-info i {
+  font-size: 28px;
+}
+.my-info p {
+  font-size: 12px;
+}
+.sign-out {
+  padding: 5px;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.sign-out:hover {
+  box-shadow: 0px 0px 5px #ccc;
+}
+.sign-out i {
+  font-size: 28px;
+}
+.sign-out p {
+  font-size: 12px;
 }
 </style>

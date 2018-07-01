@@ -20,7 +20,7 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'InputInfo',
   data () {
@@ -60,12 +60,19 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SIGN_UP_SETP']),
+    ...mapActions(['addSignUpUser']),
     handleSubmit (name) {
       const father = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.$Message.success('注册成功');
-          // this.$Message.success(father.$route.query.phone)
+          const userinfo = {
+            username: this.formValidate.name,
+            password: this.formValidate.password,
+            mail: this.formValidate.mail,
+            phone: this.$route.query.phone
+          };
+          this.addSignUpUser(userinfo);
           father.SET_SIGN_UP_SETP(2);
           this.$router.push({ path: '/SignUp/signUpDone' });
         } else {
