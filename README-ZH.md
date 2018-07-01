@@ -1,4 +1,9 @@
 # MALL-VUE
+[![Build Status](https://travis-ci.com/PowerDos/Mall-Vue.svg?branch=master)](https://travis-ci.com/PowerDos/Mall-Vue)
+[![VueJS Version](https://img.shields.io/badge/VueJS-v2.5-green.svg?style=flat-square)](https://vuejs.org/)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Read the Docs (version)](https://img.shields.io/readthedocs/pip/stable.svg)](https://github.com/PowerDos/Mall-Vue)
+[![status](https://img.shields.io/badge/Mall--Vue-maintain-brightgreen.svg)](https://standardjs.com)
 
 > 这是一个基于VUE + VUEX + iView做的一个电商网站前端项目, 附带前后端分离实现版本(在**forMallServer**分支)，欢迎fork或star
 
