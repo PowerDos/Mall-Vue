@@ -5,6 +5,9 @@
 
 > 项目预览地址(demo)： [https://powerdos.github.io/Mall-Vue/index.html](https://powerdos.github.io/Mall-Vue/index.html "Mall-Vue")
 
+## Document
+[中文](https://github.com/PowerDos/Mall-Vue/blob/master/README-ZH.md) | [English](https://github.com/PowerDos/Mall-Vue/blob/master/README.md)
+
 ## 说明
 > **master**分支是单纯的前端项目，**forMallServer**分支为与后端接口结合的前端项目，附后端API项目地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server), 本项目仅供学习参考
 
