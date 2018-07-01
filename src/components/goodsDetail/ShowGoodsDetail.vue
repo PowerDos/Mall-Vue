@@ -107,27 +107,26 @@ export default {
   computed: {
     ...mapState(['goodsInfo'])
   },
+  methods: {
+    changeHeight () {
+      let heightCss = window.getComputedStyle(this.$refs.itemIntroGoods).height;
+      console.log(heightCss);
+      heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
+      this.$refs.itemIntroDetail.style.height = heightCss + 'px';
+    }
+  },
   updated () {
     this.$nextTick(() => {
-      const father = this;
-      setTimeout(() => {
-        let heightCss = window.getComputedStyle(father.$refs.itemIntroGoods).height;
-        console.log(heightCss);
-        heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
-        father.$refs.itemIntroDetail.style.height = heightCss + 'px';
-      }, 100);
-      setTimeout(() => {
-        let heightCss = window.getComputedStyle(father.$refs.itemIntroGoods).height;
-        console.log(heightCss);
-        heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
-        father.$refs.itemIntroDetail.style.height = heightCss + 'px';
-      }, 1000);
-      setTimeout(() => {
-        let heightCss = window.getComputedStyle(father.$refs.itemIntroGoods).height;
-        console.log(heightCss);
-        heightCss = parseInt(heightCss.substr(0, heightCss.length - 2)) + 89;
-        father.$refs.itemIntroDetail.style.height = heightCss + 'px';
-      }, 3000);
+      setTimeout(this.changeHeight, 100);
+      setTimeout(this.changeHeight, 1000);
+      setTimeout(this.changeHeight, 3000);
+      setTimeout(this.changeHeight, 5000);
+      setTimeout(this.changeHeight, 10000);
+      setTimeout(this.changeHeight, 15000);
+      setTimeout(this.changeHeight, 20000);
+      setTimeout(this.changeHeight, 25000);
+      setTimeout(this.changeHeight, 30000);
+      setTimeout(this.changeHeight, 50000);
     });
   },
   components: {
