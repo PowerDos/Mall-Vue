@@ -1,9 +1,4 @@
 # MALL-VUE
-<p align="center">
-[![Build Status](https://travis-ci.com/PowerDos/Mall-Vue.svg?branch=master)](https://travis-ci.com/PowerDos/Mall-Vue)
-[![VueJS Version](https://img.shields.io/badge/VueJS-v2.5-green.svg?style=flat-square)](https://vuejs.org/)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-</p>
 [![Build Status](https://travis-ci.com/PowerDos/Mall-Vue.svg?branch=master)](https://travis-ci.com/PowerDos/Mall-Vue)
 [![VueJS Version](https://img.shields.io/badge/VueJS-v2.5-green.svg?style=flat-square)](https://vuejs.org/)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
