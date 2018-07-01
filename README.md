@@ -2,6 +2,8 @@
 <p align="center">
 [![VueJS Version](https://img.shields.io/badge/VueJS-v2.5-green.svg?style=flat-square)](https://vuejs.org/) [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](https://github.com/PowerDos/Mall-Vue/blob/master/LICENSE) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 </p>
+[![Build Status](https://travis-ci.com/PowerDos/Mall-Vue.svg?branch=master)](https://travis-ci.com/PowerDos/Mall-Vue)
+[![VueJS Version](https://img.shields.io/badge/VueJS-v2.5-green.svg?style=flat-square)](https://vuejs.org/) [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](https://github.com/PowerDos/Mall-Vue/blob/master/LICENSE) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > This is a front-end project of an e-commerce website based on VUE + VUEX + iView UI, and the version that combines with the backend API server is on **forMallServer** branch，welcome to fork or star
 
