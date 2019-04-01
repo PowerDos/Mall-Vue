@@ -92,3 +92,5 @@ npm run build
 
 ### 注册 SIGNUP PAGE
 ![注册页面](https://i.imgur.com/no4Cb65.png)
+
+以上就是该商城项目基本内容，原对各位君有所帮助。。。
