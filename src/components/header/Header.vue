@@ -34,7 +34,7 @@
                   </div>
                   <div class="sign-out" @click="signOutFun">
                     <Icon type="log-out"></Icon>
-                    <p>退出登陆</p>
+                    <p>退出登录</p>
                   </div>
                 </div>
             </DropdownMenu>
