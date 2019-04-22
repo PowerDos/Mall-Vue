@@ -1,5 +1,5 @@
 <template>
-<!-- 登陆页面 -->
+<!-- 登录页面 -->
   <div>
     <Row class="container">
       <i-col span="13" offset="2" class="login-img-box">
@@ -8,7 +8,7 @@
       <i-col span="7" class="login-box">
         <div class="login-container">
           <div class="login-header">
-            <p>欢迎登陆</p>
+            <p>欢迎登录</p>
           </div>
           <div class="form-box">
             <Form ref="formInline" :model="formDate" :rules="ruleInline">
@@ -23,7 +23,7 @@
                   </i-input>
               </FormItem>
               <FormItem>
-                  <Button type="error" size="large" @click="handleSubmit('formInline')" long>登陆</Button>
+                  <Button type="error" size="large" @click="handleSubmit('formInline')" long>登录</Button>
               </FormItem>
           </Form>
           </div>
@@ -67,7 +67,7 @@ export default {
         if (valid) {
           this.login(father.formDate).then(result => {
             if (result) {
-              this.$Message.success('登陆成功');
+              this.$Message.success('登录成功');
               father.$router.push('/');
             } else {
               this.$Message.error('用户名或密码错误');

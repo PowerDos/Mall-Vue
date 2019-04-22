@@ -30,7 +30,7 @@ export default new Router({
       component: Index
     },
     {
-      path: '/Login', // 登陆
+      path: '/Login', // 登录
       name: 'Login',
       component: Login
     },
