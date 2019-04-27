@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sreach></Sreach>
+    <Search></Search>
     <GoodsListNav></GoodsListNav>
     <!-- 添加成功提示 -->
     <div class="add-info-box-container">
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Sreach from '@/components/Sreach';
+import Search from '@/components/Search';
 import GoodsListNav from '@/components/nav/GoodsListNav';
 import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
@@ -86,7 +86,7 @@ export default {
     ...mapActions(['loadRecommend'])
   },
   components: {
-    Sreach,
+    Search,
     GoodsListNav,
     Footer
   },

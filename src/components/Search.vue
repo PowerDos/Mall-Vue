@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Sreach',
+  name: 'Search',
   data () {
     return {
       sreachData: '',
