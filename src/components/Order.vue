@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sreach></Sreach>
+    <Search></Search>
     <GoodsListNav></GoodsListNav>
     <div class="goods-list-container">
       <Alert show-icon class="tips-box">
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import Sreach from '@/components/Sreach';
+import Search from '@/components/Search';
 import GoodsListNav from '@/components/nav/GoodsListNav';
 import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
@@ -157,7 +157,7 @@ export default {
     }, 500);
   },
   components: {
-    Sreach,
+    Search,
     GoodsListNav,
     Footer
   },

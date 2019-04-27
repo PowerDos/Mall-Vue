@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Sreach></Sreach>
+    <Search></Search>
     <HomeNav></HomeNav>
     <!-- 商品显示区域 -->
     <div class="content">
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import Sreach from '@/components/Sreach';
+import Search from '@/components/Search';
 import HomeNav from '@/components/nav/HomeNav';
 import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
@@ -159,7 +159,7 @@ export default {
     ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds' ])
   },
   components: {
-    Sreach,
+    Search,
     HomeNav,
     Footer
   },
