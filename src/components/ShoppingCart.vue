@@ -60,14 +60,12 @@
         </div>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Search from '@/components/Search';
 import GoodsListNav from '@/components/nav/GoodsListNav';
-import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 export default {
@@ -87,8 +85,7 @@ export default {
   },
   components: {
     Search,
-    GoodsListNav,
-    Footer
+    GoodsListNav
   },
   store
 };
