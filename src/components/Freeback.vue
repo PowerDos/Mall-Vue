@@ -29,10 +29,12 @@
         </div>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import Footer from '@/components/footer/Footer';
 export default {
   name: 'Freeback',
   data () {
@@ -42,6 +44,9 @@ export default {
         content: ''
       }
     };
+  },
+  components: {
+    Footer
   }
 };
 </script>

@@ -16,6 +16,7 @@
     <ShowGoods></ShowGoods>
     <!-- 商品详细展示 -->
     <ShowGoodsDetail></ShowGoodsDetail>
+    <Footer></Footer>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
@@ -24,6 +25,7 @@
 import Search from '@/components/Search';
 import GoodsDetailNav from '@/components/nav/GoodsDetailNav';
 import ShopHeader from '@/components/header/ShopHeader';
+import Footer from '@/components/footer/Footer';
 import ShowGoods from '@/components/goodsDetail/ShowGoods';
 import ShowGoodsDetail from '@/components/goodsDetail/ShowGoodsDetail';
 import store from '@/vuex/store';
@@ -53,7 +55,8 @@ export default {
     ShopHeader,
     GoodsDetailNav,
     ShowGoods,
-    ShowGoodsDetail
+    ShowGoodsDetail,
+    Footer
   },
   store
 };

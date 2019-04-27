@@ -30,10 +30,12 @@
         </div>
       </i-col>
     </Row>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
 import { mapMutations, mapActions } from 'vuex';
 export default {
@@ -76,6 +78,9 @@ export default {
         }
       });
     }
+  },
+  components: {
+    Footer
   },
   store
 };

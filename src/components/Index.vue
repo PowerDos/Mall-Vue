@@ -120,12 +120,14 @@
         </div>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Search from '@/components/Search';
 import HomeNav from '@/components/nav/HomeNav';
+import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
@@ -158,7 +160,8 @@ export default {
   },
   components: {
     Search,
-    HomeNav
+    HomeNav,
+    Footer
   },
   destroyed () {
     clearInterval(this.setIntervalObj);

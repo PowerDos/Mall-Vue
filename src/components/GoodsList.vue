@@ -74,6 +74,7 @@
         <Page :total="100" show-sizer></Page>
       </div>
     </div>
+    <Footer></Footer>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
@@ -82,6 +83,7 @@
 import Search from '@/components/Search';
 import GoodsListNav from '@/components/nav/GoodsListNav';
 import GoodsClassNav from '@/components/nav/GoodsClassNav';
+import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
@@ -127,7 +129,8 @@ export default {
   components: {
     Search,
     GoodsListNav,
-    GoodsClassNav
+    GoodsClassNav,
+    Footer
   },
   store
 };

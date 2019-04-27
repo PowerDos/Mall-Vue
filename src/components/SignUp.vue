@@ -31,7 +31,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapMutations } from 'vuex';
-
+import Footer from '@/components/footer/Footer';
 export default {
   name: 'SignUp',
   data () {
@@ -48,6 +48,9 @@ export default {
   store,
   mounted () {
     this.SET_SIGN_UP_SETP(0);
+  },
+  components: {
+    Footer
   }
 };
 </script>

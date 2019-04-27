@@ -103,7 +103,7 @@ export default new Router({
       children: [
         {
           path: '/',
-          name: 'HomeIndex',
+          name: 'index',
           component: MyOrder
         },
         {
