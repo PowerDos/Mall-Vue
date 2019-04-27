@@ -3,17 +3,12 @@
     <div class="pay-done-box">
       <img src="static/img/pay-success.png">
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import Footer from '@/components/footer/Footer';
 export default {
-  name: 'PayDone',
-  components: {
-    Footer
-  }
+  name: 'PayDone'
 };
 </script>
 

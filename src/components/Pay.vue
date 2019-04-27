@@ -18,17 +18,12 @@
         </div>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import Footer from '@/components/footer/Footer';
 export default {
-  name: 'Pay',
-  components: {
-    Footer
-  }
+  name: 'Pay'
 };
 </script>
 

@@ -25,13 +25,11 @@
         <Page :total="100" show-sizer></Page>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import ShopHeader from '@/components/header/ShopHeader';
-import Footer from '@/components/footer/Footer';
 import store from '@/vuex/store';
 import { mapGetters, mapActions } from 'vuex';
 export default {
@@ -46,8 +44,7 @@ export default {
     ...mapActions(['loadGoodsList'])
   },
   components: {
-    ShopHeader,
-    Footer
+    ShopHeader
   },
   store
 };
