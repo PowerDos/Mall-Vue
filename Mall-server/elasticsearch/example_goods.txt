@@ -1,0 +1,128 @@
+{
+  "example_goods" : {
+    "aliases" : { },
+    "mappings" : {
+      "properties" : {
+        "@timestamp" : {
+          "type" : "date"
+        },
+        "@version" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "attribute_id_list" : {
+          "type" : "text",
+          "index" : false
+        },
+        "category_id" : {
+          "type" : "long",
+          "index" : false
+        },
+        "comment" : {
+          "type" : "long",
+          "index" : false
+        },
+        "created_by" : {
+          "type" : "text",
+          "index" : false
+        },
+        "created_time" : {
+          "type" : "date",
+          "index" : false
+        },
+        "discount_id_list" : {
+          "type" : "text",
+          "index" : false
+        },
+        "id" : {
+          "type" : "long",
+          "index" : false
+        },
+        "img" : {
+          "type" : "text",
+          "index" : false
+        },
+        "intro" : {
+          "type" : "text",
+          "analyzer" : "ik_max_word"
+        },
+        "lowest_price" : {
+          "type" : "float",
+          "index" : false
+        },
+        "name" : {
+          "type" : "text",
+          "analyzer" : "ik_max_word"
+        },
+        "product_detail_img" : {
+          "type" : "text",
+          "index" : false
+        },
+        "promotion_id_list" : {
+          "type" : "text",
+          "index" : false
+        },
+        "remarks_id" : {
+          "type" : "long",
+          "index" : false
+        },
+        "revision" : {
+          "type" : "long",
+          "index" : false
+        },
+        "sale" : {
+          "type" : "long",
+          "index" : false
+        },
+        "shop_id" : {
+          "type" : "long",
+          "index" : false
+        },
+        "shop_name" : {
+          "type" : "text",
+          "index" : false
+        },
+        "specs_id_list" : {
+          "type" : "text",
+          "index" : false
+        },
+        "status" : {
+          "type" : "long",
+          "index" : false
+        },
+        "updated_by" : {
+          "type" : "text",
+          "index" : false
+        },
+        "updated_time" : {
+          "type" : "date",
+          "index" : false
+        }
+      }
+    },
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "1",
+        "provided_name" : "example_goods",
+        "creation_date" : "1587202147436",
+        "analysis" : {
+          "analyzer" : {
+            "ik" : {
+              "tokenizer" : "ik_max_word"
+            }
+          }
+        },
+        "number_of_replicas" : "1",
+        "uuid" : "_tN9FOMBTDG7Kh9_ACxWMg",
+        "version" : {
+          "created" : "7060199"
+        }
+      }
+    }
+  }
+}

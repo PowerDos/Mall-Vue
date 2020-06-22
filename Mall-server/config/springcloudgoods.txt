@@ -1,0 +1,19 @@
+server.port = 8003
+###服务名称(服务注册到eureka名称)
+spring.application.name = spring-cloud-goods
+###服务注册到eureka地址
+eureka.client.service-url.defaultZone = http://127.0.0.1:8080/eureka
+###注册到eureka
+eureka.client.register-with-eureka = true
+###从eureka上获取注册信息
+###
+###swagger2 API扫包
+swagger.base-package = com.example.goods.api
+###mybatis日志
+#logging.level.com.example.mapper=DEBUG
+###datasource
+spring.datasource.driver-class-name = com.mysql.cj.jdbc.Driver
+spring.datasource.url = jdbc:mysql://127.0.0.1:3306/example_goods?useUnicode=true&characterEncoding=utf8
+spring.datasource.username = root
+spring.datasource.password = root
+mybatis.configuration.map-underscore-to-camel-case = true

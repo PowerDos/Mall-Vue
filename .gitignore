@@ -13,3 +13,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 package-lock.json
+
+*.iml
+**/target
