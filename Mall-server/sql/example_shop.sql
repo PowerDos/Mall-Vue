@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 22/06/2020 17:28:27
+ Date: 24/06/2020 16:31:12
 */
 
 SET NAMES utf8mb4;
@@ -27,5 +27,19 @@ CREATE TABLE `example_shop`  (
   `hot_goods_id_list` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`shop_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of example_shop
+-- ----------------------------
+INSERT INTO `example_shop` VALUES (1, '奥克斯百润专卖店', '1');
+INSERT INTO `example_shop` VALUES (2, '海尔官方旗舰店', '1');
+INSERT INTO `example_shop` VALUES (3, '美的专卖店', '1');
+INSERT INTO `example_shop` VALUES (4, '海尔统帅旗舰店', '1');
+INSERT INTO `example_shop` VALUES (5, '美的冰箱旗舰店', '1');
+INSERT INTO `example_shop` VALUES (6, '长虹洗衣机专卖店', '1');
+INSERT INTO `example_shop` VALUES (7, '美的洗衣机旗舰店', '1');
+INSERT INTO `example_shop` VALUES (8, '小米官方旗舰店', '1');
+INSERT INTO `example_shop` VALUES (9, '小天鹅官方旗舰店', '1');
+INSERT INTO `example_shop` VALUES (10, '西门子销售专卖店', '1');
 
 SET FOREIGN_KEY_CHECKS = 1;
