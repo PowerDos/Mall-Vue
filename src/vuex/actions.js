@@ -1,55 +1,148 @@
+import axios from 'axios';
+// import {use} from "iview/dist/locale";
 // 获取秒杀数据
-export const loadSeckillsInfo = ({ commit }) => {
+export const loadSeckillsInfo = ({commit}) => {
   return new Promise((resolve, reject) => {
-    const data = [
+    let failData = [];
+    let failTime = {
+      hours: 0,
+      minute: 0,
+      seconds: 0
+    };
+    axios({
+      method: 'get',
+      url: '/seckill/loadSecKillInfo'
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let seckillTime = responseData.seckillInfo.time;
+          let seckillGoods = responseData.seckillInfo.seckillGoods;
+          let seckillType = responseData.seckillInfo.type;
+          commit('SET_SECKILLS_INFO', [seckillGoods, seckillTime]);
+          resolve(seckillType);
+        } else {
+          commit('SET_SECKILLS_INFO', [failData, failTime]);
+          resolve('');
+        }
+      })
+      .catch(function (e) {
+        commit('SET_SECKILLS_INFO', [failData, failTime]);
+        resolve('');
+      });
+  });
+};
+
+// 获取商品分类数据
+export const loadCategories = () => {
+  return new Promise((resolve, reject) => {
+    const failData = [
       {
-        intro: '【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱',
-        img: 'static/img/index/seckill/seckill-item1.jpg',
-        price: 71.9,
-        realPrice: 89.6
-      },
-      {
-        intro: 'Kindle Paperwhite 全新升级版6英寸护眼非反光电子墨水',
-        img: 'static/img/index/seckill/seckill-item2.jpg',
-        price: 989.0,
-        realPrice: 1299.0
-      },
-      {
-        intro: '粮悦 大吃兄糯米锅巴 安徽特产锅巴糯米原味400g*2盒',
-        img: 'static/img/index/seckill/seckill-item3.jpg',
-        price: 21.8,
-        realPrice: 49.0
-      },
-      {
-        intro: '【京东超市】清风（APP）抽纸 原木纯品金装系列 3层',
-        img: 'static/img/index/seckill/seckill-item4.jpg',
-        price: 49.9,
-        realPrice: 59.0
-      },
-      {
-        intro: 'NIKE耐克 男子休闲鞋 AIR MAX 90 ESSENTIAL 气垫',
-        img: 'static/img/index/seckill/seckill-item5.jpg',
-        price: 559.9,
-        realPrice: 759.9
+        type: '加载失败，请稍重试',
+        detail: {}
       }
     ];
-    const date = new Date();
-    const hours = date.getHours();
-    const minute = date.getMinutes();
-    const seconds = date.getSeconds();
-    console.log([hours, minute, seconds]);
-    // 距离开始秒杀时间
-    const deadline = {
-      hours: 1,
-      minute: 38,
-      seconds: 36
-    };
-    commit('SET_SECKILLS_INFO', [data, deadline]);
+    axios({
+      method: 'get',
+      url: '/goods/getGoodsCategories'
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let data = responseData.categoriesInfo;
+          resolve(data);
+        } else {
+          resolve([]);
+        }
+      })
+      .catch(function (e) {
+        resolve(failData);
+      });
+  });
+};
+
+// 获取商品属性数据
+export const loadAttributes = ({commit}, categoryId) => {
+  return new Promise((resolve, reject) => {
+    const failData = [
+      {
+        tagName: '加载失败..请稍后刷新页面重试',
+        tags: ['加载失败..请稍后刷新页面重试']
+      }
+    ];
+    axios({
+      method: 'get',
+      url: '/goods/getGoodsAttributes',
+      headers: {categoryId: categoryId}
+      // params: {}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let data = responseData.attributesInfo;
+          resolve(data);
+        } else {
+          resolve(failData);
+        }
+      })
+      .catch(function (e) {
+        resolve(failData);
+      });
+  });
+};
+
+// 创建订单
+export const prePayAction = ({commit}, payList) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'post',
+      url: '/order/prePay',
+      data: JSON.stringify({
+        payList: payList,
+        couponIdList: [],
+        payChannelBean: 'aliPayTest'
+      }),
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let payToken = responseData.payToken;
+          commit('SET_PAY_TOKEN', payToken);
+        }
+      });
+  });
+};
+
+// 支付完成后查询支付状态
+export const queryPayStatue = ({commit}, payData) => {
+  return new Promise((resolve, reject) => {
+    let failData = 'networkErr';
+    axios({
+      method: 'post',
+      url: '/order/queryPayStatue',
+      data: payData.params,
+      headers: {'payToken': payData.payToken}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.msg;
+        if (responseCode === '200') {
+          resolve(responseData);
+        }
+      })
+      .catch(function (e) {
+        resolve(failData);
+      });
   });
 };
 
 // 获取轮播(营销)图片
-export const loadCarouselItems = ({ commit }) => {
+export const loadCarouselItems = ({commit}) => {
   return new Promise((resolve, reject) => {
     const data = {
       carouselItems: [
@@ -69,11 +162,11 @@ export const loadCarouselItems = ({ commit }) => {
 };
 
 // 加载电脑专栏数据
-export const loadComputer = ({ commit }) => {
+export const loadComputer = ({commit}) => {
   return new Promise((resolve, reject) => {
     const computer = {
       title: '电脑数码',
-      link: [ '电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊' ],
+      link: ['电脑馆', '游戏极品', '装机大师', '职场焕新', '女神频道', '虚拟现实', '二合一平板', '电子教育', '万物周刊'],
       detail: [
         {
           bigImg: 'static/img/index/computer/item-computer-1.jpg',
@@ -142,11 +235,11 @@ export const loadComputer = ({ commit }) => {
 };
 
 // 加载爱吃专栏数据
-export const loadEat = ({ commit }) => {
+export const loadEat = ({commit}) => {
   return new Promise((resolve, reject) => {
     const eat = {
       title: '爱吃',
-      link: [ '休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃' ],
+      link: ['休闲零食', '坚果', '牛奶', '饮料冲调', '食用油', '大米', '白酒', '红酒', '烧烤食材', '牛排', '樱桃'],
       detail: [
         {
           bigImg: 'static/img/index/eat/item-eat-1-1.jpg',
@@ -215,213 +308,102 @@ export const loadEat = ({ commit }) => {
 };
 
 // 请求获得商品详细信息
-export const loadGoodsInfo = ({ commit }) => {
+export const loadGoodsInfo = ({commit}, productId) => {
+  commit('SET_LOAD_STATUS', true);
+  return new Promise(() => {
+    const failData = {
+      goodsImg: [],
+      title: '',
+      tags: [],
+      discount: [],
+      promotion: [],
+      remarksNum: 0,
+      setMeal: [],
+      hot: [],
+      goodsDetail: [],
+      param: [],
+      remarks: {}
+    };
+    axios({
+      method: 'get',
+      url: '/goods/getGoodDetail',
+      headers: {productId: productId}
+      // params: {}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let data = responseData.goodDetail;
+          // data.goodsImg = [
+          //   'static/img/goodsDetail/item-detail-1.jpg',
+          //   'static/img/goodsDetail/item-detail-2.jpg',
+          //   'static/img/goodsDetail/item-detail-3.jpg',
+          //   'static/img/goodsDetail/item-detail-4.jpg'
+          // ];
+          commit('SET_GOODS_INFO', data);
+          commit('SET_LOAD_STATUS', false);
+        } else {
+          commit('SET_GOODS_INFO', failData);
+          commit('SET_LOAD_STATUS', false);
+        }
+      })
+      .catch(function (e) {
+        commit('SET_GOODS_INFO', failData);
+        commit('SET_LOAD_STATUS', false);
+      });
+  });
+};
+
+export const loadSeckillGoodsInfo = ({commit}, seckillId) => {
   commit('SET_LOAD_STATUS', true);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = {
-        goodsImg: [
-          'static/img/goodsDetail/item-detail-1.jpg',
-          'static/img/goodsDetail/item-detail-2.jpg',
-          'static/img/goodsDetail/item-detail-3.jpg',
-          'static/img/goodsDetail/item-detail-4.jpg'
-        ],
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
-        tags: ['满69-20元', '关注产品★送钢化膜', 'BIT配次日达'],
-        discount: ['满148减10', '满218减20', '满288减30'],
-        promotion: ['跨店满减', '多买优惠'],
-        remarksNum: 6000,
-        setMeal: [
-          [
-            {
-              img: 'static/img/goodsDetail/pack/1.jpg',
-              intro: '4.7英寸-深邃蓝',
-              price: 28.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/2.jpg',
-              intro: '4.7英寸-星空黑',
-              price: 29.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/3.jpg',
-              intro: '5.5英寸-香槟金',
-              price: 28.5
-            }
-          ],
-          [
-            {
-              img: 'static/img/goodsDetail/pack/4.jpg',
-              intro: '5.5英寸-玫瑰金',
-              price: 32.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/5.jpg',
-              intro: '5.5英寸-深邃蓝',
-              price: 32.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/6.jpg',
-              intro: '5.5英寸-星空黑',
-              price: 35.0
-            }
-          ],
-          [
-            {
-              img: 'static/img/goodsDetail/pack/7.jpg',
-              intro: '4.7英寸-香槟金',
-              price: 26.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/8.jpg',
-              intro: '4.7英寸-玫瑰金',
-              price: 25.0
-            },
-            {
-              img: 'static/img/goodsDetail/pack/9.jpg',
-              intro: '4.7英寸-中国红',
-              price: 28.0
-            }
-          ]
-        ],
-        hot: [
-          {
-            img: 'static/img/goodsDetail/hot/1.jpg',
-            price: 28.0,
-            sale: 165076
-          },
-          {
-            img: 'static/img/goodsDetail/hot/2.jpg',
-            price: 36.0,
-            sale: 135078
-          },
-          {
-            img: 'static/img/goodsDetail/hot/3.jpg',
-            price: 38.0,
-            sale: 105073
-          },
-          {
-            img: 'static/img/goodsDetail/hot/4.jpg',
-            price: 39.0,
-            sale: 95079
-          },
-          {
-            img: 'static/img/goodsDetail/hot/5.jpg',
-            price: 25.0,
-            sale: 5077
-          },
-          {
-            img: 'static/img/goodsDetail/hot/6.jpg',
-            price: 20.0,
-            sale: 3077
-          }
-        ],
-        goodsDetail: [
-          'static/img/goodsDetail/intro/1.jpg',
-          'static/img/goodsDetail/intro/2.jpg',
-          'static/img/goodsDetail/intro/3.jpg',
-          'static/img/goodsDetail/intro/4.jpg'
-        ],
-        param: [
-          {
-            title: '商品名称',
-            content: 'iPhone 7手机壳'
-          },
-          {
-            title: '商品编号',
-            content: '10435663237'
-          },
-          {
-            title: '店铺',
-            content: 'Gavin Shop'
-          },
-          {
-            title: '商品毛重',
-            content: '100.00g'
-          },
-          {
-            title: '商品产地',
-            content: '中国大陆'
-          },
-          {
-            title: '机型',
-            content: 'iPhone 7'
-          },
-          {
-            title: '材质',
-            content: 'PC/塑料'
-          },
-          {
-            title: '款式',
-            content: '软壳'
-          },
-          {
-            title: '适用人群',
-            content: '通用'
-          }
-        ],
-        remarks: {
-          goodAnalyse: 90,
-          remarksTags: [ '颜色可人', '实惠优选', '严丝合缝', '极致轻薄', '质量没话说', '比定做还合适', '完美品质', '正品行货', '包装有档次', '不容易发热', '已经买第二个', '是全覆盖' ],
-          remarksNumDetail: [ 2000, 3000, 900, 1 ],
-          detail: [
-            {
-              username: 'p****1',
-              values: 3,
-              content: '颜色很好看，质量也不错！，还送了个指环，想不到哦！',
-              goods: '4.7英寸-深邃蓝',
-              create_at: '2018-05-15 09:20'
-            },
-            {
-              username: '13****1',
-              values: 5,
-              content: '手感没的说，是硬壳，后背带有磨砂手感。很不错，很喜欢，还加送了钢化膜，支架环，物超所值，准备再买一个。很满意。物流很快。很愉快的一次购物！',
-              goods: '5.5英寸-玫瑰金',
-              create_at: '2018-05-13 15:23'
-            },
-            {
-              username: '3****z',
-              values: 4.5,
-              content: '相当轻薄，店家还送了一大堆配件，*元非常值得！',
-              goods: '4.7英寸-玫瑰金',
-              create_at: '2018-05-05 12:25'
-            },
-            {
-              username: 'gd****c',
-              values: 3.5,
-              content: '就是我想要的手机壳，壳子很薄，手感不错，就像没装手机壳一样，想要裸机手感的赶快下手了。',
-              goods: '4.7英寸-中国红',
-              create_at: '2018-04-06 16:23'
-            },
-            {
-              username: 'r****b',
-              values: 4.5,
-              content: '壳子还不错，送的膜也可以，不过还是感觉膜小了那么一点，屏幕没法完全覆盖。对了，壳子稍微有点硬，可能会伤漆，所以不要频繁取壳就好。',
-              goods: '4.7英寸-中国红',
-              create_at: '2018-03-15 19:24'
-            },
-            {
-              username: 'd****e',
-              values: 5,
-              content: '磨砂的，相当漂亮，尺寸非常合适！精工细作！',
-              goods: '5.5英寸-星空黑',
-              create_at: '2018-03-10 10:13'
-            }
-          ]
+    const failData = {
+      goodsImg: [],
+      title: '',
+      tags: [],
+      discount: [],
+      promotion: [],
+      remarksNum: 0,
+      setMeal: [],
+      hot: [],
+      goodsDetail: [],
+      param: [],
+      remarks: {}
+    };
+    axios({
+      method: 'get',
+      url: '/seckill/SecKillDetail',
+      headers: {secKillId: seckillId}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let data = responseData.goodDetail;
+          console.log(data);
+          commit('SET_GOODS_INFO', data);
+          commit('SET_LOAD_STATUS', false);
+          resolve();
+        } else {
+          commit('SET_GOODS_INFO', failData);
+          commit('SET_LOAD_STATUS', false);
         }
-      };
-      commit('SET_GOODS_INFO', data);
-      commit('SET_LOAD_STATUS', false);
-    }, 300);
+      })
+      .catch(function (e) {
+        commit('SET_GOODS_INFO', failData);
+        commit('SET_LOAD_STATUS', false);
+      });
   });
 };
 
 // 获取商品列表
-export const loadGoodsList = ({ commit }) => {
+export const loadGoodsList = ({commit}, categoryId) => {
   commit('SET_LOAD_STATUS', true);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const data = {
+      let data = {
+        // 广告信息
         asItems: [
           {
             img: 'static/img/goodsList/item-as-img-1.jpg',
@@ -429,189 +411,172 @@ export const loadGoodsList = ({ commit }) => {
             intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
             num: 3140,
             sale: 9000
-          },
-          {
-            img: 'static/img/goodsList/item-as-img-2.jpg',
-            price: 36.6,
-            intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-            num: 6160,
-            sale: 8900
-          },
-          {
-            img: 'static/img/goodsList/item-as-img-1.jpg',
-            price: 38.6,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-            num: 9160,
-            sale: 8800
-          },
-          {
-            img: 'static/img/goodsList/item-as-img-2.jpg',
-            price: 35.6,
-            intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-            num: 6160,
-            sale: 7990
-          },
-          {
-            img: 'static/img/goodsList/item-as-img-1.jpg',
-            price: 38.6,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
-            num: 9160,
-            sale: 7600
-          },
-          {
-            img: 'static/img/goodsList/item-as-img-2.jpg',
-            price: 35.6,
-            intro: '狮普 苹果7/7 Plus手机壳 电镀 超薄 全包 防摔 保护外',
-            num: 6160,
-            sale: 6900
           }
         ],
+        // 商品信息
         goodsList: [
           {
-            img: 'static/img/goodsList/item-show-1.jpg',
-            price: 36.60,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬壳男女磨砂防摔 火影红(苹',
-            remarks: 6160,
-            shopName: '元亨利配件专营店',
-            sale: 9900
-          },
-          {
-            img: 'static/img/goodsList/item-show-2.jpg',
-            price: 28.00,
-            intro: '蒙奇奇 苹果6s手机壳磨砂防摔保护套 适用于iphone6/6s/6sPlus/6plus 6/6s 4.7英',
-            remarks: 3000,
-            shopName: 'monqiqi旗舰店',
-            sale: 9600
-          },
-          {
-            img: 'static/img/goodsList/item-show-3.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 2800,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 8900
-          },
-          {
-            img: 'static/img/goodsList/item-show-4.jpg',
-            price: 29.90,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 9000,
-            shopName: '歌乐力手配专营店',
-            sale: 8600
-          },
-          {
-            img: 'static/img/goodsList/item-show-5.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 6160,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 8560
-          },
-          {
-            img: 'static/img/goodsList/item-show-6.jpg',
-            price: 28.00,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 9006,
-            shopName: '歌乐力手配专营店',
-            sale: 8530
-          },
-          {
-            img: 'static/img/goodsList/item-show-7.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 8666,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 8360
-          },
-          {
-            img: 'static/img/goodsList/item-show-8.jpg',
-            price: 29.90,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 6080,
-            shopName: '歌乐力手配专营店',
-            sale: 7560
-          },
-          {
-            img: 'static/img/goodsList/item-show-1.jpg',
-            price: 36.60,
-            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬壳男女磨砂防摔 火影红(苹',
-            remarks: 6160,
-            shopName: '元亨利配件专营店',
-            sale: 7360
-          },
-          {
-            img: 'static/img/goodsList/item-show-2.jpg',
-            price: 28.00,
-            intro: '蒙奇奇 苹果6s手机壳磨砂防摔保护套 适用于iphone6/6s/6sPlus/6plus 6/6s 4.7英',
-            remarks: 3000,
-            shopName: 'monqiqi旗舰店',
-            sale: 6960
-          },
-          {
-            img: 'static/img/goodsList/item-show-3.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 2800,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 6560
-          },
-          {
-            img: 'static/img/goodsList/item-show-4.jpg',
-            price: 29.90,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 9000,
-            shopName: '歌乐力手配专营店',
-            sale: 6360
-          },
-          {
-            img: 'static/img/goodsList/item-show-5.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 6160,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 5530
-          },
-          {
-            img: 'static/img/goodsList/item-show-6.jpg',
-            price: 28.00,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 9006,
-            shopName: '歌乐力手配专营店',
-            sale: 5560
-          },
-          {
-            img: 'static/img/goodsList/item-show-7.jpg',
-            price: 15.00,
-            intro: 'BIAZE 苹果6/6s手机壳 苹果iphone6s 4.7英寸透明手机套 清爽系列',
-            remarks: 8666,
-            shopName: 'BIAZE官方旗舰店',
-            sale: 5260
-          },
-          {
-            img: 'static/img/goodsList/item-show-8.jpg',
-            price: 29.90,
-            intro: '慕臣 苹果6s手机壳全包防摔磨砂软保护套男女 适用于iPhone6splus',
-            remarks: 6080,
-            shopName: '歌乐力手配专营店',
-            sale: 3560
+            img: '',
+            lowestPrice: '0',
+            intro: '加载失败！请刷新重试',
+            comment: '0',
+            shopName: '0',
+            sale: '0'
           }
         ]
       };
+      axios({
+        method: 'get',
+        url: '/goods/getGoodsLists',
+        headers: {categoryId: categoryId}
+      })
+        .then(function (response) {
+          let responseCode = response.data.rtnCode.toString().trim();
+          let responseData = response.data.data;
+          if (responseCode === '200') {
+            data = responseData.productsInfo;
+            resolve(data);
+            commit('SET_GOODS_LIST', data);
+          } else {
+            resolve(data);
+          }
+        })
+        .catch(function (e) {
+          resolve(data);
+        });
       commit('SET_GOODS_LIST', data);
       commit('SET_LOAD_STATUS', false);
     });
   });
 };
 
+// 秒杀商品
+export const secKillAction = ({commit}, param) => {
+  let seckillId = param[0];
+  let userToken = param[1];
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      axios({
+        method: 'post',
+        url: '/seckill/SecKill',
+        headers: {userToken: userToken,
+          seckillId: seckillId}
+      })
+        .then(function (response) {
+          resolve(response.data);
+        })
+        .catch(function (e) {
+          resolve('网络连接超时');
+        });
+    });
+  });
+};
+
+// 查询秒杀订单是否成功
+export const querysecKillActionStatue = ({commit}, seckillToken) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      axios({
+        method: 'post',
+        url: '/seckill/querysecKilStatue',
+        headers: {seckillToken: seckillToken}
+      })
+        .then(function (response) {
+          let responseData = response.data.data;
+          resolve(responseData.statue);
+        })
+        .catch(function (e) {
+          resolve('网络连接超时');
+        });
+    });
+  });
+};
+
+// 获取搜索商品列表
+export const searchGoodsList = ({commit}, searchStr) => {
+  commit('SET_LOAD_STATUS', true);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let failData = {
+        // 广告信息
+        asItems: [
+          {
+            img: 'static/img/goodsList/item-as-img-1.jpg',
+            price: 39.9,
+            intro: 'SKSK 苹果7/7plus手机壳 iPhone 7 Plus保护套全包硬',
+            num: 3140,
+            sale: 9000
+          }
+        ],
+        // 商品信息
+        goodsList: [
+          {
+            img: '',
+            lowestPrice: '0',
+            intro: '查询失败！请刷新重试',
+            comment: '0',
+            shopName: '0',
+            sale: '0'
+          }
+        ]
+      };
+      axios({
+        method: 'get',
+        url: '/goods/searchGoodsLists',
+        headers: {searchStr: encodeURI(searchStr)}
+      })
+        .then(function (response) {
+          let responseCode = response.data.rtnCode.toString().trim();
+          let responseData = response.data.data;
+          if (responseCode === '200') {
+            let data = responseData.productsInfo;
+            // resolve(data);
+            commit('SET_GOODS_LIST', data);
+            resolve();
+          } else {
+            commit('SET_GOODS_LIST', failData);
+          }
+        })
+        .catch(function (e) {
+          commit('SET_GOODS_LIST', failData);
+        });
+      commit('SET_LOAD_STATUS', false);
+    });
+  });
+};
+
 // 添加购物车
-export const addShoppingCart = ({ commit }, data) => {
+export const addShoppingCart = ({commit}, data) => {
   return new Promise((resolve, reject) => {
     commit('ADD_SHOPPING_CART', data);
   });
 };
 
+// 加载订单信息
+export const loadOrders = ({commit}, userToken) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: '/order/loadOrders',
+      headers: {userToken: userToken}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseData = response.data.data;
+        if (responseCode === '200') {
+          let data = responseData.orderInfo;
+          resolve(data);
+        } else {
+          // resolve(data);
+        }
+      })
+      .catch(function (e) {
+        // resolve(data);
+      });
+  });
+};
 // 获取用户推荐
-export const loadRecommend = ({ commit }) => {
+export const loadRecommend = ({commit}) => {
   return new Promise((resolve, reject) => {
     const data = [
       [
@@ -663,7 +628,7 @@ export const loadRecommend = ({ commit }) => {
   });
 };
 
-export const loadAddress = ({ commit }) => {
+export const loadAddress = ({commit}) => {
   return new Promise((resolve, reject) => {
     const address = [
       {
@@ -691,70 +656,188 @@ export const loadAddress = ({ commit }) => {
   });
 };
 
-export const loadShoppingCart = ({ commit }) => {
+// 加载购物车数据
+export const loadShoppingCart = ({commit}) => {
   return new Promise((resolve, reject) => {
-    const data = [{
-      goods_id: 1529931938150,
-      count: 1,
-      img: 'static/img/goodsDetail/pack/1.jpg',
-      package: '4.7英寸-深邃蓝',
-      price: 28,
-      title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
-    }];
-    commit('SET_SHOPPING_CART', data);
+    // const data = [{
+    //   // goods_id: 1529931938150,
+    //   productId: 1,
+    //   specsId: 1,
+    //   count: 1,
+    //   img: 'static/img/goodsDetail/pack/1.jpg',
+    //   package: '4.7英寸-深邃蓝',
+    //   price: 28,
+    //   title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
+    // },
+    // {
+    //   // goods_id: 1529931938150,
+    //   productId: 1,
+    //   specsId: 2,
+    //   count: 1,
+    //   img: 'static/img/goodsDetail/pack/2.jpg',
+    //   package: '4.7英寸-深邃红',
+    //   price: 28,
+    //   title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳'
+    // }];
+    // commit('SET_SHOPPING_CART', data);
   });
 };
 
 // 添加注册用户
-export const addSignUpUser = ({ commit }, data) => {
+export const addSignUpUser = ({commit}, data) => {
   return new Promise((resolve, reject) => {
-    const userArr = localStorage.getItem('users');
-    let users = [];
-    if (userArr) {
-      users = JSON.parse(userArr);
-    }
-    users.push(data);
-    localStorage.setItem('users', JSON.stringify(users));
+    // const userArr = localStorage.getItem('users');
+    // let users = [];
+    // if (userArr) {
+    //   users = JSON.parse(userArr);
+    // }
+    // users.push(data);
+    // localStorage.setItem('users', JSON.stringify(users));
   });
 };
-
 // 用户登录
-export const login = ({ commit }, data) => {
+export const login = ({commit}, data) => {
   return new Promise((resolve, reject) => {
-    if (data.username === 'Gavin' && data.password === '123456') {
-      localStorage.setItem('loginInfo', JSON.stringify(data));
-      commit('SET_USER_LOGIN_INFO', data);
-      resolve(true);
-      return true;
-    }
-    const userArr = localStorage.getItem('users');
-    console.log(userArr);
-    if (userArr) {
-      const users = JSON.parse(userArr);
-      for (const item of users) {
-        if (item.username === data.username) {
-          localStorage.setItem('loginInfo', JSON.stringify(item));
-          commit('SET_USER_LOGIN_INFO', item);
-          resolve(true);
-          break;
-        }
-      }
+    let loginType;
+    let deviceInfo;
+    if (/(iPhone)/i.test(navigator.userAgent)) {
+      loginType = 'IOS';
+      deviceInfo = 'iPone';
+    } else if (/(iPad)/i.test(navigator.userAgent)) {
+      loginType = 'IOS';
+      deviceInfo = 'iPad';
+    } else if (/(iPod)/i.test(navigator.userAgent)) {
+      loginType = 'IOS';
+      deviceInfo = 'iPod';
+    } else if (/(iOS)/i.test(navigator.userAgent)) {
+      loginType = 'IOS';
+      deviceInfo = 'iOS';
+    } else if (/(Android)/i.test(navigator.userAgent)) {
+      loginType = 'Android';
+      deviceInfo = 'Android';
     } else {
-      resolve(false);
+      loginType = 'PC';
+      deviceInfo = 'PC';
     }
+    let userLoginInpDTO = {
+      'mobile': data.mobile,
+      'password': data.password,
+      'loginType': loginType,
+      'deviceInfo': deviceInfo
+    };
+    axios({
+      method: 'post',
+      url: '/member/login',
+      data: JSON.stringify(userLoginInpDTO),
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseMsg = response.data.msg.toString().trim();
+        let callbackData = {'code': responseCode, 'MSG': responseMsg};
+        if (responseCode === '200') {
+          // 进入下一步骤,登录成功 添加到状态信息中去
+          data.token = response.data.data.token;
+          data.username = response.data.data.username;
+          localStorage.setItem('loginInfo', JSON.stringify(data));
+          callbackData.MSG = {
+            'mobile': data.mobile,
+            'loginType': loginType,
+            'token': data.token
+          };
+          commit('SET_USER_LOGIN_INFO', data);
+          resolve(callbackData);
+          return true;
+        } else {
+          resolve(callbackData);
+        }
+      })
+      .catch(function (e) {
+        resolve({'code': '500', 'MSG': '系统错误！'});
+      });
   });
 };
 
 // 退出登陆
-export const signOut = ({ commit }) => {
-  localStorage.removeItem('loginInfo');
-  commit('SET_USER_LOGIN_INFO', {});
+export const signOut = ({commit}) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'post',
+      url: '/member/signOut',
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseMsg = response.data.msg.toString().trim();
+        let callbackData = {'code': responseCode, 'MSG': responseMsg};
+        if (responseCode === '200') {
+          localStorage.removeItem('loginInfo');
+          commit('SET_USER_LOGIN_INFO', {});
+        }
+        resolve(callbackData);
+      })
+      .catch(function (e) {
+        resolve({'code': '500', 'MSG': '系统错误！'});
+      });
+  });
 };
 
 // 判断是否登陆
-export const isLogin = ({ commit }) => {
-  const user = localStorage.getItem('loginInfo');
-  if (user) {
+export const isLogin = ({commit}, cookies) => {
+  let token = cookies.get('token');
+  let mobile = cookies.get('mobile');
+  let user = localStorage.getItem('loginInfo');
+  if (token && mobile && user) {
     commit('SET_USER_LOGIN_INFO', JSON.parse(user));
+  } else {
+    localStorage.removeItem('loginInfo');
+    cookies.remove('token');
+    cookies.remove('mobile');
+    cookies.remove('loginType');
   }
+};
+// 检查用户的登录状态
+export const checkToken = ({commit}, loginToken) => {
+  return new Promise((resolve, reject) => {
+    let resolveData = {};
+    axios({
+      method: 'post',
+      url: '/member/checkLoginStatue',
+      headers: {'loginToken': loginToken}
+    })
+      .then(function (response) {
+        let responseCode = response.data.rtnCode.toString().trim();
+        let responseMsg = response.data.msg.toString().trim();
+        if (responseCode === '200') {
+          if (responseMsg === 'online') {
+            // 在线正常
+            resolveData.code = 200;
+            resolveData.data = 'online';
+          } else if (responseMsg === 'offline') {
+            resolveData.code = 500;
+            resolveData.data = '账号超时下线';
+            commit('SET_USER_LOGIN_INFO', {});
+          } else if (responseMsg === 'out') {
+            let responseData = response.data.data;
+            console.log(responseData);
+            resolveData.code = 500;
+            resolveData.data = '账号于' + responseData.time + '在' + responseData.deviceInfo +
+              '设备上登录' + '登录ip' + responseData.ip;
+            commit('SET_USER_LOGIN_INFO', {});
+          }
+        } else {
+          resolveData.code = 500;
+          resolveData.data = '网络连接异常,账号下线';
+          commit('SET_USER_LOGIN_INFO', {});
+        }
+        resolve(resolveData);
+      })
+      .catch(function (e) {
+        console.log(e);
+        resolveData.code = 500;
+        resolveData.data = '系统异常,账号下线';
+        resolve(resolveData);
+        commit('SET_USER_LOGIN_INFO', {});
+      });
+  });
 };

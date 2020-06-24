@@ -7,9 +7,11 @@ import * as getters from './getters';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
+  state: sessionStorage.getItem('state') ? JSON.parse(sessionStorage.getItem('state')) : {
+    payToken: '',
     isLoading: false, // 是否展示loading动画
     orderBy: 'sale', // 根据什么字段排序
+    sortBy: 'ASC', // 默认升序排列
     goodsInfo: { // 商品详情
       goodsImg: [],
       title: '',
@@ -21,7 +23,10 @@ export default new Vuex.Store({
       hot: [],
       goodsDetail: [],
       param: [],
-      remarks: []
+      remarks: {
+        remarksNumDetail: [0, 0, 0],
+        detail: []
+      }
     },
     userInfo: { // 用户信息
       username: ''

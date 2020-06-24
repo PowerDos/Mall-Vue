@@ -2,9 +2,7 @@
   <div>
     <div class="pay-container">
       <Alert show-icon>
-        扫码支付
-        <Icon type="qr-scanner" slot="icon"></Icon>
-        <template slot="desc">请扫描右边二维码进行支付</template>
+        即将跳转到第三方平台完成支付
       </Alert>
       <div class="pay-box">
         <div class="pay-demo">
@@ -13,17 +11,46 @@
         <div class="pay-qr-scan">
           <img src="static/img/pay/pay-qrscan.png">
           <div class="pay-tips">
-            <router-link to="/payDone"><p>点击我, 完成支付</p></router-link>
+            <router-link to="/payDone"><p>正在转到第三方平台完成支付</p></router-link>
           </div>
         </div>
+        <form ref="payForm" hidden action="/order/pay" method="post">
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import {mapState} from 'vuex';
+import store from '@/vuex/store';
 export default {
-  name: 'Pay'
+  name: 'Pay',
+  data () {
+    return {
+    };
+  },
+  computed: {
+    ...mapState(['payToken'])
+  },
+  mounted () {
+    console.log(this.$refs.payForm);
+  },
+  watch: {
+    payToken (val, oldVal) {
+      if (val !== '') {
+        // 在这里提交pay
+        console.log('提交pay，参数' + val);
+        let payTokenElem = document.createElement('textarea');
+        payTokenElem.name = 'payToken';
+        payTokenElem.value = val;
+        this.$refs.payForm.appendChild(payTokenElem);
+        this.$refs.payForm.submit();
+      }
+    }
+  },
+  store
 };
 </script>
 

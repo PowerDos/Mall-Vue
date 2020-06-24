@@ -46,7 +46,7 @@
         <div class="pay-box">
           <p><span>提交订单应付总额：</span> <span class="money"><Icon type="social-yen"></Icon> {{totalPrice.toFixed(2)}}</span></p>
           <div class="pay-btn">
-            <router-link to="/pay"><Button type="error" size="large">支付订单</Button></router-link>
+            <router-link to="/Pay"><Button type="error" size="large" @click="prePay">支付订单</Button></router-link>
           </div>
         </div>
       </div>
@@ -71,6 +71,8 @@ export default {
   data () {
     return {
       goodsCheckList: [],
+      payList: [],
+      payToken: '',
       columns: [
         {
           type: 'selection',
@@ -114,6 +116,18 @@ export default {
           width: 68,
           key: 'price',
           align: 'center'
+        },
+        {
+          title: '',
+          width: 0.1,
+          key: 'productId',
+          align: 'center'
+        },
+        {
+          title: '',
+          width: 0.1,
+          key: 'specsId',
+          align: 'center'
         }
       ],
       checkAddress: {
@@ -135,9 +149,22 @@ export default {
   },
   methods: {
     ...mapActions(['loadAddress']),
+    ...mapActions(['prePayAction']),
     select (selection, row) {
+      this.payList = [];
       console.log(selection);
       this.goodsCheckList = selection;
+      for (let index = 0; index < this.goodsCheckList.length; index++) {
+        let pay = {
+          'productId': this.goodsCheckList[index].productId,
+          'specsId': this.goodsCheckList[index].specsId,
+          'count': this.goodsCheckList[index].count,
+          'price': this.goodsCheckList[index].price
+        };
+        console.log(pay);
+        this.payList.push(pay);
+      }
+      console.log(this.payList);
     },
     changeAddress (data) {
       const father = this;
@@ -147,6 +174,9 @@ export default {
           father.checkAddress.address = `${item.name} ${item.province} ${item.city} ${item.address} ${item.phone} ${item.postalcode}`;
         }
       });
+    },
+    prePay () {
+      this.prePayAction(this.payList);
     }
   },
   mounted () {

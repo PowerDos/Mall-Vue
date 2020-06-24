@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 22/06/2020 17:28:20
+ Date: 24/06/2020 16:31:04
 */
 
 SET NAMES utf8mb4;
@@ -34,6 +34,15 @@ CREATE TABLE `example_seckill`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of example_seckill
+-- ----------------------------
+INSERT INTO `example_seckill` VALUES (1, 1, 27, '2020-04-20 16:59:42', '2020-05-20 17:59:59', 4, NULL, NULL);
+INSERT INTO `example_seckill` VALUES (2, 2, 30, '2020-04-20 16:59:42', '2020-04-20 17:59:59', 1, NULL, NULL);
+INSERT INTO `example_seckill` VALUES (3, 3, 30, '2020-04-20 16:59:42', '2020-04-20 17:59:59', 1, NULL, NULL);
+INSERT INTO `example_seckill` VALUES (4, 4, 30, '2020-04-20 16:59:42', '2020-04-20 17:59:59', 1, NULL, NULL);
+INSERT INTO `example_seckill` VALUES (5, 5, 30, '2020-04-20 15:59:54', '2020-04-20 17:59:59', 1, NULL, NULL);
+
+-- ----------------------------
 -- Table structure for example_seckill_good
 -- ----------------------------
 DROP TABLE IF EXISTS `example_seckill_good`;
@@ -47,5 +56,14 @@ CREATE TABLE `example_seckill_good`  (
   `real_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '原价（元）',
   PRIMARY KEY (`seckill_good_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of example_seckill_good
+-- ----------------------------
+INSERT INTO `example_seckill_good` VALUES (1, 1, 1, '奥克斯家用电冰箱 35升银色35K118L', 'static/img/goodsList/1.jpg', 300.00, 388.00);
+INSERT INTO `example_seckill_good` VALUES (2, 1, 2, '奥克斯家用电冰箱 50升银色A款50K128L', 'static/img/goodsList/1.jpg', 400.00, 448.00);
+INSERT INTO `example_seckill_good` VALUES (3, 2, 5, '海尔三门小型家用节能冰箱', 'static/img/goodsList/2.jpg', 1000.00, 1199.00);
+INSERT INTO `example_seckill_good` VALUES (4, 2, 6, '海尔三门小型家用节能冰箱', 'static/img/goodsList/2.jpg', 1100.00, 1299.00);
+INSERT INTO `example_seckill_good` VALUES (5, 2, 7, '海尔三门小型家用节能冰箱', 'static/img/goodsList/2.jpg', 1100.00, 1299.00);
 
 SET FOREIGN_KEY_CHECKS = 1;

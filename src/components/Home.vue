@@ -7,7 +7,8 @@
             <div class="user-img">
               <img src="static/img/head.png">
             </div>
-            <p>Gavin</p>
+            <p>{{userInfo.username}}</p>
+            <p>{{userInfo.mobile}}</p>
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -42,7 +43,7 @@
             <router-view></router-view>
           </transition>
         </Content>
-        <Footer class="layout-footer-center">2018 &copy; Gavin</Footer>
+        <Footer class="layout-footer-center">&copy;example 2020</Footer>
       </Layout>
     </Layout>
   </div>
@@ -53,6 +54,7 @@ export default {
   name: 'Home',
   data () {
     return {
+      userInfo: JSON.parse(localStorage.getItem('loginInfo')),
       activeTitle: '我的订单',
       bar: {
         'myAddress': '我的收货地址',

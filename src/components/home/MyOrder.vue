@@ -8,74 +8,77 @@
 </template>
 
 <script>
+import store from '@/vuex/store';
+import {mapActions} from 'vuex';
+
 export default {
   name: 'MyOrder',
   data () {
     return {
       order: [{
         order_id: 1529931938150,
-        goods_id: 1529931938150,
         count: 1,
-        img: 'static/img/goodsDetail/pack/1.jpg',
-        package: '4.7英寸-深邃蓝',
+        package: '无',
         price: 28,
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
-        createAt: '2018-06-06 20:06:08'
+        title: '苹果旗舰店',
+        createAt: '2018-06-06 20:06:08',
+        orderStatue: '交易成功'
       }],
       columns: [
         {
           title: '订单号',
           key: 'order_id',
-          width: 180,
+          width: 210,
           align: 'center'
         },
         {
-          title: '图片',
-          key: 'img',
-          width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
-          align: 'center'
-        },
-        {
-          title: '标题',
+          title: '商家',
           key: 'title',
           align: 'center'
         },
         {
-          title: '套餐',
-          width: 198,
+          title: '使用优惠政策',
+          width: 350,
           key: 'package',
           align: 'center'
         },
         {
-          title: '数量',
+          title: '总数',
           key: 'count',
-          width: 68,
+          width: 80,
           align: 'center'
         },
         {
-          title: '价格',
-          width: 68,
+          title: '总价',
+          width: 80,
           key: 'price',
           align: 'center'
         },
         {
           title: '购买时间',
-          width: 120,
+          width: 250,
           key: 'createAt',
+          align: 'center'
+        },
+        {
+          title: '订单状态',
+          width: 250,
+          key: 'orderStatue',
           align: 'center'
         }
       ]
     };
-  }
+  },
+  methods: {
+    ...mapActions(['loadOrders'])
+  },
+  mounted () {
+    let loginToken = this.$cookies.get('token');
+    this.loadOrders(loginToken).then(order => {
+      // this.order = order;
+    });
+  },
+  store
 };
 </script>
 

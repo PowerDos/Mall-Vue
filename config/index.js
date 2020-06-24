@@ -6,20 +6,48 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    //请求接口配置
+    proxyTable: {
+      '/member': {
+        target: 'http://127.0.0.1:8000/api-member',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/member': ''//这里理解成用‘/member’代替target里面的地址，后面组件中我们掉接口时直接用member代替
+        }
+      },
+      '/seckill': {
+        target: 'http://127.0.0.1:8000/api-seckill',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/seckill': ''//这里理解成用‘/goods’代替target里面的地址，后面组件中我们掉接口时直接用goods代替
+        }
+      },
+      '/goods': {
+        target: 'http://127.0.0.1:8000/api-goods',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/goods': ''//这里理解成用‘/goods’代替target里面的地址，后面组件中我们掉接口时直接用goods代替
+        }
+      },
+      '/order': {
+        target: 'http://127.0.0.1:8000/api-order',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/order': ''//这里理解成用‘/goods’代替target里面的地址，后面组件中我们掉接口时直接用goods代替
+        }
+      }
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
