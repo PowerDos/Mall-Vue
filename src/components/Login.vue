@@ -12,8 +12,8 @@
           </div>
           <div class="form-box">
             <Form ref="formInline" :model="formDate" :rules="ruleInline">
-              <FormItem prop="username">
-                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="用户名">
+              <FormItem prop="mobile">
+                  <i-input type="text" v-model="formDate.mobile" clearable size="large" placeholder="手机号">
                       <Icon type="person" slot="prepend"></Icon>
                   </i-input>
               </FormItem>
@@ -41,12 +41,13 @@ export default {
   data () {
     return {
       formDate: {
-        username: '',
+        mobile: '',
         password: ''
       },
       ruleInline: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { type: 'string', pattern: /^1[3|4|5|7|8][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -60,15 +61,20 @@ export default {
     ...mapActions(['login']),
     handleSubmit (name) {
       const father = this;
-      console.log(this.formDate.username);
+      let that = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.login(father.formDate).then(result => {
-            if (result) {
-              this.$Message.success('登录成功');
+            if (result.code === '200') {
+              that.$cookies.config('1d');
+              // 登录状态保持半小时
+              that.$cookies.set('token', result.MSG.token, '30min');
+              that.$cookies.set('mobile', result.MSG.mobile, '30min');
+              that.$cookies.set('loginType', result.MSG.loginType, '30min');
+              that.$Message.success('登录成功');
               father.$router.push('/');
             } else {
-              this.$Message.error('用户名或密码错误');
+              this.$Message.error(result.MSG);
             }
           });
         } else {

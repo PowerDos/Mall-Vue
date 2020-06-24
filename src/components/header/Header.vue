@@ -100,8 +100,8 @@ import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 export default {
   name: 'M-Header',
-  created () {
-    this.isLogin();
+  mounted () {
+    this.isLogin(this.$cookies);
   },
   data () {
     return {
@@ -129,8 +129,18 @@ export default {
       this.$router.push('/home');
     },
     signOutFun () {
-      this.signOut();
-      this.$router.push('/');
+      let that = this;
+      this.signOut().then(result => {
+        if (result.code === '200') {
+          that.$cookies.remove('token');
+          that.$cookies.remove('mobile');
+          that.$cookies.remove('loginType');
+          that.$Message.success('下线成功');
+          that.$router.push('/');
+        } else {
+          this.$Message.error(result.MSG);
+        }
+      });
     }
   },
   store

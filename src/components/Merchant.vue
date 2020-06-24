@@ -10,14 +10,15 @@
           <div class="goods-show-price">
             <span>
               <Icon type="social-yen text-danger"></Icon>
-              <span class="seckill-price text-danger">{{item.price}}</span>
+              <span class="seckill-price text-danger">{{item.lowestPrice}}</span>
             </span>
           </div>
           <div class="goods-show-detail">
+            <span>{{item.name}}</span>
             <span>{{item.intro}}</span>
           </div>
           <div class="goods-show-num">
-            已有<span>{{item.remarks}}</span>人评价
+            已有<span>{{item.comment}}</span>人评价
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- 商品信息展示 -->
-    <ShowGoods></ShowGoods>
+    <ShowGoods ref="ShowGoods"></ShowGoods>
     <!-- 商品详细展示 -->
     <ShowGoodsDetail></ShowGoodsDetail>
     <Spin size="large" fix v-if="isLoading"></Spin>
@@ -35,7 +35,21 @@ export default {
     next();
   },
   created () {
-    this.loadGoodsInfo();
+    let that = this;
+    let seckillId = this.$route.query.seckillId;
+    let productId = this.$route.query.productId;
+    if (seckillId !== undefined) {
+      this.loadSeckillGoodsInfo(seckillId).then(function () {
+        console.log('秒杀' + that.$refs.ShowGoods.buyType);
+        that.$refs.ShowGoods.buyType = 'seckill';
+        that.$refs.ShowGoods.seckillId = seckillId;
+      });
+    } else if (productId !== undefined) {
+      this.loadGoodsInfo(productId).then(function () {
+        console.log('购物' + that.$refs.ShowGoods.buyType);
+        that.$refs.ShowGoods.buyType = 'shop';
+      });
+    }
   },
   data () {
     return {
@@ -43,7 +57,8 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['loadGoodsInfo'])
+    ...mapActions(['loadGoodsInfo']),
+    ...mapActions(['loadSeckillGoodsInfo'])
   },
   computed: {
     ...mapState(['goodsInfo', 'isLoading'])

@@ -10,36 +10,60 @@
     <Row class="item-class-group" v-for="(items, index) in tagsInfo" :key="index">
       <i-col class="item-class-name" span="3">{{ items.tagName }} : </i-col>
       <i-col class="item-class-select" span="21">
-        <span v-for="(item, subIndex) in items.tags" :key="subIndex">{{ item }}</span>
+        <span v-for="(item, subIndex) in items.tags" :key="subIndex" @click="select(item.id,$event)">{{ item.attributeValue }}</span>
       </i-col>
     </Row>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex';
+
 export default {
   name: 'GoodsClassNav',
   data () {
     return {
       tagsInfo: [
         {
-          tagName: '品牌',
-          tags: [ '华为(HUAWEI)', '三星(SAMSUNG)', 'MATE', '摩斯维(msvii)', 'OPPO', '莫凡(Mofi)', '耐尔金(NILLKIN)', '洛克(ROCK)', '亿色(ESR)', 'Apple', '优加' ]
-        },
-        {
-          tagName: '手机配件',
-          tags: [ '手机保护套', '苹果周边', '手机贴膜', '移动电源', '创意配件', '手机耳机', '手机支架' ]
-        },
-        {
-          tagName: '款式',
-          tags: [ '软壳', '硬壳', '翻盖式', '边框', '运动臂包', '钱包式', '定制', '防水袋', '布袋', '其他' ]
-        },
-        {
-          tagName: '材质',
-          tags: [ '塑料/PC', '硅胶', '金属', '电镀', '真皮', '树脂', '木质', '镶钻', '液态硅胶', 'TPU' ]
+          tagName: '正在加载...',
+          tags: ['正在加载...']
         }
-      ]
+      ],
+      selectedAttribute: new Set()
     };
+  },
+  methods: {
+    ...mapActions(['loadAttributes']),
+    select (attributeId, event) {
+      let isChose = event.target.style.color === 'red';
+      if (isChose) {
+        console.log(attributeId + '取消选择');
+        event.target.style.color = '#005aa0';
+        this.selectedAttribute.delete(attributeId);
+      } else {
+        console.log(attributeId + '选择');
+        event.target.style.color = 'red';
+        this.selectedAttribute.add(attributeId);
+      }
+      console.log(this.selectedAttribute);
+    }
+  },
+  mounted () {
+    if (this.$route.query.categoryId !== undefined) {
+      this.loadAttributes(this.$route.query.categoryId).then(attributes => {
+        this.tagsInfo = attributes;
+      });
+    } else if (this.$route.query.sreachData !== undefined) {
+      this.tagsInfo = [
+        {
+          tagName: this.$route.query.sreachData,
+          tags: ['一下是根据您输入的关键字筛选的结果']
+        }
+      ];
+      // this.loadAttributes(this.$route.query.categoryId).then(attributes => {
+      //   this.tagsInfo = attributes;
+      // });
+    }
   }
 };
 </script>

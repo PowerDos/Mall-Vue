@@ -10,6 +10,7 @@ const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
 const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
 const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
 const Order = resolve => require(['@/components/Order'], resolve);
+const SeckillOrder = resolve => require(['@/components/SeckillOrder'], resolve);
 const Pay = resolve => require(['@/components/Pay'], resolve);
 const PayDone = resolve => require(['@/components/PayDone'], resolve);
 const Freeback = resolve => require(['@/components/Freeback'], resolve);
@@ -80,6 +81,11 @@ export default new Router({
       path: '/order', // 订单页面
       name: 'Order',
       component: Order
+    },
+    {
+      path: '/seckillOrder', // 订单页面
+      name: 'SeckillOrder',
+      component: SeckillOrder
     },
     {
       path: '/pay', // 支付页面

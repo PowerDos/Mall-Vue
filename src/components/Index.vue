@@ -16,20 +16,20 @@
             <span class="seckill-remarks">总有你想不到的低价</span>
           </div>
           <div class="count-down">
-            <span class="count-down-text">当前场次</span>
+            <span class="count-down-text">{{seckillMessage1}}</span>
             <span class="count-down-num count-down-hour">{{ seckillsHours }}</span>
             <span class="count-down-point">:</span>
             <span class="count-down-num count-down-minute">{{ seckillsMinutes }}</span>
             <span class="count-down-point">:</span>
             <span class="count-down-num count-down-seconds">{{ seckillsSeconds }}</span>
-            <span class="count-down-text">后结束抢购</span>
+            <span class="count-down-text">{{seckillMessage2}}</span>
           </div>
         </div>
         <!-- 内容 -->
         <div class="seckill-content">
           <div class="seckill-item" v-for="(item, index) in seckills.goodsList" :key="index">
             <div class="seckill-item-img">
-              <router-link to="/goodsList"><img :src="item.img"></router-link>
+              <router-link  :to="{path:'/goodsDetail',query:{seckillId:item.seckillGoodId}}"><img :src="item.img"></router-link>
             </div>
             <div class="seckill-item-info">
               <p>{{item.intro}}</p>
@@ -131,7 +131,20 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'Index',
   created () {
-    this.loadSeckillsInfo();
+    this.loadSeckillsInfo().then(type => {
+      // 在这里修改type
+      if (type === 'coming') {
+        // 即将秒杀
+        this.seckillMessage1 = '下场秒杀还有';
+        this.seckillMessage2 = '开始';
+      } else if (type === 'began') {
+        // 正在秒杀
+        this.seckillMessage1 = '当前秒杀还有';
+        this.seckillMessage2 = '结束';
+      } else {
+        this.seckillMessage1 = '获取秒杀信息失败！';
+      }
+    });
     this.loadCarouselItems();
     this.loadComputer();
     this.loadEat();
@@ -145,6 +158,8 @@ export default {
   },
   data () {
     return {
+      seckillMessage1: '',
+      seckillMessage2: '',
       setIntervalObj: null
     };
   },

@@ -17,6 +17,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapMutations } from 'vuex';
+const qs = require('qs');
 export default {
   name: 'CheckPhone',
   data () {
@@ -32,7 +33,7 @@ export default {
         ],
         checkNum: [
           { required: true, message: '必须填写验证码', trigger: 'blur' },
-          { type: 'string', min: 4, max: 4, message: '验证码长度错误', trigger: 'blur' }
+          { type: 'string', min: 5, max: 5, message: '验证码长度错误', trigger: 'blur' }
         ]
       }
     };
@@ -41,11 +42,38 @@ export default {
     ...mapMutations(['SET_SIGN_UP_SETP']),
     getcheckNum () {
       if (this.formValidate.phone.length === 11) {
-        this.$Message.success({
-          content: '验证码为: 1234',
-          duration: 6,
-          closable: true
-        });
+        let that = this;
+        this.$axios.post('/member/sendSMS', qs.stringify({'mobile': this.formValidate.phone}))
+          .then(function (response) {
+            let responseCode = response.data.rtnCode.toString().trim();
+            let responseMsg = response.data.msg.toString().trim();
+            if (responseCode === '200' && responseMsg === 'success') {
+              that.$Message.success({
+                content: '验证码已发送，请注意查收',
+                duration: 6,
+                closable: true
+              });
+            } else if (responseCode === '500' && responseMsg === '该手机号已被注册') {
+              that.$Message.error({
+                content: '该手机号已被注册！',
+                duration: 6,
+                closable: true
+              });
+            } else {
+              that.$Message.success({
+                content: '发送失败，请稍后尝试',
+                duration: 6,
+                closable: true
+              });
+            }
+          })
+          .catch(function () {
+            that.$Message.success({
+              content: '网络超时，请稍后尝试',
+              duration: 6,
+              closable: true
+            });
+          });
       } else {
         this.$Message.error({
           content: '请输入正确的手机号',
@@ -57,11 +85,36 @@ export default {
     handleSubmit (name) { // 提交验证
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$router.push({ path: '/SignUp/inputInfo', query: { phone: this.formValidate.phone } });
-          this.SET_SIGN_UP_SETP(1);
+          let that = this;
+          this.$axios.post('/member/verifyMobile', qs.stringify({'mobile': this.formValidate.phone,
+            'registerCode': this.formValidate.checkNum}))
+            .then(function (response) {
+              let responseCode = response.data.rtnCode.toString().trim();
+              let responseMsg = response.data.msg.toString().trim();
+              if (responseCode === '200') {
+                // 进入下一步骤,读取response中的Token并将它存储到sessionStorage中去
+                let token = response.data.data.Token;
+                sessionStorage.setItem('registerToken', token);
+                that.$router.push({ path: '/SignUp/inputInfo', query: { phone: that.formValidate.phone } });
+                that.SET_SIGN_UP_SETP(1);
+              } else {
+                that.$Message.error({
+                  content: responseMsg,
+                  duration: 6,
+                  closable: true
+                });
+              }
+            })
+            .catch(function () {
+              that.$Message.error({
+                content: '系统错误，请稍后尝试',
+                duration: 6,
+                closable: true
+              });
+            });
         } else {
           this.$Message.error({
-            content: '请填写正确的信息',
+            content: '验证码长度不正确！',
             duration: 6,
             closable: true
           });

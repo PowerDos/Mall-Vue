@@ -21,6 +21,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapMutations, mapActions } from 'vuex';
+// const qs = require('qs');
 export default {
   name: 'InputInfo',
   data () {
@@ -65,16 +66,57 @@ export default {
       const father = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('注册成功');
-          const userinfo = {
-            username: this.formValidate.name,
-            password: this.formValidate.password,
-            mail: this.formValidate.mail,
-            phone: this.$route.query.phone
+          // 调用注册会员的接口
+          let that = this;
+          let userDTOInput = {'username': this.formValidate.name,
+            'email': this.formValidate.mail,
+            'password': this.formValidate.password
           };
-          this.addSignUpUser(userinfo);
-          father.SET_SIGN_UP_SETP(2);
-          this.$router.push({ path: '/SignUp/signUpDone' });
+          let registerToken = sessionStorage.getItem('registerToken');
+          this.$axios({
+            method: 'post',
+            url: '/member/register',
+            data: JSON.stringify(userDTOInput),
+            headers: {'Content-Type': 'application/json'},
+            params: {'registerToken': registerToken,
+              'mobile': that.$route.query.phone}
+          })
+            .then(function (response) {
+              let responseCode = response.data.rtnCode.toString().trim();
+              let responseMsg = response.data.msg.toString().trim();
+              if (responseCode === '200') {
+                // 进入下一步骤,注册成功 添加到状态信息中去
+                that.$Message.success('注册成功');
+                const userinfo = {
+                  username: that.formValidate.name,
+                  password: that.formValidate.password,
+                  mail: that.formValidate.mail,
+                  phone: that.$route.query.phone
+                };
+                that.addSignUpUser(userinfo);
+                father.SET_SIGN_UP_SETP(2);
+                that.$router.push({ path: '/SignUp/signUpDone' });
+              } else if (responseCode === '500') {
+                that.$Message.error({
+                  content: responseMsg,
+                  duration: 6,
+                  closable: true
+                });
+              } else {
+                that.$Message.error({
+                  content: '注册失败，请稍后重试！',
+                  duration: 6,
+                  closable: true
+                });
+              }
+            })
+            .catch(function () {
+              that.$Message.success({
+                content: '网络超时，请稍后尝试',
+                duration: 6,
+                closable: true
+              });
+            });
         } else {
           this.$Message.error('注册失败');
         }

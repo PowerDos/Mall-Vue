@@ -59,6 +59,11 @@ export const SET_GOODS_ORDER_BY = (state, data) => {
   state.orderBy = data;
 };
 
+// 设置商品列表排序顺序
+export const SET_GOODS_ORDER_SORT_BY = (state, sortBy) => {
+  state.sortBy = sortBy;
+};
+
 // 设置商品详细信息
 export const SET_GOODS_INFO = (state, data) => {
   state.goodsInfo = data;
@@ -67,7 +72,8 @@ export const SET_GOODS_INFO = (state, data) => {
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
   const item = {
-    goods_id: data.goods_id,
+    productId: data.productId,
+    specsId: data.specsId,
     count: data.count,
     img: data.package.img,
     package: data.package.intro,
@@ -91,4 +97,9 @@ export const SET_RECOMMEND_INFO = (state, data) => {
 // 设置收获地址
 export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
+};
+
+// 设置预支付订单token
+export const SET_PAY_TOKEN = (state, data) => {
+  state.payToken = data;
 };
