@@ -1,10 +1,10 @@
 package com.example.entitity.DTO;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.entitity.VO.MealInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -57,7 +57,7 @@ public class GoodDetailDTO {
      * 尺寸规格信息
      */
     @ApiModelProperty(value = "尺寸规格信息")
-    private List<List<JSONObject>> setMeal;
+    private List<List<MealInfo>> setMeal;
 
     /**
      * 店铺热销

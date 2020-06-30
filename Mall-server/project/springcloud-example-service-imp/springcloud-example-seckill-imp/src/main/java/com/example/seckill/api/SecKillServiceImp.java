@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.api.SecKillService;
 import com.example.entitity.DO.SeckillDO;
 import com.example.entitity.DO.SeckillGoodDO;
+import com.example.global.util.baseResponse.ResponseCode;
 import com.example.seckill.config.RabbitMQConfig;
 import com.example.seckill.feign.goods.GoodsFeign;
 import com.example.seckill.mapper.SeckillGoodMapper;
@@ -49,7 +50,7 @@ public class SecKillServiceImp extends BaseApiService<JSONObject> implements Sec
         // 1.参数验证
         String userId = tokenGenerate.getToken(userToken);
         if (userId == null) {
-            return setResultError("当前账号未登录！");
+            return setResultError(ResponseCode.NOT_SIGN_YET);
         }
         // 2.用户秒杀频率限制 在redis中存放操作记录
         Boolean resultNx = redisUtil.setNx(Constants.SECKILL_WAIT_KEY + userId, secKillId, 10L);

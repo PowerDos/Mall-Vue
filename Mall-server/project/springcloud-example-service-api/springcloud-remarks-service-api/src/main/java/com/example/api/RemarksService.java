@@ -24,6 +24,6 @@ public interface RemarksService {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "remarksId", value = "商品评论信息id", required = true, paramType = "header")
     })
-    BaseResponse<JSONObject> getRemarksInfo(@RequestHeader Long remarksId);
+    JSONObject getRemarksInfo(@RequestHeader Long remarksId);
 
 }
