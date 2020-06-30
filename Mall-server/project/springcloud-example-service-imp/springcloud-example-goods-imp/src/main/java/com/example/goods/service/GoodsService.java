@@ -1,6 +1,7 @@
 package com.example.goods.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.entitity.VO.MealInfo;
 import com.example.goods.entities.ESProductDO;
 import com.example.entitity.DO.*;
 import com.example.entitity.DTO.GoodDetailDTO;
@@ -49,6 +50,7 @@ public class GoodsService {
      * }],
      * }
      */
+//    @EnableCache
     public List<JSONObject> getGoodsCategories() {
         List<JSONObject> categoriesInfos = new ArrayList<>();
         for (CategoryDO rootCategory : goodsMapper.getRootCategory()) {
@@ -81,7 +83,7 @@ public class GoodsService {
      * @param categoryId 商品分类id(一级分类)
      * @return List<String>
      */
-    public List<String> loadNavTagsData(Long categoryId) {
+    private List<String> loadNavTagsData(Long categoryId) {
         String[] navTagsData = {};
         if (categoryId == 1L) {
             navTagsData = new String[]{"赛事1", "运动城"};
@@ -232,16 +234,15 @@ public class GoodsService {
             goodDetailDTO.setRemarksNum(productDO.getComment());
             // 设置goodDetailDTo的setMeal , 图像goodImg
             List<String> goodImg = new ArrayList<>();
-            List<List<JSONObject>> setMeal;
-            List<JSONObject> meal = new ArrayList<>();
-            // TODO 这里以后 JSONObject 可以改成具体对象
+            List<List<MealInfo>> setMeal;
+            List<MealInfo> meal = new ArrayList<>();
             for (String SpecsIdStr : productDO.getSpecs_id_list().split(",")) {
                 GoodSpecsDO goodSpecsDO = goodsMapper.getGoodSpecsBySpecsId(Long.parseLong(SpecsIdStr));
-                JSONObject mealInfo = new JSONObject();
-                mealInfo.put("img", goodSpecsDO.getSmallImg());
-                mealInfo.put("intro", goodSpecsDO.getIntro());
-                mealInfo.put("price", goodSpecsDO.getPrice());
-                mealInfo.put("specsId",SpecsIdStr);
+                MealInfo mealInfo = new MealInfo();
+                mealInfo.setImg(goodSpecsDO.getSmallImg());
+                mealInfo.setIntro(goodSpecsDO.getIntro());
+                mealInfo.setPrice(goodSpecsDO.getPrice());
+                mealInfo.setSpecsId(goodSpecsDO.getSpecs_id());
                 meal.add(mealInfo);
                 goodImg.add(goodSpecsDO.getBigImg());
             }
@@ -319,16 +320,14 @@ public class GoodsService {
             goodDetailDTO.setRemarksNum(productDO.getComment());
             // 设置goodDetailDTo的setMeal , 图像goodImg
             List<String> goodImg = new ArrayList<>();
-            List<List<JSONObject>> setMeal;
-            List<JSONObject> meal = new ArrayList<>();
-            // TODO 这里以后 JSONObject 可以改成具体对象
-//            for (String SpecsIdStr : productDO.getSpecs_id_list().split(",")) {
+            List<List<MealInfo>> setMeal;
+            List<MealInfo> meal = new ArrayList<>();
             GoodSpecsDO goodSpecsDO = goodsMapper.getGoodSpecsBySpecsId(specsId);
-            JSONObject mealInfo = new JSONObject();
-            mealInfo.put("img", goodSpecsDO.getSmallImg());
-            mealInfo.put("intro", goodSpecsDO.getIntro());
-            mealInfo.put("price", goodSpecsDO.getPrice());
-            mealInfo.put("specsId",specsId);
+            MealInfo mealInfo = new MealInfo();
+            mealInfo.setImg(goodSpecsDO.getSmallImg());
+            mealInfo.setIntro(goodSpecsDO.getIntro());
+            mealInfo.setPrice(goodSpecsDO.getPrice());
+            mealInfo.setSpecsId(goodSpecsDO.getSpecs_id());
             meal.add(mealInfo);
             goodImg.add(goodSpecsDO.getBigImg());
 //            }
@@ -418,8 +417,7 @@ public class GoodsService {
 
     public JSONObject getGoodRemarks(String remarksId) {
         System.out.println("查询remarksId=" + remarksId + "的商品的评论信息");
-        BaseResponse<JSONObject> remarksInfo = remarkFeign.getRemarksInfo(Long.parseLong(remarksId));
-        JSONObject remarks = remarksInfo.getData();
+        JSONObject remarks = remarkFeign.getRemarksInfo(Long.parseLong(remarksId));
         return remarks.getJSONObject("remarksInfo");
     }
 }

@@ -1,6 +1,7 @@
 package com.example.order.mapper;
 
 import com.example.entitity.DO.PayTransactionDO;
+import com.example.global.util.cache.EnableCache;
 import org.apache.ibatis.annotations.*;
 
 public interface PayTransactionMapper {
@@ -9,9 +10,11 @@ public interface PayTransactionMapper {
             " (#{transactionId},#{payAmount},#{payStatue},#{userId},#{orderId},#{channelId},#{thirdPartTransactionId},'1',#{createdBy},#{createdTime})")
     int insertPayTransaction(PayTransactionDO payTransactionDO);
 
+    @EnableCache
     @Select("select * from example_pay_transaction where id = #{id}")
     PayTransactionDO getPayTransactionById(Long id);
 
+    @EnableCache
     @Select("select * from example_pay_transaction where order_id = #{orderId}")
     PayTransactionDO getPayTransactionByOrderId(Long orderId);
 

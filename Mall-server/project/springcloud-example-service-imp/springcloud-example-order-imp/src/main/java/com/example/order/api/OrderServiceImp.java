@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.api.OrderService;
 import com.example.entitity.DO.PayTransactionDO;
 import com.example.entitity.DTO.PayInfoDTOInput;
+import com.example.global.util.baseResponse.ResponseCode;
 import com.example.order.mapper.PayTransactionMapper;
 import com.example.global.util.Transaction.Redis_DataBaseTransaction;
 import com.example.global.util.baseResponse.BaseApiService;
@@ -34,7 +35,8 @@ public class OrderServiceImp extends BaseApiService<JSONObject> implements Order
     public BaseResponse<JSONObject> prePay(PayInfoDTOInput payList, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if(cookies==null){
-            return setResultError("当前用户未登录！");
+            return setResultError(ResponseCode.NOT_SIGN_YET);
+
         }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
@@ -69,7 +71,7 @@ public class OrderServiceImp extends BaseApiService<JSONObject> implements Order
                 }
             }
         }
-        return setResultError("当前未登录！");
+        return setResultError(ResponseCode.NOT_SIGN_YET);
     }
 
 
@@ -78,7 +80,7 @@ public class OrderServiceImp extends BaseApiService<JSONObject> implements Order
         // 1.验证用户登录状态toke
         String userId = tokenGenerate.getToken(userToken);
         if(userId==null){
-            setResultError("当前用户未登录");
+            setResultError(ResponseCode.NOT_SIGN_YET);
         }
         List<JSONObject> orderInfo = orderService.getOrderByUserId(Long.parseLong(userId));
         JSONObject responseData = new JSONObject();

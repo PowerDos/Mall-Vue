@@ -51,6 +51,7 @@ public class OrderService {
         }
         // 修改example_product_specs库存
         String transformData = JSONObject.toJSONString(bugInfos);
+        // TODO 在这里会存在分布式事务的问题
         BaseResponse<JSONObject> handleStorage = goodServiceFeign.handleGoodStorage(transformData);
         String result = handleStorage.getMsg();
         if (!result.equals("success")) {

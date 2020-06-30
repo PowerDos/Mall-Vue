@@ -155,7 +155,7 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
                 JSONObject newLoginInfo = new JSONObject();
                 newLoginInfo.put("deviceInfo",newTokenInfo.getDeviceInfo());
                 newLoginInfo.put("ip",newTokenInfo.getIpInfo());
-                newLoginInfo.put("time",newTokenInfo.getCreateTime());
+                newLoginInfo.put("time",newTokenInfo.getCreatedTime());
                 return setResult(200,"out",newLoginInfo);
             }
         }

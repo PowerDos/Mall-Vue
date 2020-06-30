@@ -11,13 +11,13 @@ public class BaseDo {
 	 * 创建时间
 	 */
 	@ApiModelProperty(value = "创建时间")
-	private Date createTime;
+	private Date createdTime;
 	/**
 	 * 修改时间
 	 *
 	 */
 	@ApiModelProperty(value = "修改时间")
-	private Date updateTime;
+	private Date updatedTime;
 	/**
 	 * id
 	 */

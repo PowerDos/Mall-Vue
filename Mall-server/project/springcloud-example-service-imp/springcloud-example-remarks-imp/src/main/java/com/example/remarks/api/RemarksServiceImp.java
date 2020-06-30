@@ -14,9 +14,9 @@ public class RemarksServiceImp extends BaseApiService<JSONObject> implements Rem
     private com.example.remarks.service.RemarksService remarksService;
 
     @Override
-    public BaseResponse<JSONObject> getRemarksInfo(Long remarksId) {
+    public JSONObject getRemarksInfo(Long remarksId) {
         JSONObject responseData = new JSONObject();
         responseData.put("remarksInfo", remarksService.getRemarksInfo(remarksId));
-        return setResultSuccess(responseData);
+        return responseData;
     }
 }

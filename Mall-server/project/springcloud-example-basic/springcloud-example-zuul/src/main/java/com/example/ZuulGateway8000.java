@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
@@ -34,6 +36,8 @@ import java.util.List;
 @EnableZuulProxy
 @EnableSwagger2
 @EnableApolloConfig
+
+@ComponentScan(excludeFilters = @ComponentScan.Filter(pattern = "com.example.global.util.cache.*",type = FilterType.REGEX))
 public class ZuulGateway8000 {
     public static void main(String[] args) {
         SpringApplication.run(ZuulGateway8000.class, args);

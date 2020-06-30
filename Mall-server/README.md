@@ -45,7 +45,13 @@
 >2.**docker-compose up**<br>
 >3.导入项目配置（在/config目录下）<br>
 
-* 8.启动项目各个模块 <br>
+* 8.准备zipkin <br>
+>使用docker镜像pull zipkin,下面是执行指令 (当然你也可以使用自己的zipkin)<br>
+>1.**docker pull openzipkin/zipkin**<br>
+>2.**docker run -d --name zipkin -p 9411:9411 openzipkin/zipkin**<br>
+>3.登陆zipkin管理页面 http://127.0.0.1:9411
+
+* 9.启动项目各个模块 <br>
 >enjoy!
 
 ***注意看logs确保每个组件正确启动运行！***

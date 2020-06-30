@@ -43,9 +43,6 @@ public class RedisUtil {
     }
   }
 
-  RedisUtil() {
-    System.out.println(this.getClass().getName() + "注入到容器中！" + SnowFlakeIdUtil.HashCode());
-  }
 
   /**
    * 存放string类型
