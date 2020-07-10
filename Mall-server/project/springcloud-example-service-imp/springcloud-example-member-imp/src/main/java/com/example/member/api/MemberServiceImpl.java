@@ -34,7 +34,7 @@ public class MemberServiceImpl extends BaseApiService<UserDTOOutput> implements 
 
     @Override
     public BaseResponse<UserDTOOutput> existMobile(String mobile) {
-        // 1.根据手机号码查询用户信息 单独定义code 表示是用户信息不存在把
+        // 1.根据手机号码查询用户信息
         UserEntityDO userEntityDO = userMapper.existMobile(mobile);
         if (userEntityDO == null) {
             return setResultError(Constants.HTTP_RES_CODE_EXISTMOBILE_203, "用户信息不存在!");
@@ -62,11 +62,7 @@ public class MemberServiceImpl extends BaseApiService<UserDTOOutput> implements 
             return setResultError("用户不存在!");
         }
         UserDTOOutput userDTOOutput = ObjectTransform.doToDto(userEntityDO, UserDTOOutput.class);
-        // 下节课将 转换代码放入在BaseApiService
         return setResultSuccess(userDTOOutput);
     }
-    // token存放在PC端 cookie token 存放在安卓 或者IOS端 存放在本地文件中
-    // 当前存在那些问题？ 用户如果退出或者修改密码、忘记密码的情况 对token状态进行标识
-    // token 如何防止伪造 真正其实很难防御伪造 尽量实现在安全体系 xss 只能在一些某些业务模块上加上必须验证本人操作
 
 }

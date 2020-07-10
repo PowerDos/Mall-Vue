@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-port #服务名称，注意不要出现大写字母
+  namespace: mall-basic
+spec:
+  type: NodePort
+  selector:
+    mall-basic: redis #对应pod.yml内的标签名
+  ports:
+    - protocol: TCP
+      name: redis
+      port: 6379 #service内部之间互访的端口
+      targetPort: 6379 #docker容器本身开放的端口

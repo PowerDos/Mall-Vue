@@ -2,6 +2,13 @@
 ## 准备环境
 
 * 准备docker环境 <br>
+
+#k8s版本
+* 1.安装好k8s环境 <br>
+* 2.执行/Mall-server下的quick-start.sh脚本 <br>
+* 3.完成！ <br>
+
+#docker版本
 [docker安装配置教程]()
 >首先安装配置完docker
 
@@ -79,5 +86,3 @@
 `微服务接口api模块（member,goods,order,remark,seckill等）`
 * springcloud-example-service-imp <br>
 `微服务接口实现模块（member,goods,order,remark,seckill等）`
-
-
