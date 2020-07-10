@@ -8,6 +8,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -17,7 +18,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,13 +86,17 @@ public class FirstCache implements ICache, BeanPostProcessor, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Resource resource = context.getResource("ehcache.xml");
+      ClassPathResource resource = new ClassPathResource("ehcache.xml");
+//        Resource resource = context.getResource("ehcache.xml");
         try {
-            File ehcacheFile = resource.getFile();
-            // 解析ehcache.xml文件
+          InputStream inputStream = resource.getInputStream();
+//          File ehcacheFile = new File("ehcache.xml");
+//          FileOutputStream fileOutputStream = new FileOutputStream(ehcacheFile);
+//          fileOutputStream.write(inputStream.read(new byte[1024],0,inputStream.available()));
+            // 解析ehcache.xml文件流
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             try {
-                Document d = factory.newDocumentBuilder().parse(ehcacheFile);
+                Document d = factory.newDocumentBuilder().parse(inputStream);
                 NodeList Nodes = d.getElementsByTagName("ehcache");
                 for (int i = 0; i < Nodes.getLength(); i++) {
                     String nodeName = Nodes.item(i).getNodeName();

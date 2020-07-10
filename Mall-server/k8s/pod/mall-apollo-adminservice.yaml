@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apollo-adminservice
+  namespace: mall-basic
+  labels:
+    mall-basic: apollo-adminservice
+spec:
+  containers:
+    - name: apollo-adminservice
+      image: "mall-apollo-adminservice:0.1"
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8090
+          name: portal
+          protocol: TCP
+      volumeMounts:
+        - mountPath: /opt
+          name: adminlogs
+  volumes:
+    - name: adminlogs
+      hostPath:
+        path:  /c/Users/Administrator/opt/adminservice
+        type: Directory
+  initContainers:
+    - name: init-eureka
+      image: "yauritux/busybox-curl"
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'var1="000";
+                                until [ "$var1" == "200" ];
+                                do echo waiting for eureka;
+                                var1=`curl -I -m 10 -o /dev/null -s -w %{http_code}  eureka-port.mall-basic:8080`;
+                                sleep 2;
+                                done;
+                                echo eureka started!']
+
+#  restartPolicy: Never

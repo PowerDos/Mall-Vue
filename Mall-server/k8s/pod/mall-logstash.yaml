@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logstash
+  namespace: mall-basic
+  labels:
+    mall-basic: logstash
+spec:
+  containers:
+    - name: logstash
+      image: "mall-logstash:7.6.1"
+      imagePullPolicy: Never
+  initContainers:
+    - name: init-es
+      image: "yauritux/busybox-curl"
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'var1="000";
+                             until [ "$var1" == "200" ];
+                             do echo waiting for elasticsearch;
+                             var1=`curl -I -m 10 -o /dev/null -s -w %{http_code}  es-port.mall-basic:9200`;
+                             sleep 2;
+                             done;
+                             echo elasticsearch started!']
