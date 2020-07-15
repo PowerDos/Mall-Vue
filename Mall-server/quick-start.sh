@@ -98,7 +98,7 @@ kubectl create -f k8s/service/eurekaport.yaml
 kubectl create -f k8s/service/apolloport.yaml
 kubectl create -f k8s/service/adminport.yaml
 kubectl create -f k8s/service/appPort.yaml
-#kubectl port-forward mall-basic 3306 6379 5672 15672 9200 9300 5601 9411 8080 8070 -n mall 仅供测试
+#kubectl port-forward mall-basic 3306 6379 5672 15672 9200 9300 5601 9411 8080 8070 -n mall-basic 仅供测试
 
 echo "wait a minute and you will be able to view elasticsearch on http://127.0.0.1:30001"
 echo "wait a minute and you will be able to view mysql on http://127.0.0.1:30002"
