@@ -1,14 +1,34 @@
 # Mall-server
+(目前短信接口已过期，可能存在无法发送短信的问题。)
 ## 准备环境
+
 
 * 准备docker环境 <br>
 
-#k8s版本
+#单机k8s版本(QuickStart)
 * 1.安装好k8s环境 <br>
 * 2.执行/Mall-server下的quick-start.sh脚本 <br>
-* 3.完成！ <br>
+* 3.npm run dev 启动前端项目 <br>
+* 4.等待项目启动完成 <br>
 
-#docker版本
+##页面展示
+### eureka
+![eureka](runningshot/eureka.PNG)
+### apollo
+![apollo](runningshot/apollo.PNG)
+### elasticsearch
+![elasticsearch](runningshot/es.PNG)
+### kibana
+![kibana](runningshot/kibana.PNG)
+### rabbitmq
+![rabbitmq](runningshot/rabbitmq.PNG)
+### zipkin
+![zipkin](runningshot/zipkin.PNG)
+### 项目swagger
+![swagger](runningshot/zuul-swagger.PNG)
+
+
+#docker版本(低配分布式推荐)
 [docker安装配置教程]()
 >首先安装配置完docker
 
@@ -69,6 +89,7 @@
 * OpenFeign REST服务调用
 * Hystrix 限流熔断
 * Zuul 服务接口网关
+* Zipkin 服务调用链路追踪
 ## 项目目录介绍
 * springcloud-example-common <br>
 `项目公用模块`

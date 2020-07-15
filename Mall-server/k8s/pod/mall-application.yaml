@@ -60,6 +60,26 @@ spec:
                                        sleep 2;
                                        done;
                                        echo mall-eureka started!']
+    - name: init-rabbitmq
+      image: "yauritux/busybox-curl"
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'var1="000";
+                                      until [ "$var1" == "200" ];
+                                      do echo waiting for mall-rabbitmq;
+                                      var1=`curl -I -m 10 -o /dev/null -s -w %{http_code}  rabbitmq-port.mall-basic:15672`;
+                                      sleep 2;
+                                      done;
+                                      echo mall-rabbitmq started!']
+    - name: init-zipkin
+      image: "yauritux/busybox-curl"
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'var1="000";
+                                      until [ "$var1" == "302" ];
+                                      do echo waiting for mall-zipkin;
+                                      var1=`curl -I -m 10 -o /dev/null -s -w %{http_code}  zipkin-port.mall-basic:9411`;
+                                      sleep 2;
+                                      done;
+                                      echo mall-zipkin started!']
     - name: init-es
       image: "yauritux/busybox-curl"
       imagePullPolicy: IfNotPresent
