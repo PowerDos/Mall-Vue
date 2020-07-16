@@ -13,19 +13,19 @@
 
 ##页面展示
 ### eureka
-![eureka](runningshot/eureka.PNG)
+![eureka](runningshot/eureka.png)
 ### apollo
-![apollo](runningshot/apollo.PNG)
+![apollo](runningshot/apollo.png)
 ### elasticsearch
-![elasticsearch](runningshot/es.PNG)
+![elasticsearch](runningshot/es.png)
 ### kibana
-![kibana](runningshot/kibana.PNG)
+![kibana](runningshot/kibana.png)
 ### rabbitmq
-![rabbitmq](runningshot/rabbitmq.PNG)
+![rabbitmq](runningshot/rabbitmq.png)
 ### zipkin
-![zipkin](runningshot/zipkin.PNG)
+![zipkin](runningshot/zipkin.png)
 ### 项目swagger
-![swagger](runningshot/zuul-swagger.PNG)
+![swagger](runningshot/zuul-swagger.png)
 
 
 #docker版本(低配分布式推荐)
