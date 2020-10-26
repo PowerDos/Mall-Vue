@@ -7,14 +7,14 @@ package com.example.member.api;/**
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.api.MemberRegisterService;
+import com.example.api.MemberRegisterServiceApi;
 import com.example.entitity.DO.UserEntityDO;
 import com.example.entitity.DTO.UserDTOInput;
 import com.example.global.util.sms.SmsUtil;
 import com.example.member.mapper.UserMapper;
 import com.example.global.util.MD5.MD5Util;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
+import com.example.global.util.baseResponse.BaseResponseStruct;
 import com.example.global.util.constants.Constants;
 import com.example.global.util.objectTransform.ObjectTransform;
 import com.example.global.util.randomCode.RandomCodeGenerate;
@@ -34,7 +34,7 @@ import java.util.UUID;
  * @version 1.0 2020/02/25
  */
 @RestController
-public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implements MemberRegisterService {
+public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implements MemberRegisterServiceApi {
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -47,9 +47,9 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
      * @param registerToken 准许注册的Token
      * @return JSONObject
      */
-    public BaseResponse<JSONObject> register(@RequestBody UserDTOInput userDTOInput,
-                                             @RequestParam("registerToken") String registerToken,
-                                             @RequestParam("mobile") String mobile) {
+    public BaseResponseStruct<JSONObject> register(@RequestBody UserDTOInput userDTOInput,
+                                                   @RequestParam("registerToken") String registerToken,
+                                                   @RequestParam("mobile") String mobile) {
         // 1.验证Token和参数是否正确
         String keyPrefixRegisterCode = Constants.REGISTER_CODE_KEY + mobile;
         String registerCode = redisUtil.getString(keyPrefixRegisterCode);
@@ -61,11 +61,11 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
         String password = userDTOInput.getPassword();
         String email = userDTOInput.getEmail();
         //2.存放加密加盐的密码
-        String encodePassWord = MD5Util.MD5(password);
+        String encodePassWord = MD5Util.generateMD5String(password);
         userDTOInput.setPassword(encodePassWord);
         System.out.println("用户注册" + userDTOInput);
         //3.添加到数据库
-        UserEntityDO userEntityDO = ObjectTransform.dtoToDo(userDTOInput, UserEntityDO.class);
+        UserEntityDO userEntityDO = ObjectTransform.transform(userDTOInput, UserEntityDO.class);
         userEntityDO.setCreateTime(new Date());
         userEntityDO.setUpdateTime(new Date());
         int registerResult = userMapper.register(userEntityDO);
@@ -85,7 +85,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
      * @return JSONObject
      */
     @Override
-    public BaseResponse<JSONObject> sendSMS(String mobile) {
+    public BaseResponseStruct<JSONObject> sendSMS(String mobile) {
         UserEntityDO userEntityDO = userMapper.existMobile(mobile);
         if (userEntityDO != null) {
             return setResultError(500, "该手机号已被注册");
@@ -122,7 +122,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
      * @return JSONObject
      */
     @Override
-    public BaseResponse<JSONObject> verifyMobile(String mobile, String registerCode) {
+    public BaseResponseStruct<JSONObject> verifyMobile(String mobile, String registerCode) {
         // 1.验证用户的验证码是否正确
         String keyPrefixVerifyCode = Constants.MOBILE_CODE_KEY + mobile;
         String oldCode = redisUtil.getString(keyPrefixVerifyCode);

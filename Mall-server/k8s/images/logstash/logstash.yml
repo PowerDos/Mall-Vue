@@ -1,2 +1,0 @@
-﻿http.host: "0.0.0.0"
-xpack.monitoring.elasticsearch.hosts: [ "http://es-port.mall-basic:9200" ]

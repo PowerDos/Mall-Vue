@@ -12,20 +12,17 @@ import java.net.URL;
 public class SmsUtil {
 
     public static void main(String[] args) {
-        sendSMS("15152609738", "example", "333", "5");
+        sendSMS("12345678901", "example", "333", "5");
     }
 
     public static boolean sendSMS(String mobile, String platform, String code, String timeout) {
         boolean tag = false;
         String result;
         StringBuilder PATH = new StringBuilder(
-                "http://api.sms.cn/sms/?ac=send&uid=localusername&pwd=3839ec5a418206dbf306c12c3d39e57a"
-                        + "&template=100002&mobile=");
-        PATH.append(mobile + "&content={\"code\":\"");
-//        PATH.append(platform + "\",\"code\":\"");
-//        PATH.append(code + "\",\"timeout\":\"");
-//        PATH.append(timeout + "\"}");
-        PATH.append(code + "\"}");
+                "http://api.sms.cn/sms/?ac=send&uid=******&pwd=********************"
+                        + "&template=***&mobile=");
+        PATH.append(mobile).append("&content={\"code\":\"");
+        PATH.append(code).append("\"}");
         try {
             URL url = new URL(PATH.toString());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

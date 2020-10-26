@@ -5,7 +5,8 @@
 
 * 准备docker环境 <br>
 
-#单机k8s版本(QuickStart)
+#单机k8s版本(QuickStart) 
+> 为减小分支文件大小，k8s的分支需要的文件请移步我fork的地址： https://github.com/seethefruture/Mall-Vue-1/tree/k8s
 * 1.安装好k8s环境 <br>
 * 2.执行/Mall-server下的quick-start.sh脚本 <br>
 * 3.npm run dev 启动前端项目 <br>
