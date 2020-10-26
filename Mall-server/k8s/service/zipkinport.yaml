@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: zipkin-port #服务名称，注意不要出现大写字母
+  namespace: mall-basic
+spec:
+  type: NodePort
+  selector:
+    mall-basic: zipkin #对应pod.yml内的标签名
+  ports:
+    - protocol: TCP
+      name: zipkin
+      port: 9411 #service内部之间互访的端口
+      targetPort: 9411 #docker容器本身开放的端口
+      nodePort: 30008

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:  apollo-configservice
+  namespace: mall-basic
+  labels:
+    mall-basic: apollo-configservice
+spec:
+  containers:
+    - name: apollo-configservice
+      image: "mall-apollo-configservice:0.1"
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+          name: portal
+          protocol: TCP
+      volumeMounts:
+        - mountPath: /opt
+          name: configlogs
+  volumes:
+    - name: configlogs
+      hostPath:
+        path:  /c/Users/Administrator/opt/configservice
+        type: Directory
+  initContainers:
+    - name: init-mysql
+      image: "yauritux/busybox-curl"
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'var1="";
+                                 until [ "$var1" != "" ];
+                                 do echo waiting for mysql;
+                                 var1=`curl mysql-port.mall-basic:3306`;
+                                 sleep 2;
+                                 done;
+                                 echo mysql started!']
+
+
