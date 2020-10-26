@@ -6,12 +6,12 @@ package com.example.member.api;/**
  * @date 2020/2/2518:49
  */
 
-import com.example.api.MemberService;
+import com.example.api.MemberServiceApi;
 import com.example.entitity.DO.UserEntityDO;
 import com.example.entitity.DTO.UserDTOOutput;
 import com.example.member.mapper.UserMapper;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
+import com.example.global.util.baseResponse.BaseResponseStruct;
 import com.example.global.util.constants.Constants;
 import com.example.global.util.objectTransform.ObjectTransform;
 import com.example.global.util.tokenGenerate.TokenGenerate;
@@ -26,26 +26,26 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0 2020/02/25
  */
 @RestController
-public class MemberServiceImpl extends BaseApiService<UserDTOOutput> implements MemberService {
+public class MemberServiceImpl extends BaseApiService<UserDTOOutput> implements MemberServiceApi {
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private TokenGenerate tokenGenerate;
 
     @Override
-    public BaseResponse<UserDTOOutput> existMobile(String mobile) {
+    public BaseResponseStruct<UserDTOOutput> existMobile(String mobile) {
         // 1.根据手机号码查询用户信息
         UserEntityDO userEntityDO = userMapper.existMobile(mobile);
         if (userEntityDO == null) {
             return setResultError(Constants.HTTP_RES_CODE_EXISTMOBILE_203, "用户信息不存在!");
         }
-        UserDTOOutput userDTOOutput = ObjectTransform.doToDto(userEntityDO, UserDTOOutput.class);
+        UserDTOOutput userDTOOutput = ObjectTransform.transform(userEntityDO, UserDTOOutput.class);
         // 2.将do转换成dto
         return setResultSuccess(userDTOOutput);
     }
 
     @Override
-    public BaseResponse<UserDTOOutput> getInfo(String token) {
+    public BaseResponseStruct<UserDTOOutput> getInfo(String token) {
         // 1.验证token参数
         if (StringUtils.isEmpty(token)) {
             return setResultError("token不能为空!");
@@ -61,7 +61,7 @@ public class MemberServiceImpl extends BaseApiService<UserDTOOutput> implements 
         if (userEntityDO == null) {
             return setResultError("用户不存在!");
         }
-        UserDTOOutput userDTOOutput = ObjectTransform.doToDto(userEntityDO, UserDTOOutput.class);
+        UserDTOOutput userDTOOutput = ObjectTransform.transform(userEntityDO, UserDTOOutput.class);
         return setResultSuccess(userDTOOutput);
     }
 

@@ -1,18 +1,10 @@
-.DS_Store
-node_modules/
-/dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+Mall-web/node_modules/
+Mall-web/dist/
+Mall-web/npm-debug.log*
+Mall-web/yarn-debug.log*
+Mall-web/yarn-error.log*
 
 # Editor directories and files
 .idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-package-lock.json
-
-*.iml
 **/target
+*.iml

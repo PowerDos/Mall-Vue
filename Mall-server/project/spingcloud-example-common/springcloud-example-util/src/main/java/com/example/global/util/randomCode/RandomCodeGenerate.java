@@ -5,7 +5,7 @@ import java.util.Random;
 public class RandomCodeGenerate {
 
     /**
-     * 邀请码组合 - 数字、大写字母 - 常量
+     * 字符组合 - 数字、大写字母 - 常量
      * 不包换：0,O,1,I
      */
     private static final String RULE_INVITATION_CODE = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";

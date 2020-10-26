@@ -1,14 +1,13 @@
 package com.example.remarks.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.api.RemarksService;
+import com.example.api.RemarksServiceApi;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RemarksServiceImp extends BaseApiService<JSONObject> implements RemarksService {
+public class RemarksServiceImp extends BaseApiService<JSONObject> implements RemarksServiceApi {
 
     @Autowired
     private com.example.remarks.service.RemarksService remarksService;

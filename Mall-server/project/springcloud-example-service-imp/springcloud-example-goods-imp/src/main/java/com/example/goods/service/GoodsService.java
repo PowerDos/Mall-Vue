@@ -12,7 +12,6 @@ import com.example.goods.feign.remark.RemarkFeign;
 import com.example.goods.mapper.GoodsMapper;
 import com.example.goods.repository.ProductsRep;
 import com.example.goods.util.Util;
-import com.example.global.util.baseResponse.BaseResponse;
 import com.example.global.util.objectTransform.ObjectTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,7 +66,7 @@ public class GoodsService {
                 List<CategoryDTOOutput> tags = new ArrayList<>();
                 classNavData.put("tags", tags);
                 for (CategoryDO thirdCategory : goodsMapper.getCategoryByParentId(secondCategory.getId())) {
-                    tags.add(ObjectTransform.doToDto(thirdCategory, CategoryDTOOutput.class));
+                    tags.add(ObjectTransform.transform(thirdCategory, CategoryDTOOutput.class));
                 }
                 classNavs.add(classNavData);
             }
@@ -118,7 +117,7 @@ public class GoodsService {
             Long attributeKey = attributeKeyDO.getId();
             List<AttributeValueDO> attributeValueDOs = goodsMapper.getAttributeValueByAttributeId(attributeKey);
             for (AttributeValueDO attributeValueDO : attributeValueDOs) {
-                tags.add(ObjectTransform.doToDto(attributeValueDO, AttributeValueDTOOutput.class));
+                tags.add(ObjectTransform.transform(attributeValueDO, AttributeValueDTOOutput.class));
             }
             tagsInfo.add(tagInfo);
         }
