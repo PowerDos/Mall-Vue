@@ -15,11 +15,11 @@ public interface Constants {
     // 系统错误
     Integer HTTP_RES_CODE_500 = 500;
     // 手机注册码存放redis key
-    String MOBILE_CODE_KEY = "verify:code";
+    String MOBILE_CODE_KEY = "verify:code:";
     // 手机注册码有效期5分钟
     Long MOBILE_CODE_TIMEOUT = 301L;
     // 允许注册时间Token存放redis key
-    String REGISTER_CODE_KEY = "register:token";
+    String REGISTER_CODE_KEY = "register:token:";
     // 手机注册码填写正确有一分钟时间填写下一步注册信息
     Long REGISTER_CODE_TIMEOUT = 1801L;
     // 用户信息不存在

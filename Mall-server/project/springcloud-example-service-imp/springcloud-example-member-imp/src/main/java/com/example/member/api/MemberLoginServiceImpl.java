@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -52,14 +51,15 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
         if (userDo == null) {
             return setResultError("用户名称或者密码错误!");
         }
+        // 登录信息包括（mysql登陆历史 + redis授权令牌）
         try {
-            // 3.更新数据库的登录历史信息
+            // 3.保存此次登录信息
             Long userId = userDo.getUserId();
-            UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId, loginType);
-            if (userTokenDo != null) {
+            String token = userTokenMapper.getTokenByUserIdAndLoginType(userId, loginType);
+            // 4.当前用户在其他设备登录
+            if (token != null) {
                 // 清除redis中之前的授权token
                 // TODO 在这里有待优化，redis事务中del无法确保成功删除
-                String token = userTokenDo.getToken();
                 tokenGenerate.removeToken(token);
 
                 int result = userTokenMapper.disableToken(token);
@@ -68,11 +68,11 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
                     throw new InternalException("系统错误!");
                 }
             }
-            // 4.生成对应用户令牌存放在redis中
+            // 5.生成redis令牌
             String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;
             String newOnlineToken = tokenGenerate.createToken(keyPrefix, userId + "", Constants.MEMBER_TOKEN_TIMEOUT);
 
-            // 5.插入新登录信息到数据库
+            // 6.保存mysql登陆历史
             UserTokenDo userToken = new UserTokenDo();
             userToken.setUserId(userId);
             userToken.setLoginType(userLoginInpDTO.getLoginType());
@@ -84,7 +84,7 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
                 // 插入登录信息到数据库失败！
                 throw new InternalException("系统错误!");
             }
-            // 6.返回token
+            // 7.返回token
             JSONObject data = new JSONObject();
             data.put("token", newOnlineToken);
             data.put("username", userDo.getUsername());
@@ -96,23 +96,14 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
 
     @Override
     public BaseResponseStruct<JSONObject> signOut(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        String token = "";
-        String mobile = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                token = cookie.getValue();
-            }
-            if (cookie.getName().equals("mobile")) {
-                mobile = cookie.getValue();
-            }
-        }
+        String token = RequestUtil.getCookieValue(request, "token");
+        String mobile = RequestUtil.getCookieValue(request, "mobile");
+
         if (StringUtils.isEmpty(token) || StringUtils.isEmpty(mobile)) {
             return setResultError("当前在线状态非法");
         }
         //验证toke是否是该用户的
-        UserEntityDO user = userMapper.findByMobile(mobile);
-        Long userId = user.getUserId();
+        Long userId = userMapper.getUserIdByMobile(mobile);
         //删除redis中的token
         String tokenUserId = tokenGenerate.getToken(token);
         if (tokenUserId != null && tokenUserId.equals(userId.toString())) {
