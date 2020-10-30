@@ -57,9 +57,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
             return setResultError("注册超时!");
         }
         userDTOInput.setMobile(mobile);
-        String userName = userDTOInput.getUsername();
         String password = userDTOInput.getPassword();
-        String email = userDTOInput.getEmail();
         //2.存放加密加盐的密码
         String encodePassWord = MD5Util.generateMD5String(password);
         userDTOInput.setPassword(encodePassWord);

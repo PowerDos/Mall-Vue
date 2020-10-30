@@ -31,49 +31,76 @@ public class GoodsService {
     @Autowired
     private RemarkFeign remarkFeign;
 
-    /**
+    /*
      * 获取所有商品的分类信息(1->2->3)
      *
      * @return example:
-     * {
-     * "categoriesInfo":[{
-     * "detail": {
-     * "navTags": [""],
-     * "classNav": [
-     * {
-     * "title": "",
-     * "tags": [""]
-     * }]
-     * },
-     * "type": ""
-     * }],
-     * }
-     */
-//    @EnableCache
+    {
+        "categoriesInfo":[
+        {
+            "detail":{
+            "navTags":[
+            ""
+                ],
+            "classNav":[
+            {
+                "title":"",
+                    "tags":[
+                ""
+                        ]
+            }
+                ]
+        },
+            "type":""
+        }
+    ]
+    }*/
     public List<JSONObject> getGoodsCategories() {
-        List<JSONObject> categoriesInfos = new ArrayList<>();
-        for (CategoryDO rootCategory : goodsMapper.getRootCategory()) {
+
+        // 查询根分类信息
+        List<CategoryDO> rootCategoryInfos = goodsMapper.getRootCategory();
+
+        // 查询二级分类信息
+        List<Long> secondCategoryIdList = new ArrayList<>();
+        for (CategoryDO rootCategory : rootCategoryInfos) {
+            secondCategoryIdList.add(rootCategory.getId());
+        }
+        List<CategoryDO> secondCategoryInfo = goodsMapper.getCategoryByParentIdIn(secondCategoryIdList);
+
+        // 查询三级分类信息
+        List<Long> thirdCategoryIdList = new ArrayList<>();
+        for (CategoryDO secondCategory : secondCategoryInfo) {
+            thirdCategoryIdList.add(secondCategory.getId());
+        }
+        List<CategoryDO> thirdCategoryInfo = goodsMapper.getCategoryByParentIdIn(thirdCategoryIdList);
+
+        // 查询结果
+        List<JSONObject> result = new ArrayList<>();
+        for (CategoryDO rootCategory : rootCategoryInfos) {
+
+            // categoriesInfo
             JSONObject categoriesInfo = new JSONObject();
             categoriesInfo.put("type", rootCategory.getName());
             JSONObject categoryDetail = new JSONObject();
             categoriesInfo.put("detail", categoryDetail);
-            List<String> navTagsData = loadNavTagsData(rootCategory.getId());
-            categoryDetail.put("navTags", navTagsData);
+
             List<JSONObject> classNavs = new ArrayList<>();
-            for (CategoryDO secondCategory : goodsMapper.getCategoryByParentId(rootCategory.getId())) {
+            for (CategoryDO secondCategory : secondCategoryInfo) {
                 JSONObject classNavData = new JSONObject();
                 classNavData.put("title", secondCategory.getName());
                 List<CategoryDTOOutput> tags = new ArrayList<>();
                 classNavData.put("tags", tags);
-                for (CategoryDO thirdCategory : goodsMapper.getCategoryByParentId(secondCategory.getId())) {
+                for (CategoryDO thirdCategory : thirdCategoryInfo) {
                     tags.add(ObjectTransform.transform(thirdCategory, CategoryDTOOutput.class));
                 }
                 classNavs.add(classNavData);
             }
+            List<String> navTagsData = loadNavTagsData(rootCategory.getId());
+            categoryDetail.put("navTags", navTagsData);
             categoryDetail.put("classNav", classNavs);
-            categoriesInfos.add(categoriesInfo);
+            result.add(categoriesInfo);
         }
-        return categoriesInfos;
+        return result;
     }
 
     /**

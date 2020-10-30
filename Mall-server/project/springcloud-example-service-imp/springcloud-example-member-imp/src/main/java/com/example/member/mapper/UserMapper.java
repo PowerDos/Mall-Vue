@@ -20,11 +20,11 @@ public interface UserMapper {
     UserEntityDO existMobile(String mobile);
 
     @Select("SELECT * FROM example_user  WHERE mobile=#{mobile} and password=#{password};")
-    UserEntityDO login(String mobile,String password);
+    UserEntityDO login(String mobile, String password);
 
     @Select("SELECT * FROM example_user WHERE user_id=#{userId}")
     UserEntityDO findByUserId(Long userId);
 
-    @Select("SELECT * FROM example_user WHERE mobile=#{mobile}")
-    UserEntityDO findByMobile(String mobile);
+    @Select("SELECT userId FROM example_user WHERE mobile=#{mobile}")
+    Long getUserIdByMobile(String mobile);
 }

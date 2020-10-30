@@ -10,6 +10,7 @@ import com.example.global.util.baseResponse.BaseApiService;
 import com.example.global.util.baseResponse.BaseResponseStruct;
 import com.example.global.util.constants.Constants;
 import com.example.global.util.tokenGenerate.TokenGenerate;
+import com.example.order.service.OrderService;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ public class OrderServiceImp extends BaseApiService<JSONObject> implements Order
     @Autowired
     private TokenGenerate tokenGenerate;
     @Autowired
-    private com.example.order.service.OrderService orderService;
+    private OrderService orderService;
 
     @Override
     @Transactional

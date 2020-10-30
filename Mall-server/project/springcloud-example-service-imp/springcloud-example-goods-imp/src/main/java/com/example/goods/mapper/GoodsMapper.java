@@ -9,15 +9,15 @@ import java.util.List;
 public interface GoodsMapper {
 
     @EnableCache
-    @Select("SELECT * FROM `example_category` WHERE `parent_id` = 0")
+    @Select("SELECT  id,name  FROM `example_category` WHERE `parent_id` = 0")
     List<CategoryDO> getRootCategory();
 
     @EnableCache
-    @Select("SELECT * FROM `example_category` WHERE `parent_id` = #{parentId}")
-    List<CategoryDO> getCategoryByParentId(Long parentId);
+    @Select("SELECT id,name FROM `example_category` WHERE `parent_id` in #{parentIdList}")
+    List<CategoryDO> getCategoryByParentIdIn(List<Long> parentIdList);
 
     @EnableCache
-    @Select("SELECT * FROM `example_attribute_key` WHERE `category_id` = #{categoryId}")
+    @Select("SELECT id,name FROM `example_attribute_key` WHERE `category_id` = #{categoryId}")
     List<AttributeKeyDO> getAttributeKeyByCategoryId(Long categoryId);
 
     @EnableCache

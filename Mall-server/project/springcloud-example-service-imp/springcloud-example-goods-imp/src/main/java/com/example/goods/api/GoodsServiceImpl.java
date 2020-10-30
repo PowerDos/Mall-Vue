@@ -7,6 +7,7 @@ import com.example.api.vo.HandleGoodStorage;
 import com.example.goods.mapper.GoodSpecsMapper;
 import com.example.global.util.baseResponse.BaseApiService;
 import com.example.global.util.baseResponse.BaseResponseStruct;
+import com.example.goods.service.GoodsService;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import java.util.List;
 public class GoodsServiceImpl extends BaseApiService<JSONObject> implements GoodsServiceApi {
 
     @Autowired
-    private com.example.goods.service.GoodsService goodsService;
+    private GoodsService goodsService;
     @Autowired
     private GoodSpecsMapper goodSpecsMapper;
 
