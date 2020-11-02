@@ -1,5 +1,10 @@
 # Mall-server
 (目前短信接口已过期，可能存在无法发送短信的问题。)
+
+## 预览地址
+
+> swagger: http://106.13.168.81:8000/swagger-ui.html <br>(硬件条件受限，仅允许了member和goods服务)
+
 ## 准备环境
 
 
