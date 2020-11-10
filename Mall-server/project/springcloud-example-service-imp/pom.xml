@@ -82,7 +82,7 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>springcloud-example-entity</artifactId>
+            <artifactId>springcloud-example-domin</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

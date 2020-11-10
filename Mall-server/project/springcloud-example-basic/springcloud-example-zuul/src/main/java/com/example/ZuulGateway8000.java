@@ -37,7 +37,7 @@ import java.util.List;
 @EnableSwagger2
 @EnableApolloConfig
 
-@ComponentScan(excludeFilters = @ComponentScan.Filter(pattern = "com.example.global.util.cache.*",type = FilterType.REGEX))
+@ComponentScan(excludeFilters = @ComponentScan.Filter(pattern = "com.example.global.util.cache.*", type = FilterType.REGEX))
 public class ZuulGateway8000 {
     public static void main(String[] args) {
         SpringApplication.run(ZuulGateway8000.class, args);

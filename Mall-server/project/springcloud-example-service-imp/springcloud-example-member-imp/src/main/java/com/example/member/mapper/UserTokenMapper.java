@@ -1,6 +1,6 @@
 package com.example.member.mapper;
 
-import com.example.entitity.DO.UserTokenDo;
+import com.example.domin.DO.UserTokenDo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

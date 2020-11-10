@@ -1,7 +1,5 @@
 package com.example.goods.entities;
 
-import com.example.entitity.DO.BaseDo;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;

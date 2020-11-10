@@ -1,6 +1,6 @@
 package com.example.api;
 
-import com.example.entitity.DTO.UserLoginInpDTO;
+import com.example.domin.DTO.UserLoginInpDTO;
 import com.example.global.util.baseResponse.BaseResponseStruct;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

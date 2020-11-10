@@ -1,9 +1,9 @@
 package com.example.member.api;
 
 import com.example.api.MemberLoginServiceApi;
-import com.example.entitity.DO.UserEntityDO;
-import com.example.entitity.DO.UserTokenDo;
-import com.example.entitity.DTO.UserLoginInpDTO;
+import com.example.domin.DO.UserEntityDO;
+import com.example.domin.DO.UserTokenDo;
+import com.example.domin.DTO.UserLoginInpDTO;
 import com.example.member.mapper.UserMapper;
 import com.example.member.mapper.UserTokenMapper;
 import com.example.global.util.MD5.MD5Util;
@@ -16,6 +16,7 @@ import com.example.global.util.tokenGenerate.TokenGenerate;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,7 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
     private Config config;
 
     @Override
+    @Transactional
     public BaseResponseStruct<JSONObject> login(@RequestBody UserLoginInpDTO userLoginInpDTO, HttpServletRequest request) {
         String mobile = userLoginInpDTO.getMobile();
         String password = userLoginInpDTO.getPassword();
@@ -53,20 +55,17 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
         }
         // 登录信息包括（mysql登陆历史 + redis授权令牌）
         try {
-            // 3.保存此次登录信息
             Long userId = userDo.getUserId();
             String token = userTokenMapper.getTokenByUserIdAndLoginType(userId, loginType);
             // 4.当前用户在其他设备登录
             if (token != null) {
-                // 清除redis中之前的授权token
-                // TODO 在这里有待优化，redis事务中del无法确保成功删除
-                tokenGenerate.removeToken(token);
-
                 int result = userTokenMapper.disableToken(token);
                 if (result <= 0) {
                     // 更新数据库token状态失败！
                     throw new InternalException("系统错误!");
                 }
+                // 清除redis中之前的授权token
+                tokenGenerate.removeToken(token);
             }
             // 5.生成redis令牌
             String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;

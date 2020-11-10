@@ -1,7 +1,6 @@
 package com.example.member.mapper;
 
-import com.example.entitity.DO.UserEntityDO;
-import feign.Param;
+import com.example.domin.DO.UserEntityDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 

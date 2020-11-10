@@ -1,8 +1,8 @@
 package com.example.remarks.mapper;
 
-import com.example.entitity.DO.RemarkDetailDO;
-import com.example.entitity.DO.RemarksDO;
-import com.example.entitity.DO.RemarkTagDO;
+import com.example.domin.DO.RemarkDetailDO;
+import com.example.domin.DO.RemarksDO;
+import com.example.domin.DO.RemarkTagDO;
 import com.example.global.util.cache.EnableCache;
 import org.apache.ibatis.annotations.Select;
 

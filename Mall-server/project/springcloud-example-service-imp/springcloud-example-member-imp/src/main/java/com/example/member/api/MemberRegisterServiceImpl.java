@@ -8,8 +8,8 @@ package com.example.member.api;/**
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.api.MemberRegisterServiceApi;
-import com.example.entitity.DO.UserEntityDO;
-import com.example.entitity.DTO.UserDTOInput;
+import com.example.domin.DO.UserEntityDO;
+import com.example.domin.DTO.UserDTOInput;
 import com.example.global.util.sms.SmsUtil;
 import com.example.member.mapper.UserMapper;
 import com.example.global.util.MD5.MD5Util;
@@ -19,6 +19,9 @@ import com.example.global.util.constants.Constants;
 import com.example.global.util.objectTransform.ObjectTransform;
 import com.example.global.util.randomCode.RandomCodeGenerate;
 import com.example.global.util.redis.RedisUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +37,7 @@ import java.util.UUID;
  * @version 1.0 2020/02/25
  */
 @RestController
+@Slf4j
 public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implements MemberRegisterServiceApi {
     @Autowired
     private UserMapper userMapper;
@@ -43,7 +47,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
     /**
      * 会员注册接口
      *
-     * @param userDTOInput  会员信息DTo实体类
+     * @param userDTOInput  会员信息DTO实体类
      * @param registerToken 准许注册的Token
      * @return JSONObject
      */
@@ -53,15 +57,19 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
         // 1.验证Token和参数是否正确
         String keyPrefixRegisterCode = Constants.REGISTER_CODE_KEY + mobile;
         String registerCode = redisUtil.getString(keyPrefixRegisterCode);
-        if (registerCode == null || !registerCode.equals(registerToken)) {
-            return setResultError("注册超时!");
+        if (registerCode == null) {
+            return setResultError("手机认证过期!");
         }
+        if (!registerCode.equals(registerToken)) {
+            return setResultError("注册的手机号与认证的手机号不匹配!");
+        }
+
         userDTOInput.setMobile(mobile);
         String password = userDTOInput.getPassword();
         //2.存放加密加盐的密码
         String encodePassWord = MD5Util.generateMD5String(password);
         userDTOInput.setPassword(encodePassWord);
-        System.out.println("用户注册" + userDTOInput);
+        log.info("用户注册" + userDTOInput);
         //3.添加到数据库
         UserEntityDO userEntityDO = ObjectTransform.transform(userDTOInput, UserEntityDO.class);
         userEntityDO.setCreateTime(new Date());
@@ -72,7 +80,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
             redisUtil.delKey(keyPrefixRegisterCode);
             return setResultSuccess("注册成功");
         } else {
-            return setResultSuccess("注册失败");
+            return setResultError("注册失败");
         }
     }
 
@@ -89,9 +97,7 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
             return setResultError(500, "该手机号已被注册");
         }
         String registerCode = RandomCodeGenerate.randomCode(5);
-        System.out.println("验证码：" + registerCode);
-//        boolean sendSuc = true;
-        boolean sendSuc = SmsUtil.sendSMS(mobile, "", registerCode, "5");
+        log.info("手机号" + mobile + "的验证码：" + registerCode);
         // 如果上个验证码未过期，删除上一个验证码
         String keyPrefix = Constants.MOBILE_CODE_KEY + mobile;
         String oldCode = redisUtil.getString(keyPrefix);
@@ -104,11 +110,10 @@ public class MemberRegisterServiceImpl extends BaseApiService<JSONObject> implem
         if (registerCodeValue != null) {
             redisUtil.delKey(registerPrefix);
         }
-        if (sendSuc) {
-            // 将验证码信息存放到redis中
-            Long keyTimeout = Constants.MOBILE_CODE_TIMEOUT;
-            redisUtil.setString(keyPrefix, registerCode, keyTimeout);
-        }
+        // 将验证码信息存放到redis中
+        Long keyTimeout = Constants.MOBILE_CODE_TIMEOUT;
+        redisUtil.setString(keyPrefix, registerCode, keyTimeout);
+        boolean sendSuc = SmsUtil.sendSMS(mobile, "", registerCode, "5");
         return sendSuc ? setResultSuccess("success") : setResultSuccess("fail");
     }
 

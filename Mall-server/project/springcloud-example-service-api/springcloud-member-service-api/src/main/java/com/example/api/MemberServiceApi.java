@@ -6,7 +6,7 @@ package com.example.api;/**
  * @date 2020/2/2518:48
  */
 
-import com.example.entitity.DTO.UserDTOOutput;
+import com.example.domin.DTO.UserDTOOutput;
 import com.example.global.util.baseResponse.BaseResponseStruct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

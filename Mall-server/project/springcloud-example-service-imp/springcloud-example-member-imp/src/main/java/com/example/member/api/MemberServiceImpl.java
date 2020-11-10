@@ -7,8 +7,8 @@ package com.example.member.api;/**
  */
 
 import com.example.api.MemberServiceApi;
-import com.example.entitity.DO.UserEntityDO;
-import com.example.entitity.DTO.UserDTOOutput;
+import com.example.domin.DO.UserEntityDO;
+import com.example.domin.DTO.UserDTOOutput;
 import com.example.member.mapper.UserMapper;
 import com.example.global.util.baseResponse.BaseApiService;
 import com.example.global.util.baseResponse.BaseResponseStruct;

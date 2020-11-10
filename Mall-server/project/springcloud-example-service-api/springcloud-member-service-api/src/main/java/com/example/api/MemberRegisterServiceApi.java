@@ -1,7 +1,7 @@
 package com.example.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.entitity.DTO.UserDTOInput;
+import com.example.domin.DTO.UserDTOInput;
 import com.example.global.util.baseResponse.BaseResponseStruct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public interface MemberRegisterServiceApi {
     @PostMapping("/register")
     @ApiOperation(value = "会员用户注册信息接口")
     BaseResponseStruct<JSONObject> register(@RequestBody UserDTOInput userDTOInput,
-                                            @RequestParam("registerCode") String registerCode,
+                                            @RequestParam("registerToken") String registerToken,
                                             @RequestParam("mobile") String mobile);
 
     /**
