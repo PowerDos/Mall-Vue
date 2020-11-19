@@ -129,3 +129,8 @@
 授权令牌，最后保存本次的登陆信息并生成新的授权令牌。
 具体实现在`com.example.member.api.MemberLoginServiceImpl`中 
 
+## DDD重构
+近期可能会将项目进行小规模重构，采用DDD的思想，也是对DDD的一次初探 <br>
+[为什么要重构](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-server/DDD/DDD_1.md)<br>
+[领域建模](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-server/DDD/DDD_2.md)<br>
+// TODO
