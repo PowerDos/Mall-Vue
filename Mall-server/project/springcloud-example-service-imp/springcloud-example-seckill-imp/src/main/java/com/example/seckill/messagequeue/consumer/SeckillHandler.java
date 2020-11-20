@@ -1,7 +1,7 @@
 package com.example.seckill.messagequeue.consumer;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.entitity.DO.SeckillDO;
+import com.example.domin.DO.SeckillDO;
 import com.example.seckill.config.RabbitMQConfig;
 import com.example.seckill.mapper.SeckillMapper;
 import com.example.global.util.constants.Constants;
@@ -11,7 +11,6 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;

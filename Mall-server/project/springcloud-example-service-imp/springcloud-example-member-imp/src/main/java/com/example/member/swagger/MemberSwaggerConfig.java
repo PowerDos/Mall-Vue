@@ -39,7 +39,6 @@ public class MemberSwaggerConfig {
                 //控制暴露出去的路径下的实例
                 //如果某个接口不想暴露,可以使用以下注解
                 //@ApiIgnore 这样,该接口就不会暴露在 swagger2 的页面下
-//                .apis(RequestHandlerSelectors.basePackage("com.example"))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))// 错误路径不监控
                 .paths(PathSelectors.any())
                 .build();

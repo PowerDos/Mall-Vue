@@ -1,6 +1,6 @@
 package com.example.seckill.mapper;
 
-import com.example.entitity.DO.SeckillDO;
+import com.example.domin.DO.SeckillDO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 

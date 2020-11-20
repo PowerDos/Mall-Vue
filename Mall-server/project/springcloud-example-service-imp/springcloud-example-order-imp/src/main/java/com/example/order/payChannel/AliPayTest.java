@@ -6,7 +6,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.example.order.entities.PayChannelDO;
-import com.example.entitity.DO.PayTransactionDO;
+import com.example.domin.DO.PayTransactionDO;
 import com.example.order.mapper.PayChannelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

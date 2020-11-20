@@ -2,8 +2,8 @@ package com.example.seckill.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.api.SecKillServiceApi;
-import com.example.entitity.DO.SeckillDO;
-import com.example.entitity.DO.SeckillGoodDO;
+import com.example.domin.DO.SeckillDO;
+import com.example.domin.DO.SeckillGoodDO;
 import com.example.seckill.config.RabbitMQConfig;
 import com.example.seckill.feign.goods.GoodsFeign;
 import com.example.seckill.mapper.SeckillGoodMapper;

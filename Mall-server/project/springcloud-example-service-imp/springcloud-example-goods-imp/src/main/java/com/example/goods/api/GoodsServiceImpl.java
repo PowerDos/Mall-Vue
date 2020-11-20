@@ -2,7 +2,7 @@ package com.example.goods.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.api.GoodsServiceApi;
-import com.example.entitity.DO.GoodSpecsDO;
+import com.example.domin.DO.GoodSpecsDO;
 import com.example.api.vo.HandleGoodStorage;
 import com.example.goods.mapper.GoodSpecsMapper;
 import com.example.global.util.baseResponse.BaseApiService;

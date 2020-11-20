@@ -1,6 +1,6 @@
 package com.example.order.mapper;
 
-import com.example.entitity.DO.PayTransactionDO;
+import com.example.domin.DO.PayTransactionDO;
 import com.example.global.util.cache.EnableCache;
 import org.apache.ibatis.annotations.*;
 

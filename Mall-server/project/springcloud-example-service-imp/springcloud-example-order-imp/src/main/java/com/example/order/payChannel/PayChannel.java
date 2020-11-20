@@ -1,6 +1,6 @@
 package com.example.order.payChannel;
 
-import com.example.entitity.DO.PayTransactionDO;
+import com.example.domin.DO.PayTransactionDO;
 
 import javax.servlet.http.HttpServletResponse;
 

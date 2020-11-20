@@ -17,7 +17,7 @@
 
     <modules>
         <module>springcloud-example-basic</module>
-        <module>springcloud-example-entity</module>
+        <module>springcloud-example-domin</module>
         <module>springcloud-example-service-api</module>
         <module>springcloud-example-service-imp</module>
         <module>spingcloud-example-common</module>

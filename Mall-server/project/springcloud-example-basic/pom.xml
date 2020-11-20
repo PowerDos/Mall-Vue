@@ -14,7 +14,7 @@
 
 
     <modules>
-        <!--<module>springcloud-example-eureka</module>-->
+        <module>springcloud-example-eureka</module>
         <!--<module>springcloud-example-security</module>-->
         <module>springcloud-example-zuul</module>
     </modules>

@@ -1,7 +1,7 @@
 package com.example.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.entitity.DTO.PayInfoDTOInput;
+import com.example.domin.DTO.PayInfoDTOInput;
 import com.example.global.util.baseResponse.BaseResponseStruct;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

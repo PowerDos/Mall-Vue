@@ -3,8 +3,8 @@ package com.example.seckill.service;
 import com.alibaba.fastjson.JSONObject;
 import com.example.seckill.mapper.SeckillGoodMapper;
 import com.example.seckill.mapper.SeckillMapper;
-import com.example.entitity.DO.SeckillDO;
-import com.example.entitity.DO.SeckillGoodDO;
+import com.example.domin.DO.SeckillDO;
+import com.example.domin.DO.SeckillGoodDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

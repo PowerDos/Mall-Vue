@@ -2,8 +2,8 @@ package com.example.order.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.api.OrderServiceApi;
-import com.example.entitity.DO.PayTransactionDO;
-import com.example.entitity.DTO.PayInfoDTOInput;
+import com.example.domin.DO.PayTransactionDO;
+import com.example.domin.DTO.PayInfoDTOInput;
 import com.example.global.util.requestUtil.RequestUtil;
 import com.example.order.mapper.PayTransactionMapper;
 import com.example.global.util.baseResponse.BaseApiService;

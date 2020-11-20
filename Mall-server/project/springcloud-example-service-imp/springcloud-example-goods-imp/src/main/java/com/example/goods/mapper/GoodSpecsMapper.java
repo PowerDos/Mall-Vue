@@ -1,6 +1,6 @@
 package com.example.goods.mapper;
 
-import com.example.entitity.DO.GoodSpecsDO;
+import com.example.domin.DO.GoodSpecsDO;
 import com.example.global.util.cache.EnableCache;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

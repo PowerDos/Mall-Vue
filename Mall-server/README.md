@@ -113,3 +113,24 @@
 `微服务接口api模块（member,goods,order,remark,seckill等）`
 * springcloud-example-service-imp <br>
 `微服务接口实现模块（member,goods,order,remark,seckill等）`
+
+## 主要逻辑
+### member模块
+![register](runningshot/register.png)
+在用户进行注册时，首先需要对手机号进行验证，程序会生成有一定时效的token并向用户发送验证码短信，用户在
+收到短信验证码后填写验证码，程序此时会返回一个准入注册的token，此时用户填写注册信息，并携带准入token。
+程序会核实准入token和当前正在注册手机号，正确无误后会生成并存储用户的账号信息。
+具体实现在`com.example.member.api.MemberRegisterServiceImpl`中 
+<Br>
+
+![login](runningshot/login.png)
+用户在登陆时，首先校验准入规则，如登陆设备类型，密码是否匹配，账号是否被禁用等，通过检验后，检查该账号
+是否在相同设备多次登录，如果在相同台设备上有处于在线状态的记录，则将此登陆状态设为无效，并移除它的登录
+授权令牌，最后保存本次的登陆信息并生成新的授权令牌。
+具体实现在`com.example.member.api.MemberLoginServiceImpl`中 
+
+## DDD重构
+近期可能会将项目进行小规模重构，采用DDD的思想，也是对DDD的一次初探 <br>
+[为什么要重构](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-server/DDD/DDD_1.md)<br>
+[领域建模](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-server/DDD/DDD_2.md)<br>
+// TODO

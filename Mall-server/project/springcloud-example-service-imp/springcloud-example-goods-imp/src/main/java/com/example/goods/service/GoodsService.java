@@ -1,13 +1,13 @@
 package com.example.goods.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.entitity.VO.MealInfo;
+import com.example.domin.VO.MealInfo;
 import com.example.goods.entities.ESProductDO;
-import com.example.entitity.DO.*;
-import com.example.entitity.DTO.GoodDetailDTO;
-import com.example.entitity.DTO.AttributeValueDTOOutput;
-import com.example.entitity.DTO.CategoryDTOOutput;
-import com.example.entitity.DTO.ProductDTOOutput;
+import com.example.domin.DO.*;
+import com.example.domin.DTO.GoodDetailDTO;
+import com.example.domin.DTO.AttributeValueDTOOutput;
+import com.example.domin.DTO.CategoryDTOOutput;
+import com.example.domin.DTO.ProductDTOOutput;
 import com.example.goods.feign.remark.RemarkFeign;
 import com.example.goods.mapper.GoodsMapper;
 import com.example.goods.repository.ProductsRep;

@@ -3,7 +3,7 @@ package com.example.order.api;
 import com.alibaba.fastjson.JSONObject;
 import com.example.api.PayServiceApi;
 import com.example.order.entities.PayChannelDO;
-import com.example.entitity.DO.PayTransactionDO;
+import com.example.domin.DO.PayTransactionDO;
 import com.example.order.mapper.PayChannelMapper;
 import com.example.order.mapper.PayTransactionMapper;
 import com.example.order.payChannel.PayChannel;

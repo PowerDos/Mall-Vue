@@ -1,9 +1,9 @@
 package com.example.remarks.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.entitity.DO.RemarkDetailDO;
-import com.example.entitity.DO.RemarkTagDO;
-import com.example.entitity.DO.RemarksDO;
+import com.example.domin.DO.RemarkDetailDO;
+import com.example.domin.DO.RemarkTagDO;
+import com.example.domin.DO.RemarksDO;
 import com.example.remarks.mapper.RemarksMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
