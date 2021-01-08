@@ -17,7 +17,7 @@
 
     <modules>
         <module>springcloud-example-basic</module>
-        <module>springcloud-example-entity</module>
+        <module>springcloud-example-domin</module>
         <module>springcloud-example-service-api</module>
         <module>springcloud-example-service-imp</module>
         <module>spingcloud-example-common</module>
@@ -41,6 +41,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>2.2.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <version>2.2.2.RELEASE</version>
         </dependency>
 
     </dependencies>

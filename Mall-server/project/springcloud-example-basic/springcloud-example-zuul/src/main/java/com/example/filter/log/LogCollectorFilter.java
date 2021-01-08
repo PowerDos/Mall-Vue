@@ -1,11 +1,8 @@
 package com.example.filter.log;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.filter.util.MultiPartFormDateToJson;
-import com.example.global.util.constants.Constants;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
@@ -14,10 +11,8 @@ import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -32,10 +27,10 @@ public class LogCollectorFilter extends ZuulFilter {
         System.out.println("LogCollectorFilter");
     }
 
-    public Object run() throws ZuulException {
+    public Object run() {
         try {
             StringBuilder visitInfoLog = new StringBuilder();
-            visitInfoLog.append("进入日志记录过滤器");
+            visitInfoLog.append("\n进入日志记录过滤器  ");
 
             RequestContext ctx = RequestContext.getCurrentContext();
             HttpServletRequest request = ctx.getRequest();
@@ -45,12 +40,12 @@ public class LogCollectorFilter extends ZuulFilter {
             // 打印request
             String method = request.getMethod();
             String interfaceMethod = request.getServletPath();
-            visitInfoLog.append("请求方法接口+ ").append(interfaceMethod).append(" 方法 ").append(method).append("\n").append("请求头:").append("\n");
+            visitInfoLog.append("请求接口").append(interfaceMethod).append(method).append("\n").append("请求头:").append("\n");
 
             Enumeration<String> headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String headerName = headerNames.nextElement();
-                String headerValue = request.getHeader("headerName");
+                String headerValue = request.getHeader(headerName);
                 visitInfoLog.append("  ").append(headerName).append("\t").append(headerValue).append("\n");
             }
             if ("GET".equals(method.toUpperCase())) {
@@ -84,8 +79,7 @@ public class LogCollectorFilter extends ZuulFilter {
 
             // 打印response
             InputStream out = ctx.getResponseDataStream();
-            String outBody = StreamUtils.copyToString(out, Charset.forName("UTF-8"));
-            boolean result = false;
+            String outBody = StreamUtils.copyToString(out, StandardCharsets.UTF_8);
             if (!StringUtils.isEmpty(outBody)) {
                 visitInfoLog.append("响应参数:\n").append(outBody);
             }

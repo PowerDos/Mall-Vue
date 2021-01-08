@@ -1,6 +1,6 @@
 package com.example.order.mapper;
 
-import com.example.entitity.DO.OrderDO;
+import com.example.domin.DO.OrderDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;

@@ -1,17 +1,17 @@
 package com.example.goods.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.domin.VO.MealInfo;
 import com.example.goods.entities.ESProductDO;
-import com.example.entitity.DO.*;
-import com.example.entitity.DTO.GoodDetailDTO;
-import com.example.entitity.DTO.AttributeValueDTOOutput;
-import com.example.entitity.DTO.CategoryDTOOutput;
-import com.example.entitity.DTO.ProductDTOOutput;
+import com.example.domin.DO.*;
+import com.example.domin.DTO.GoodDetailDTO;
+import com.example.domin.DTO.AttributeValueDTOOutput;
+import com.example.domin.DTO.CategoryDTOOutput;
+import com.example.domin.DTO.ProductDTOOutput;
 import com.example.goods.feign.remark.RemarkFeign;
 import com.example.goods.mapper.GoodsMapper;
 import com.example.goods.repository.ProductsRep;
 import com.example.goods.util.Util;
-import com.example.global.util.baseResponse.BaseResponse;
 import com.example.global.util.objectTransform.ObjectTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,48 +31,76 @@ public class GoodsService {
     @Autowired
     private RemarkFeign remarkFeign;
 
-    /**
+    /*
      * 获取所有商品的分类信息(1->2->3)
      *
      * @return example:
-     * {
-     * "categoriesInfo":[{
-     * "detail": {
-     * "navTags": [""],
-     * "classNav": [
-     * {
-     * "title": "",
-     * "tags": [""]
-     * }]
-     * },
-     * "type": ""
-     * }],
-     * }
-     */
+    {
+        "categoriesInfo":[
+        {
+            "detail":{
+            "navTags":[
+            ""
+                ],
+            "classNav":[
+            {
+                "title":"",
+                    "tags":[
+                ""
+                        ]
+            }
+                ]
+        },
+            "type":""
+        }
+    ]
+    }*/
     public List<JSONObject> getGoodsCategories() {
-        List<JSONObject> categoriesInfos = new ArrayList<>();
-        for (CategoryDO rootCategory : goodsMapper.getRootCategory()) {
+
+        // 查询根分类信息
+        List<CategoryDO> rootCategoryInfos = goodsMapper.getRootCategory();
+
+        // 查询二级分类信息
+        List<Long> secondCategoryIdList = new ArrayList<>();
+        for (CategoryDO rootCategory : rootCategoryInfos) {
+            secondCategoryIdList.add(rootCategory.getId());
+        }
+        List<CategoryDO> secondCategoryInfo = goodsMapper.getCategoryByParentIdIn(secondCategoryIdList);
+
+        // 查询三级分类信息
+        List<Long> thirdCategoryIdList = new ArrayList<>();
+        for (CategoryDO secondCategory : secondCategoryInfo) {
+            thirdCategoryIdList.add(secondCategory.getId());
+        }
+        List<CategoryDO> thirdCategoryInfo = goodsMapper.getCategoryByParentIdIn(thirdCategoryIdList);
+
+        // 查询结果
+        List<JSONObject> result = new ArrayList<>();
+        for (CategoryDO rootCategory : rootCategoryInfos) {
+
+            // categoriesInfo
             JSONObject categoriesInfo = new JSONObject();
             categoriesInfo.put("type", rootCategory.getName());
             JSONObject categoryDetail = new JSONObject();
             categoriesInfo.put("detail", categoryDetail);
-            List<String> navTagsData = loadNavTagsData(rootCategory.getId());
-            categoryDetail.put("navTags", navTagsData);
+
             List<JSONObject> classNavs = new ArrayList<>();
-            for (CategoryDO secondCategory : goodsMapper.getCategoryByParentId(rootCategory.getId())) {
+            for (CategoryDO secondCategory : secondCategoryInfo) {
                 JSONObject classNavData = new JSONObject();
                 classNavData.put("title", secondCategory.getName());
                 List<CategoryDTOOutput> tags = new ArrayList<>();
                 classNavData.put("tags", tags);
-                for (CategoryDO thirdCategory : goodsMapper.getCategoryByParentId(secondCategory.getId())) {
-                    tags.add(ObjectTransform.doToDto(thirdCategory, CategoryDTOOutput.class));
+                for (CategoryDO thirdCategory : thirdCategoryInfo) {
+                    tags.add(ObjectTransform.transform(thirdCategory, CategoryDTOOutput.class));
                 }
                 classNavs.add(classNavData);
             }
+            List<String> navTagsData = loadNavTagsData(rootCategory.getId());
+            categoryDetail.put("navTags", navTagsData);
             categoryDetail.put("classNav", classNavs);
-            categoriesInfos.add(categoriesInfo);
+            result.add(categoriesInfo);
         }
-        return categoriesInfos;
+        return result;
     }
 
     /**
@@ -81,7 +109,7 @@ public class GoodsService {
      * @param categoryId 商品分类id(一级分类)
      * @return List<String>
      */
-    public List<String> loadNavTagsData(Long categoryId) {
+    private List<String> loadNavTagsData(Long categoryId) {
         String[] navTagsData = {};
         if (categoryId == 1L) {
             navTagsData = new String[]{"赛事1", "运动城"};
@@ -116,7 +144,7 @@ public class GoodsService {
             Long attributeKey = attributeKeyDO.getId();
             List<AttributeValueDO> attributeValueDOs = goodsMapper.getAttributeValueByAttributeId(attributeKey);
             for (AttributeValueDO attributeValueDO : attributeValueDOs) {
-                tags.add(ObjectTransform.doToDto(attributeValueDO, AttributeValueDTOOutput.class));
+                tags.add(ObjectTransform.transform(attributeValueDO, AttributeValueDTOOutput.class));
             }
             tagsInfo.add(tagInfo);
         }
@@ -232,16 +260,15 @@ public class GoodsService {
             goodDetailDTO.setRemarksNum(productDO.getComment());
             // 设置goodDetailDTo的setMeal , 图像goodImg
             List<String> goodImg = new ArrayList<>();
-            List<List<JSONObject>> setMeal;
-            List<JSONObject> meal = new ArrayList<>();
-            // TODO 这里以后 JSONObject 可以改成具体对象
+            List<List<MealInfo>> setMeal;
+            List<MealInfo> meal = new ArrayList<>();
             for (String SpecsIdStr : productDO.getSpecs_id_list().split(",")) {
                 GoodSpecsDO goodSpecsDO = goodsMapper.getGoodSpecsBySpecsId(Long.parseLong(SpecsIdStr));
-                JSONObject mealInfo = new JSONObject();
-                mealInfo.put("img", goodSpecsDO.getSmallImg());
-                mealInfo.put("intro", goodSpecsDO.getIntro());
-                mealInfo.put("price", goodSpecsDO.getPrice());
-                mealInfo.put("specsId",SpecsIdStr);
+                MealInfo mealInfo = new MealInfo();
+                mealInfo.setImg(goodSpecsDO.getSmallImg());
+                mealInfo.setIntro(goodSpecsDO.getIntro());
+                mealInfo.setPrice(goodSpecsDO.getPrice());
+                mealInfo.setSpecsId(goodSpecsDO.getSpecs_id());
                 meal.add(mealInfo);
                 goodImg.add(goodSpecsDO.getBigImg());
             }
@@ -319,16 +346,14 @@ public class GoodsService {
             goodDetailDTO.setRemarksNum(productDO.getComment());
             // 设置goodDetailDTo的setMeal , 图像goodImg
             List<String> goodImg = new ArrayList<>();
-            List<List<JSONObject>> setMeal;
-            List<JSONObject> meal = new ArrayList<>();
-            // TODO 这里以后 JSONObject 可以改成具体对象
-//            for (String SpecsIdStr : productDO.getSpecs_id_list().split(",")) {
+            List<List<MealInfo>> setMeal;
+            List<MealInfo> meal = new ArrayList<>();
             GoodSpecsDO goodSpecsDO = goodsMapper.getGoodSpecsBySpecsId(specsId);
-            JSONObject mealInfo = new JSONObject();
-            mealInfo.put("img", goodSpecsDO.getSmallImg());
-            mealInfo.put("intro", goodSpecsDO.getIntro());
-            mealInfo.put("price", goodSpecsDO.getPrice());
-            mealInfo.put("specsId",specsId);
+            MealInfo mealInfo = new MealInfo();
+            mealInfo.setImg(goodSpecsDO.getSmallImg());
+            mealInfo.setIntro(goodSpecsDO.getIntro());
+            mealInfo.setPrice(goodSpecsDO.getPrice());
+            mealInfo.setSpecsId(goodSpecsDO.getSpecs_id());
             meal.add(mealInfo);
             goodImg.add(goodSpecsDO.getBigImg());
 //            }
@@ -418,8 +443,7 @@ public class GoodsService {
 
     public JSONObject getGoodRemarks(String remarksId) {
         System.out.println("查询remarksId=" + remarksId + "的商品的评论信息");
-        BaseResponse<JSONObject> remarksInfo = remarkFeign.getRemarksInfo(Long.parseLong(remarksId));
-        JSONObject remarks = remarksInfo.getData();
+        JSONObject remarks = remarkFeign.getRemarksInfo(Long.parseLong(remarksId));
         return remarks.getJSONObject("remarksInfo");
     }
 }

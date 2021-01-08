@@ -1,14 +1,14 @@
 package com.example.order.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.api.PayService;
+import com.example.api.PayServiceApi;
 import com.example.order.entities.PayChannelDO;
-import com.example.entitity.DO.PayTransactionDO;
+import com.example.domin.DO.PayTransactionDO;
 import com.example.order.mapper.PayChannelMapper;
 import com.example.order.mapper.PayTransactionMapper;
 import com.example.order.payChannel.PayChannel;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
+import com.example.global.util.baseResponse.BaseResponseStruct;
 import com.example.global.util.tokenGenerate.TokenGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class PayServiceImp extends BaseApiService<JSONObject> implements PayService {
+public class PayServiceImp extends BaseApiService<JSONObject> implements PayServiceApi {
 
     @Autowired
     private TokenGenerate tokenGenerate;
@@ -29,7 +29,7 @@ public class PayServiceImp extends BaseApiService<JSONObject> implements PayServ
     private PayChannelMapper payChannelMapper;
 
     @Override
-    public BaseResponse<JSONObject> pay(String payToken, HttpServletResponse response) {
+    public BaseResponseStruct<JSONObject> pay(String payToken, HttpServletResponse response) {
 
         String payTransactionIdStr = tokenGenerate.getToken(payToken);
         PayTransactionDO payTransactionDO = payTransactionMapper.getPayTransactionById(Long.parseLong(payTransactionIdStr));
@@ -42,7 +42,7 @@ public class PayServiceImp extends BaseApiService<JSONObject> implements PayServ
     }
 
     @Override
-    public BaseResponse<JSONObject> queryPayStatue(String body, String payToken) {
+    public BaseResponseStruct<JSONObject> queryPayStatue(String body, String payToken) {
 
         JSONObject returnData = JSONObject.parseObject(body);
         Long out_trade_no = returnData.getLong("out_trade_no");

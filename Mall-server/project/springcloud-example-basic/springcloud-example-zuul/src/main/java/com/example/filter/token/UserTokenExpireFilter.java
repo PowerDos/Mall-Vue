@@ -56,7 +56,7 @@ public class UserTokenExpireFilter extends ZuulFilter {
     // 过滤器类型 pre 表示在 请求之前进行拦截
     public String filterType() {
 
-        return  FilterConstants.PRE_TYPE;
+        return FilterConstants.PRE_TYPE;
     }
 
 }

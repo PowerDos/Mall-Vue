@@ -1,12 +1,12 @@
 package com.example.goods.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.api.CategoryService;
-import com.example.entitity.DO.CategoryDO;
+import com.example.api.CategoryServiceApi;
+import com.example.domin.DO.CategoryDO;
 import com.example.goods.mapper.GoodsMapper;
 import com.example.goods.service.GoodsService;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
+import com.example.global.util.baseResponse.BaseResponseStruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class CategoryServiceImpl extends BaseApiService<JSONObject>  implements CategoryService {
+public class CategoryServiceImpl extends BaseApiService<JSONObject>  implements CategoryServiceApi {
 
     @Autowired
     private GoodsMapper goodsMapper;
@@ -22,7 +22,7 @@ public class CategoryServiceImpl extends BaseApiService<JSONObject>  implements 
     private GoodsService goodsService;
 
     @Override
-    public BaseResponse<JSONObject> getGoodsRootCategory() {
+    public BaseResponseStruct<JSONObject> getGoodsRootCategory() {
         List<CategoryDO> rootCategory = goodsMapper.getRootCategory();
         List<String> categoryName = new ArrayList<>();
         for (CategoryDO categoryDO : rootCategory) {
@@ -35,14 +35,14 @@ public class CategoryServiceImpl extends BaseApiService<JSONObject>  implements 
 
 
     @Override
-    public BaseResponse<JSONObject> getGoodsCategories() {
+    public BaseResponseStruct<JSONObject> getGoodsCategories() {
         JSONObject responseData = new JSONObject();
         responseData.put("categoriesInfo", goodsService.getGoodsCategories());
         return setResultSuccess(responseData);
     }
 
     @Override
-    public BaseResponse<JSONObject> getGoodsAttributes(Long categoryId) {
+    public BaseResponseStruct<JSONObject> getGoodsAttributes(Long categoryId) {
         JSONObject responseData = new JSONObject();
         responseData.put("attributesInfo", goodsService.getGoodsAttributes(categoryId));
         return setResultSuccess(responseData);

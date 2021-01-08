@@ -17,24 +17,10 @@ public class TokenGenerate {
      *
      * @param keyPrefix  令牌key前缀
      * @param redisValue redis存放的值
-     * @return 返回token
-     */
-    public String createToken(String keyPrefix, String redisValue) {
-        return createToken(keyPrefix, redisValue, null);
-    }
-
-    /**
-     * 生成令牌
-     *
-     * @param keyPrefix  令牌key前缀
-     * @param redisValue redis存放的值
      * @param time       有效期
      * @return 返回token
      */
     public String createToken(String keyPrefix, String redisValue, Long time) {
-        if (StringUtils.isEmpty(redisValue)) {
-            new Exception("redisValue Not null");
-        }
         String token = keyPrefix + UUID.randomUUID().toString().replace("-", "");
         redisUtil.setString(token, redisValue, time);
         return token;
@@ -43,11 +29,11 @@ public class TokenGenerate {
     /**
      * 延期令牌
      *
-     * @param key  令牌key
-     * @param timeout  有效期
+     * @param key     令牌key
+     * @param timeout 有效期
      */
     public void expireToken(String key, Long timeout) {
-        redisUtil.expire(key,timeout);
+        redisUtil.expire(key, timeout);
     }
 
     /**
@@ -59,9 +45,6 @@ public class TokenGenerate {
      * @return 返回token
      */
     public void createTokenWithNoSuffix(String key, String redisValue, Long time) {
-        if (StringUtils.isEmpty(redisValue)) {
-            new Exception("redisValue Not null");
-        }
         redisUtil.setString(key, redisValue, time);
     }
 
@@ -74,9 +57,6 @@ public class TokenGenerate {
      * @param time       有效期
      */
     public void updateToken(String key, String redisValue, Long time) {
-        if (StringUtils.isEmpty(redisValue)) {
-            new Exception("redisValue Not null");
-        }
         redisUtil.setString(key, redisValue, time);
     }
 

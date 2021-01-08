@@ -1,14 +1,16 @@
 package com.example.goods.api;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.api.GoodsService;
-import com.example.entitity.DO.GoodSpecsDO;
+import com.example.api.GoodsServiceApi;
+import com.example.domin.DO.GoodSpecsDO;
+import com.example.api.vo.HandleGoodStorage;
 import com.example.goods.mapper.GoodSpecsMapper;
-import com.example.global.util.Transaction.DataBaseTransaction;
 import com.example.global.util.baseResponse.BaseApiService;
-import com.example.global.util.baseResponse.BaseResponse;
+import com.example.global.util.baseResponse.BaseResponseStruct;
+import com.example.goods.service.GoodsService;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -16,24 +18,22 @@ import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
-public class GoodsServiceImpl extends BaseApiService<JSONObject> implements GoodsService {
+public class GoodsServiceImpl extends BaseApiService<JSONObject> implements GoodsServiceApi {
 
     @Autowired
-    private com.example.goods.service.GoodsService goodsService;
+    private GoodsService goodsService;
     @Autowired
     private GoodSpecsMapper goodSpecsMapper;
-    @Autowired
-    private DataBaseTransaction transaction;
 
     @Override
-    public BaseResponse<JSONObject> getGoodsLists(Long categoryId) {
+    public BaseResponseStruct<JSONObject> getGoodsLists(Long categoryId) {
         JSONObject responseData = new JSONObject();
         responseData.put("productsInfo", goodsService.getGoodsProducts(categoryId));
         return setResultSuccess(responseData);
     }
 
     @Override
-    public BaseResponse<JSONObject> searchGoodsLists(String searchStr) {
+    public BaseResponseStruct<JSONObject> searchGoodsLists(String searchStr) {
         try {
             searchStr = URLDecoder.decode(searchStr, "utf-8");
             JSONObject responseData = new JSONObject();
@@ -46,45 +46,37 @@ public class GoodsServiceImpl extends BaseApiService<JSONObject> implements Good
     }
 
     @Override
-    public BaseResponse<JSONObject> getGoodDetail(Long productId) {
+    public BaseResponseStruct<JSONObject> getGoodDetail(Long productId) {
         JSONObject responseData = new JSONObject();
         responseData.put("goodDetail", goodsService.getGoodDetail(productId));
         return setResultSuccess(responseData);
     }
 
     @Override
-    public BaseResponse<JSONObject> getGoodDetailSeckill(Long productId, Long specsId) {
+    public BaseResponseStruct<JSONObject> getGoodDetailSeckill(Long productId, Long specsId) {
         JSONObject responseData = new JSONObject();
         responseData.put("goodDetail", goodsService.getGoodDetailSeckill(productId, specsId));
         return setResultSuccess(responseData);
     }
 
     @Override
-    public BaseResponse<JSONObject> handleGoodStorage(String transformData) {
-        TransactionStatus transactionStatus = transaction.begin();
+    @Transactional
+    public BaseResponseStruct<JSONObject> handleGoodStorage(List<HandleGoodStorage> transformData) {
         try {
-            List<JSONObject> bugInfos = JSONObject.parseObject(transformData, List.class);
-            for (JSONObject bugInfo : bugInfos) {
-                Long specsId = bugInfo.getLong("specsId");
-                Long count = bugInfo.getLong("count");
+            for (HandleGoodStorage bugInfo : transformData) {
+                Long specsId = bugInfo.getSpecsId();
+                Long count = bugInfo.getCount();
                 GoodSpecsDO goodSpecsDO = goodSpecsMapper.getGoodSpecsDO(specsId);
                 Long vision = goodSpecsDO.getRevision();
                 int result = goodSpecsMapper.bugGood(specsId, count, vision);
                 if (result <= 0) {
-                    transaction.rollback(transactionStatus);
-                    return setResultError("fail");
+                    throw new IllegalArgumentException("购买数量不能小于0");
                 }
             }
-            transaction.commit(transactionStatus);
             return setResultSuccess("success");
         } catch (Exception e) {
-            try {
-                transaction.rollback(transactionStatus);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
             e.printStackTrace();
-            return setResultError("fail");
+            throw new InternalException("服务器内部错误");
         }
     }
 }

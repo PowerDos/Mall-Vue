@@ -1,10 +1,10 @@
 package com.example.goods.mapper;
 
-import com.example.entitity.DO.GoodSpecsDO;
+import com.example.domin.DO.GoodSpecsDO;
+import com.example.global.util.cache.EnableCache;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 public interface GoodSpecsMapper {
 
     @Update("update example_product_specs " +
@@ -14,6 +14,7 @@ public interface GoodSpecsMapper {
     int bugGood(@Param("specsId") Long specsId, @Param("count") Long count, @Param("vision") Long vision);
 
 
+    @EnableCache
     @Select("select * from example_product_specs where specs_id = #{specsId}")
     GoodSpecsDO getGoodSpecsDO(Long specsId);
 }
