@@ -1,2 +1,3 @@
-[切换至Mall-Vue](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-web/README.md)|
-[切换至Mall-Server](https://github.com/PowerDos/Mall-Vue/blob/forMallServerSpringBoot/Mall-server/README.md)<br>
+[查看后端介绍](Mall-server/README.md)
+|
+[查看web端介绍](Mall-web/README.md)
