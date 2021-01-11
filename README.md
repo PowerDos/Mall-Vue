@@ -17,10 +17,17 @@
 [中文](https://github.com/PowerDos/Mall-Vue/blob/master/README-ZH.md) | [English](https://github.com/PowerDos/Mall-Vue/blob/master/README.md)
 
 ## Prerequisites
-> The **master** branch is a pure front-end project，and the **forMallServer** branch is a front-end project that combines with the backend API server. The mall api server:[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server)
+**Branch introduction:**
+> The **master** branch is a pure front-end project.(using:Vue+Vuex+iView)
 
+> The **forMallServer** branch is a front-end project(using：Spring+Struts+Hibernate) that combines with the backend API server. The mall api server:[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server)
 
-> The project on master branch is a pure front-end project，so the login account and password is fixed. Account: Gavin, Password: 123456
+> The **Mall-CI**branch is a project including the front-end, back-end, mobile-end (in progress，reference Projects)
+
+**Batter clone：**
+> if you only want to view pure front-end project,we strong recommend you to using **git clone {repo} --depth=1** to get master branch
+
+> if you want to clone whole repository (178M), make sure your network speed meets the requirements or use other proxy tools
 
 ## How to run
 

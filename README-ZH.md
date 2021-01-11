@@ -17,10 +17,17 @@
 [中文](https://github.com/PowerDos/Mall-Vue/blob/master/README-ZH.md) | [English](https://github.com/PowerDos/Mall-Vue/blob/master/README.md)
 
 ## 说明
-> **master**分支是单纯的前端项目，**forMallServer**分支为与后端接口结合的前端项目，附后端API项目地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server), 本项目仅供学习参考
+**分支介绍：**
+> **master**分支是单纯的前端项目。(技术栈：Vue+Vuex+iView)
 
+> **forMallServer**分支为与后端接口结合的前端项目，附后端API项目(技术栈：Spring+Struts+Hibernate)地址：[https://github.com/PowerDos/Mall-Server](https://github.com/PowerDos/Mall-Server), 本项目仅供学习参考
 
-> master 分支为纯前端项目，所以登陆密码是写死的，体验账号：Gavin,密码： 123456
+> **Mall-CI**分支是包含了前端，后端，移动端的项目(正在开发中，流程请关注Projects)
+
+**更好的clone：**
+> 如果你仅仅想体验master的纯前端项目，我们强烈建议您使用 **git clone {repo} --depth=1** 来获取master分支
+
+> 如果你想git整个镜像（178M），请确保您的网络速度达到要求或是使用其他代理工具
 
 ## Build Setup
 
