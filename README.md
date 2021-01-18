@@ -24,7 +24,7 @@
 
 > The **Mall-CI**branch is a project including the front-end, back-end, mobile-end (in progress，reference Projects)
 
-**Batter clone：**
+**Better clone：**
 > if you only want to view pure front-end project,we strong recommend you to using **git clone {repo} --depth=1** to get master branch
 
 > if you want to clone whole repository (178M), make sure your network speed meets the requirements or use other proxy tools
