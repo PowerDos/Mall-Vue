@@ -9,6 +9,12 @@
 ## Document
 [中文](README-ZH.md) | [English](README.md)
 
+## How to run
+### use docker   
+   ``` bash
+   # run front-end project
+   docker run -d -p 80:80 --name mall-web w929732982/mall-web
+   ```
 ## Prerequisites
 **Structure description:**
 > Files under "/doc" is the project level document, including requirement analysis，specified standard and etc.

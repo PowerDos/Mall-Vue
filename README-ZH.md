@@ -9,6 +9,12 @@
 ## 文档
 [中文](README-ZH.md) | [English](README.md)
 
+## 如何运行
+### 使用docker   
+   ``` bash
+   # 运行前端项目
+   docker run -d -p 80:80 --name mall-web w929732982/mall-web
+   ```
 ## 说明
 **结构介绍:**
 > "/doc"下是项目级文档,包含需求分析和规范制定等
