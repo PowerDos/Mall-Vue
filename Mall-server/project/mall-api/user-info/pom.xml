@@ -4,23 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>mall-server</artifactId>
+        <artifactId>mall-api</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
-    <artifactId>mall-basic</artifactId>
+    <groupId>com.example.user</groupId>
+    <artifactId>user-info</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>mall-basic</name>
-    <description>MallServer by Spring Boot</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
-    <dependencies>
-
-    </dependencies>
+    <name>user-info</name>
+    <description>Info subdomain of user ZhongTai</description>
 
 
 </project>

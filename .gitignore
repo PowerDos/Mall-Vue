@@ -8,3 +8,5 @@ Mall-web/yarn-error.log*
 .idea
 **/target
 *.iml
+/Mall-web/project/dist/
+/Mall-web/project/node_modules/
