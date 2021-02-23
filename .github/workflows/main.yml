@@ -41,3 +41,51 @@ jobs:
           context: ./Mall-server/project/mall-application/goods-browse-application
           push: true
           tags: w929732982/mall-goods-browse:latest
+      - name: push goods-feedback
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/goods-feedback-application
+          push: true
+          tags: w929732982/mall-goods-feedback:latest
+      - name: push goods-statistics
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/goods-statistics-application
+          push: true
+          tags: w929732982/mall-goods-statistics:latest
+      - name: push order-cancel
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/order-cancel-application
+          push: true
+          tags: w929732982/mall-order-cancel:latest
+      - name: push order-create
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/order-create-application
+          push: true
+          tags: w929732982/mall-order-create:latest
+      - name: push order-payment
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/order-payment-application
+          push: true
+          tags: w929732982/mall-order-payment:latest
+      - name: push user-info
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/user-info-application
+          push: true
+          tags: w929732982/mall-user-info:latest
+      - name: push user-login
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/user-login-application
+          push: true
+          tags: w929732982/mall-user-login:latest
+      - name: push user-register
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/user-register-application
+          push: true
+          tags: w929732982/mall-user-register:latest
