@@ -6,13 +6,24 @@
         <groupId>com.example</groupId>
         <artifactId>mall-server</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>mall-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>mall-api</name>
     <description>MallServer by Spring Boot</description>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>goods-browse-api</module>
+        <module>goods-feedback-api</module>
+        <module>goods-statistics-api</module>
+        <module>order-cancel-api</module>
+        <module>order-create-api</module>
+        <module>order-payment-api</module>
+        <module>user-info-api</module>
+        <module>user-login-api</module>
+        <module>user-register-api</module>
+    </modules>
 
 </project>

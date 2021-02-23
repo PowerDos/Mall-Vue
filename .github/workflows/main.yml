@@ -32,4 +32,17 @@ jobs:
         with:
           context: ./Mall-web/project
           push: true
-          tags: w929732982/mall-web:lastest
+          tags: w929732982/mall-web:latest
+      -
+        name: Maven build
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+        run:
+           mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - name: Build and push goods-browse
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Mall-server/project/mall-application/goods-browse-application
+          push: true
+          tags: w929732982/mall-goods-browse:latest

@@ -4,14 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>mall-server</artifactId>
+        <artifactId>mall-api</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mall-basic</artifactId>
+    <groupId>com.example.goods</groupId>
+    <artifactId>goods-browse-api</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>mall-basic</name>
-    <description>MallServer by Spring Boot</description>
+    <name>goods-browse-api</name>
+    <description>Browsing subdomain Api</description>
 
     <packaging>pom</packaging>
 </project>
