@@ -1,8 +1,13 @@
-name: Docker Image CI
+name: Build and push to Docker
 
 on:
   push:
     branches: [ Mall-CI ]
+env:
+  REGION_ID: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
+  NAMESPACE: w929732982
+  TAG: ${{ github.sha }}
 
 jobs:
 
@@ -11,81 +16,65 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
+
+      - name: Login to ACR
+        uses: aliyun/acr-login@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      -
-        name: Build and push front end project
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-web/project
-          push: true
-          tags: w929732982/mall-web:latest
-      - name: build goods-browse
+          login-server: registry.cn-beijing.aliyuncs.com
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push image to ACR
+        run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-web:$TAG" Mall-web/project
+          docker push "$REGISTRY/$NAMESPACE/mall-web:$TAG"
+
+      - name: build mall-server project
         run: mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
       - name: push goods-browse
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/goods-browse-application
-          push: true
-          tags: w929732982/mall-goods-browse:latest
+        run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-goods-browse:$TAG" Mall-web/project/mall-application/goods-browse-application
+          docker push "$REGISTRY/$NAMESPACE/mall-goods-browse:$TAG"
+
       - name: push goods-feedback
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/goods-feedback-application
-          push: true
-          tags: w929732982/mall-goods-feedback:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-goods-feedback:$TAG" Mall-web/project/mall-application/goods-feedback-application
+          docker push "$REGISTRY/$NAMESPACE/mall-goods-feedback:$TAG"
+
       - name: push goods-statistics
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/goods-statistics-application
-          push: true
-          tags: w929732982/mall-goods-statistics:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-goods-statistics:$TAG" Mall-web/project/mall-application/goods-statistics-application
+          docker push "$REGISTRY/$NAMESPACE/mall-goods-statistics:$TAG"
+
       - name: push order-cancel
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/order-cancel-application
-          push: true
-          tags: w929732982/mall-order-cancel:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-order-cancel:$TAG" Mall-web/project/mall-application/order-cancel-application
+          docker push "$REGISTRY/$NAMESPACE/mall-order-cancel:$TAG"
+
       - name: push order-create
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/order-create-application
-          push: true
-          tags: w929732982/mall-order-create:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-order-create:$TAG" Mall-web/project/mall-application/order-create-application
+          docker push "$REGISTRY/$NAMESPACE/mall-order-create:$TAG"
+
       - name: push order-payment
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/order-payment-application
-          push: true
-          tags: w929732982/mall-order-payment:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-order-payment:$TAG" Mall-web/project/mall-application/order-payment-application
+          docker push "$REGISTRY/$NAMESPACE/mall-order-payment:$TAG"
+
       - name: push user-info
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/user-info-application
-          push: true
-          tags: w929732982/mall-user-info:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-user-info:$TAG" Mall-web/project/mall-application/user-info-application
+          docker push "$REGISTRY/$NAMESPACE/mall-user-info:$TAG"
+
       - name: push user-login
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/user-login-application
-          push: true
-          tags: w929732982/mall-user-login:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-user-login:$TAG" Mall-web/project/mall-application/user-login-application
+          docker push "$REGISTRY/$NAMESPACE/mall-user-login:$TAG"
+
       - name: push user-register
-        uses: docker/build-push-action@v2
-        with:
-          context: ./Mall-server/project/mall-application/user-register-application
-          push: true
-          tags: w929732982/mall-user-register:latest
+          run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-user-register:$TAG" Mall-web/project/mall-application/user-register-application
+          docker push "$REGISTRY/$NAMESPACE/mall-user-register:$TAG"
