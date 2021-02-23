@@ -34,7 +34,7 @@ jobs:
           push: true
           tags: w929732982/mall-web:latest
       - name: build goods-browse
-          run: mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        run: mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - name: push goods-browse
         uses: docker/build-push-action@v2
         with:
