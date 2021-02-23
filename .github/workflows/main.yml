@@ -7,7 +7,7 @@ env:
   REGION_ID: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: w929732982
-  TAG: ${{ github.sha }}
+  TAG: latest
 
 jobs:
 
