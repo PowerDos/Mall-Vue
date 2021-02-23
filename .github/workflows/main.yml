@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Maven build
-        run: |
-          ls
-          mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -37,7 +33,9 @@ jobs:
           context: ./Mall-web/project
           push: true
           tags: w929732982/mall-web:latest
-      - name: Build and push goods-browse
+      - name: build goods-browse
+          run: mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - name: push goods-browse
         uses: docker/build-push-action@v2
         with:
           context: ./Mall-server/project/mall-application/goods-browse-application
