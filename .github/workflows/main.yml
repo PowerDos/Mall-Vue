@@ -35,9 +35,6 @@ jobs:
           tags: w929732982/mall-web:latest
       -
         name: Maven build
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
         run:
            mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - name: Build and push goods-browse
