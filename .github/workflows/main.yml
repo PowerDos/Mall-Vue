@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - name: Maven build
-        run:
+        run: |
+          pwd
+          ls
           mvn clean package -f ./Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       -
         name: Checkout
