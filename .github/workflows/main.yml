@@ -40,41 +40,41 @@ jobs:
           docker push "$REGISTRY/$NAMESPACE/mall-goods-browse:$TAG"
 
       - name: push goods-feedback
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-goods-feedback:$TAG" Mall-web/project/mall-application/goods-feedback-application
           docker push "$REGISTRY/$NAMESPACE/mall-goods-feedback:$TAG"
 
       - name: push goods-statistics
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-goods-statistics:$TAG" Mall-web/project/mall-application/goods-statistics-application
           docker push "$REGISTRY/$NAMESPACE/mall-goods-statistics:$TAG"
 
       - name: push order-cancel
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-order-cancel:$TAG" Mall-web/project/mall-application/order-cancel-application
           docker push "$REGISTRY/$NAMESPACE/mall-order-cancel:$TAG"
 
       - name: push order-create
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-order-create:$TAG" Mall-web/project/mall-application/order-create-application
           docker push "$REGISTRY/$NAMESPACE/mall-order-create:$TAG"
 
       - name: push order-payment
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-order-payment:$TAG" Mall-web/project/mall-application/order-payment-application
           docker push "$REGISTRY/$NAMESPACE/mall-order-payment:$TAG"
 
       - name: push user-info
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-user-info:$TAG" Mall-web/project/mall-application/user-info-application
           docker push "$REGISTRY/$NAMESPACE/mall-user-info:$TAG"
 
       - name: push user-login
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-user-login:$TAG" Mall-web/project/mall-application/user-login-application
           docker push "$REGISTRY/$NAMESPACE/mall-user-login:$TAG"
 
       - name: push user-register
-          run: |
+        run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-user-register:$TAG" Mall-web/project/mall-application/user-register-application
           docker push "$REGISTRY/$NAMESPACE/mall-user-register:$TAG"
