@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Maven build
         run:
-          mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+          mvn clean package -f ./Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -33,12 +33,12 @@ jobs:
         name: Build and push front end project
         uses: docker/build-push-action@v2
         with:
-          context: Mall-web/project
+          context: ./Mall-web/project
           push: true
           tags: w929732982/mall-web:latest
       - name: Build and push goods-browse
         uses: docker/build-push-action@v2
         with:
-          context: Mall-server/project/mall-application/goods-browse-application
+          context: ./Mall-server/project/mall-application/goods-browse-application
           push: true
           tags: w929732982/mall-goods-browse:latest
