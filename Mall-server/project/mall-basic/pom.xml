@@ -13,5 +13,9 @@
     <name>mall-basic</name>
     <description>MallServer by Spring Boot</description>
 
+    <modules>
+        <module>mall-gateway</module>
+    </modules>
+
     <packaging>pom</packaging>
 </project>
