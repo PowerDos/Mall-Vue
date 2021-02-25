@@ -13,5 +13,4 @@
     <name>mall-common</name>
     <description>Common code for Mall</description>
 
-    <packaging>jar</packaging>
 </project>
