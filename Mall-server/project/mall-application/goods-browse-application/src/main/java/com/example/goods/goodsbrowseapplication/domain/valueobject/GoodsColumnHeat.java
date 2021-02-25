@@ -1,4 +1,4 @@
-package com.example.goods.goodsbrowse.domain.valueobject;
+package com.example.goods.goodsbrowseapplication.domain.valueobject;
 
 /**
  * @Author: WuHao

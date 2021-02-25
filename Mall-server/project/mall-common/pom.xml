@@ -7,10 +7,11 @@
         <artifactId>mall-server</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>mall-common</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>mall-common</name>
     <description>Common code for Mall</description>
 
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 </project>

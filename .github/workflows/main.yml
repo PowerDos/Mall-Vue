@@ -34,6 +34,11 @@ jobs:
       - name: build mall-server project
         run: mvn clean package -f Mall-server/project/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
+      - name: push gateway
+        run: |
+          docker build -t "$REGISTRY/$NAMESPACE/mall-gateway:$TAG" Mall-web/project/mall-basic/mall-gateway
+          docker push "$REGISTRY/$NAMESPACE/mall-gateway:$TAG"
+
       - name: push goods-browse
         run: |
           docker build -t "$REGISTRY/$NAMESPACE/mall-goods-browse:$TAG" Mall-web/project/mall-application/goods-browse-application

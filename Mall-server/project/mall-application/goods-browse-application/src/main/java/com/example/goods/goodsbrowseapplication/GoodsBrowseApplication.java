@@ -1,4 +1,4 @@
-package com.example.goods.goodsbrowse;
+package com.example.goods.goodsbrowseapplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
