@@ -36,7 +36,7 @@ jobs:
 
       - name: push gateway
         run: |
-          docker build -t "$REGISTRY/$NAMESPACE/mall-gateway:$TAG" Mall-web/project/mall-basic/mall-gateway
+          docker build -t "$REGISTRY/$NAMESPACE/mall-gateway:$TAG" Mall-server/project/mall-basic/mall-gateway
           docker push "$REGISTRY/$NAMESPACE/mall-gateway:$TAG"
 
       - name: push goods-browse
