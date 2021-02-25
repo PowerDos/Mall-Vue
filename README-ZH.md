@@ -31,6 +31,7 @@
 
 ## Build Setup
 
+### Using Node
 ``` bash
 # 安装依赖
 npm install
@@ -41,6 +42,11 @@ npm run dev
 # 打包
 npm run build
 ```
+### Using Docker
+```
+docker run -d -p 80:80 --name mall-web registry.cn-beijing.aliyuncs.com/w929732982/mall-web 
+```
+> view url:  http://127.0.0.1
 
 ## TO-DO-LIST
 - [x] [首页 HOME PAGE](#首页-home-page)

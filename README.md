@@ -31,6 +31,7 @@
 
 ## How to run
 
+### Using Node
 ``` bash
 # Install dependencies
 npm install
@@ -41,6 +42,11 @@ npm run dev
 # Build for production with minification
 npm run build
 ```
+### Using Docker
+```
+docker run -d -p 80:80 --name mall-web registry.cn-beijing.aliyuncs.com/w929732982/mall-web 
+```
+> 预览地址:  http://127.0.0.1
 
 ## TO-DO-LIST
 - [x] [HOME PAGE](#home-page)
