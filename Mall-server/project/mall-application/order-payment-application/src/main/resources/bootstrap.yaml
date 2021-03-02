@@ -1,0 +1,14 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: order-payment
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        file-extension: yaml
+        group: mall
+      discovery:
+        group: mall
+        server-addr: ${NACOS_ADDR}

@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * @description: swagger访问页面
- * @author: WuHao
- * @date: 2021/2/25 13:00
+ * @author  WuHao
+ * @since  2021/2/25 13:00
  */
 @RestController
 @RequestMapping("/swagger-resources")

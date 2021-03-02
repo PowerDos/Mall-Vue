@@ -11,8 +11,8 @@ import java.util.*;
 
 /**
  * @description: swagger右上角获取所有可选微服务specs配置类
- * @author: WuHao
- * @date: 2021/2/25 13:00
+ * @author  WuHao
+ * @since  2021/2/25 13:00
  */
 @Component
 public class GwSwaggerResourceProvider implements SwaggerResourcesProvider {

@@ -1,0 +1,14 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: goods-statistics
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        file-extension: yaml
+        group: mall
+      discovery:
+        group: mall
+        server-addr: ${NACOS_ADDR}

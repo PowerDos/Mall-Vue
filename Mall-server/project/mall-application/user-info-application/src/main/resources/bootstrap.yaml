@@ -1,0 +1,14 @@
+server:
+  port: 8007
+spring:
+  application:
+    name: user-info
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        file-extension: yaml
+        group: mall
+      discovery:
+        group: mall
+        server-addr: ${NACOS_ADDR}

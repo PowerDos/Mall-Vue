@@ -1,0 +1,14 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: order-cancel
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        file-extension: yaml
+        group: mall
+      discovery:
+        group: mall
+        server-addr: ${NACOS_ADDR}

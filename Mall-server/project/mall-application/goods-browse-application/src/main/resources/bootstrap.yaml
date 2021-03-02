@@ -1,0 +1,22 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: goods-browse
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_ADDR}
+        file-extension: yaml
+        group: mall
+      discovery:
+        group: mall
+        server-addr: ${NACOS_ADDR}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}/mall-goods-browse
+    username: ${MYSQL_USR}
+    password: ${MYSQL_PWD}
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
