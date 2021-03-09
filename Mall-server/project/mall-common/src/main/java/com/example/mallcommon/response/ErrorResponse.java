@@ -18,8 +18,8 @@ public class ErrorResponse<T> extends BaseResponse<T> {
      */
     @Override
     @JsonIgnore
-    public T getObject() {
-        return super.getObject();
+    public T getData() {
+        return super.getData();
     }
 
     /**

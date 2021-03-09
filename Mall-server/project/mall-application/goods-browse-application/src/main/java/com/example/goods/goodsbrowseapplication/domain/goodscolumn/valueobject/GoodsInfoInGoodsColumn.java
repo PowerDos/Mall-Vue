@@ -18,21 +18,19 @@ import java.util.List;
 @Data
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class GoodsInfoInGoodsColumn {
     /**
      * 包含商品信息的集合
      */
     private List<GoodsInfo> goodsInfoList = new ArrayList<>(3);
 
-    public GoodsInfoInGoodsColumn(String goodsInfoListJSON){
-        this.goodsInfoList = JSONObject.parseArray(goodsInfoListJSON, GoodsInfo.class);
-    }
-
     /**
      * 商品信息
      */
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class GoodsInfo {
         /**
          * 商品Id
@@ -43,6 +41,16 @@ public class GoodsInfoInGoodsColumn {
          * 商品名称
          */
         private String goodsName;
+
+        /**
+         * 商品图片
+         */
+        private String img;
+
+        /**
+         * 商品描述
+         */
+        private String describe;
 
         /**
          * 在栏目中展示该商品的时间

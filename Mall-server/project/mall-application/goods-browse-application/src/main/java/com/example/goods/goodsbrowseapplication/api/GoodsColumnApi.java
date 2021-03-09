@@ -1,6 +1,6 @@
 package com.example.goods.goodsbrowseapplication.api;
 
-import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsBrowApiFacade;
+import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsColumnApiFacade;
 import com.example.goods.goodsbrowseapplication.application.GoodsBrowseApplicationService;
 import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
 import com.example.mallcommon.response.BaseResponse;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>商品浏览接口</p>
+ * <p>商品栏目接口</p>
  *
  * @author WuHao
  * @since 2021/3/2 10:45
@@ -29,16 +29,16 @@ import java.util.List;
         @ApiResponse(code = 404, message = "请求url错误"),
         @ApiResponse(code = 500, message = "请求处理失败", response = ErrorResponse.class)
 })
-public class GoodsBrowseApi {
+public class GoodsColumnApi {
 
     @Autowired
-    private GoodsBrowApiFacade goodsBrowApiFacade;
+    private GoodsColumnApiFacade goodsColumnApiFacade;
     @Autowired
     private GoodsBrowseApplicationService goodsBrowseApplicationService;
 
     @ApiOperation(value = "获取所有的商品栏目信息", produces = "application/json")
     @GetMapping("/goods_columns")
     public BaseResponse<List<GoodsColumnDTO>> getGoodsColumns() {
-        return new BaseResponse<>(goodsBrowseApplicationService.browseAllColumns());
+        return new BaseResponse<>(goodsBrowseApplicationService.browseColumns());
     }
 }

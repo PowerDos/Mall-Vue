@@ -14,14 +14,14 @@ import io.swagger.annotations.ApiModelProperty;
 public class BaseResponse<T> {
 
     @ApiModelProperty(value = "请求的数据")
-    private T object;
+    private T data;
 
-    public T getObject() {
-        return object;
+    public T getData() {
+        return data;
     }
 
-    public BaseResponse(T object) {
-        this.object = object;
+    public BaseResponse(T data) {
+        this.data = data;
     }
 
 }

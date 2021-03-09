@@ -14,9 +14,10 @@ spring:
         server-addr: ${NACOS_ADDR}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST}/mall-goods-browse
+    url: jdbc:mysql://${MYSQL_HOST}/mall-goods-browse?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: ${MYSQL_USR}
     password: ${MYSQL_PWD}
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

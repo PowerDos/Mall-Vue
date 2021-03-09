@@ -32,7 +32,7 @@ public class GoodsColumnService {
      *
      * @return List<GoodsColumn>
      */
-    public List<GoodsColumn> browseAllColumns() {
+    public List<GoodsColumn> browseColumns() {
         // 仓储创建过程
         List<GoodsColumnPO> goodsColumnPOList = goodsColumnRepository.findAllWhichEnable();
         List<GoodsColumn> goodsColumnList = GoodsColumnFactory.mulConvertGoodsColumnFromPO(goodsColumnPOList);

@@ -1,6 +1,10 @@
 package com.example.goods.goodsbrowseapplication.application;
 
+import com.example.goods.goodsbrowseapplication.application.dto.GoodsCategoryDTO;
 import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
+import com.example.goods.goodsbrowseapplication.application.dto.GoodsSpecsDTO;
+import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
+import com.example.goods.goodsbrowseapplication.domain.goodscategory.service.GoodsCategoryService;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.service.GoodsColumnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,9 @@ public class GoodsBrowseApplicationService {
     @Autowired
     private GoodsColumnService goodsColumnService;
 
+    @Autowired
+    private GoodsCategoryService goodsCategoryService;
+
     /**
      * 获取所有的商品栏目信息
      *
@@ -32,11 +39,22 @@ public class GoodsBrowseApplicationService {
      * @return 返回 {@code GoodsColumnDTO} 商品栏目的DTO对象
      * @see GoodsColumnDTO
      */
-    public List<GoodsColumnDTO> browseAllColumns() {
-        // 调用领域服务获取数据
-        List<GoodsColumn> goodsColumnList = goodsColumnService.browseAllColumns();
-
-        // DO转DTO
+    public List<GoodsColumnDTO> browseColumns() {
+        List<GoodsColumn> goodsColumnList = goodsColumnService.browseColumns();
         return GoodsColumnDTO.convertFromDO(goodsColumnList);
     }
+
+    /**
+     * 获取所有的商品类别信息
+     *
+     * @return List<GoodsCategoryDTO>
+     * @see GoodsCategoryDTO
+     */
+    public List<GoodsCategoryDTO> getCategories(){
+        List<GoodsCategory> categories = goodsCategoryService.getCategories();
+        return GoodsCategoryDTO.convertFromDO(categories);
+    }
+
+
+
 }
