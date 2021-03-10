@@ -5,6 +5,7 @@ import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,16 @@ public class GoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
     @Override
     public List<GoodsCategoryPO> findAllCategories() {
         List<GoodsCategoryPO> allCategories = goodsCategoryMapper.findAll();
+        return allCategories;
+    }
+
+    @Override
+    public List<GoodsCategoryPO> findByThirdCategoryId(Integer thirdCategoryId) {
+        List<GoodsCategoryPO.SpecsInfoPO> allSpecsInfos = goodsCategoryMapper.findSpecsInfoByCategoryId(thirdCategoryId);
+        List<GoodsCategoryPO> allCategories = new ArrayList<>();
+        GoodsCategoryPO goodsCategoryPO = new GoodsCategoryPO();
+        goodsCategoryPO.setSpecsInfo(allSpecsInfos);
+        allCategories.add(goodsCategoryPO);
         return allCategories;
     }
 }

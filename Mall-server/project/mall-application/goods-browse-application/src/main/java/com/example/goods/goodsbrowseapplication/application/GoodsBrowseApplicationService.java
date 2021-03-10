@@ -6,7 +6,9 @@ import com.example.goods.goodsbrowseapplication.application.dto.GoodsSpecsDTO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.service.GoodsCategoryService;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
+import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.service.GoodsColumnService;
+import com.example.mallcommon.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,7 @@ public class GoodsBrowseApplicationService {
      * @return 返回 {@code GoodsColumnDTO} 商品栏目的DTO对象
      * @see GoodsColumnDTO
      */
+    @Query(DTOCls = GoodsColumnDTO.class, DOCls = GoodsColumn.class, POCls = GoodsColumnPO.class)
     public List<GoodsColumnDTO> browseColumns() {
         List<GoodsColumn> goodsColumnList = goodsColumnService.browseColumns();
         return GoodsColumnDTO.convertFromDO(goodsColumnList);
@@ -50,11 +53,21 @@ public class GoodsBrowseApplicationService {
      * @return List<GoodsCategoryDTO>
      * @see GoodsCategoryDTO
      */
-    public List<GoodsCategoryDTO> getCategories(){
+    public List<GoodsCategoryDTO> getCategories() {
         List<GoodsCategory> categories = goodsCategoryService.getCategories();
         return GoodsCategoryDTO.convertFromDO(categories);
     }
 
+    /**
+     * 获取对应商品第三层级类别的商品规格信息
+     *
+     * @param thirdCategoryId 商品三级类别id
+     * @return 商品规格信息
+     */
+    public List<GoodsSpecsDTO> getSpecsInfo(Integer thirdCategoryId) {
+        List<GoodsCategory> categories = goodsCategoryService.getSpecsInfos(thirdCategoryId);
+        return GoodsSpecsDTO.convertFromDO(categories);
+    }
 
 
 }

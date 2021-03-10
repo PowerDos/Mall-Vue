@@ -36,12 +36,12 @@ public class GoodsCategoryFactory {
 
             ArrayList<SpecsInfo> goodsSpecsInfo = new ArrayList<>();
             goodsCategoryPO.getSpecsInfo().forEach(specsInfoPO -> {
+//                TODO
                 SpecsInfo specsInfo = new SpecsInfo();
                 BeanUtils.copyProperties(specsInfoPO, specsInfo);
                 goodsSpecsInfo.add(specsInfo);
             });
             goodsCategory.setSpecsInfo(goodsSpecsInfo);
-
             goodsCategoryList.add(goodsCategory);
         });
         return goodsCategoryList;

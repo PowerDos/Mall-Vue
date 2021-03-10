@@ -7,4 +7,6 @@ import java.util.List;
 public interface GoodsCategoryRepository {
 
     List<GoodsCategoryPO> findAllCategories();
+
+    List<GoodsCategoryPO> findByThirdCategoryId(Integer thirdCategoryId);
 }

@@ -36,7 +36,9 @@ public class GoodsCategoryService {
     }
 
 
-    public List<SpecsInfo> getSpecsInfos(Integer categoryId) {
-        return null;
+    public List<GoodsCategory> getSpecsInfos(Integer thirdCategoryId) {
+        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryRepository.findByThirdCategoryId(thirdCategoryId);
+        List<GoodsCategory> goodsCategoryList = GoodsCategoryFactory.mulConvertGoodsCategoryFromPO(goodsCategoryPOList);
+        return goodsCategoryList;
     }
 }

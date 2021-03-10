@@ -6,6 +6,7 @@ import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsColumnApiFa
 import com.example.goods.goodsbrowseapplication.application.GoodsBrowseApplicationService;
 import com.example.goods.goodsbrowseapplication.application.dto.GoodsCategoryDTO;
 import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
+import com.example.goods.goodsbrowseapplication.application.dto.GoodsSpecsDTO;
 import com.example.mallcommon.response.BaseResponse;
 import com.example.mallcommon.response.ErrorResponse;
 import io.swagger.annotations.Api;
@@ -51,4 +52,9 @@ public class GoodsCategoryApi {
     }
 
 
+    @ApiOperation(value = "获取某类别下的商品规格信息", produces = "application/json")
+    @GetMapping("/goods_specs_infos")
+    public BaseResponse<List<GoodsSpecsDTO>> getGoodsSpecsInfos(Integer thirdCategoryId) {
+        return new BaseResponse<>(goodsBrowseApplicationService.getSpecsInfo(thirdCategoryId));
+    }
 }
