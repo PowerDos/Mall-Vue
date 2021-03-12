@@ -5,9 +5,12 @@ import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.Spec
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.factory.GoodsCategoryFactory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.po.GoodsCategoryPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.GoodsCategoryRepository;
+import com.example.mallcommon.lazyload.TargetEnhancerContainer;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +25,8 @@ import java.util.List;
 public class GoodsCategoryService {
 
     @Autowired
+    private ObjectFactory<TargetEnhancerContainer<Object>> containerFactory;
+    @Autowired
     private GoodsCategoryRepository goodsCategoryRepository;
 
     /**
@@ -31,8 +36,17 @@ public class GoodsCategoryService {
      */
     public List<GoodsCategory> getCategories() {
         List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryRepository.findAllCategories();
-        List<GoodsCategory> goodsCategoryList = GoodsCategoryFactory.mulConvertGoodsCategoryFromPO(goodsCategoryPOList);
+        GoodsCategoryPO goodsCategoryPO = goodsCategoryPOList.get(0);
+        List<GoodsCategory> goodsCategoryList = new ArrayList<>();
+
+        TargetEnhancerContainer<Object> container = containerFactory.getObject();
+        container.initialize(goodsCategoryPO, GoodsCategory.class);
+        goodsCategoryList.add((GoodsCategory) container.getTarget());
+
+
         return goodsCategoryList;
+//        List<GoodsCategory> goodsCategoryList = GoodsCategoryFactory.mulConvertGoodsCategoryFromPO(goodsCategoryPOList);
+//        return GoodsCategoryFactory.mulConvertGoodsCategoryFromPO(goodsCategoryPOList);
     }
 
 

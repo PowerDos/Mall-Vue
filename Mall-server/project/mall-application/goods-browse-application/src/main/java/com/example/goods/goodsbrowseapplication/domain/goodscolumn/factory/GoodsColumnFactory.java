@@ -1,11 +1,7 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscolumn.factory;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.entity.Column;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.valueobject.GoodsColumnHeat;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.valueobject.GoodsInfoInGoodsColumn;
-import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +32,21 @@ public class GoodsColumnFactory {
     private static GoodsColumn convertGoodsColumnFromPO(GoodsColumnPO goodsColumnPO) {
         GoodsColumn goodsColumn = new GoodsColumn();
 
-        goodsColumn.setColumn(new Column());
-        goodsColumn.setHeat(new GoodsColumnHeat());
-        goodsColumn.setGoodsInfo(new GoodsInfoInGoodsColumn());
-
-        BeanUtils.copyProperties(goodsColumnPO, goodsColumn.getColumn());
-        BeanUtils.copyProperties(goodsColumnPO, goodsColumn.getHeat());
-
-
-        goodsColumnPO.getGoodsInfoList().forEach(goodsInfoInColumnPO -> {
-            GoodsInfoInGoodsColumn.GoodsInfo goodsInfo = new GoodsInfoInGoodsColumn.GoodsInfo();
-            BeanUtils.copyProperties(goodsInfoInColumnPO, goodsInfo);
-            goodsColumn.getGoodsInfo().getGoodsInfoList().add(goodsInfo);
-        });
+        // TODO 使用cglib生成DO代理，然后增强DO的getter方法，再将其延迟到PO中获取属性
+//
+//        goodsColumn.setColumn(new Column());
+//        goodsColumn.setHeat(new GoodsColumnHeat());
+//        goodsColumn.setGoodsInfo(new GoodsInfoInGoodsColumn());
+//
+//        BeanUtils.copyProperties(goodsColumnPO, goodsColumn.getColumn());
+//        BeanUtils.copyProperties(goodsColumnPO, goodsColumn.getHeat());
+//
+//
+//        goodsColumnPO.getGoodsInfoList().forEach(goodsInfoInColumnPO -> {
+//            GoodsInfoInGoodsColumn.GoodsInfo goodsInfo = new GoodsInfoInGoodsColumn.GoodsInfo();
+//            BeanUtils.copyProperties(goodsInfoInColumnPO, goodsInfo);
+//            goodsColumn.getGoodsInfo().getGoodsInfoList().add(goodsInfo);
+//        });
 
         return goodsColumn;
     }
