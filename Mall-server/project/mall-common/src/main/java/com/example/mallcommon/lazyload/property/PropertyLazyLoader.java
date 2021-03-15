@@ -1,7 +1,11 @@
 package com.example.mallcommon.lazyload.property;
 
+import org.springframework.beans.BeanUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 延迟加载某个属性的监听者
@@ -23,21 +27,10 @@ public class PropertyLazyLoader<T> implements LazyPropertyHolder<T> {
 
     @Override
     public T loadObject() throws Exception {
-        System.out.println("start to invoke method(" + method.getName() + ") to load property...");
+//        System.out.println("start to invoke method(" + method.getName() + ") to load property...");
         method.setAccessible(true);
-        System.out.println(method);
-        System.out.println(source);
-        return (T) method.invoke(source);
-    }
-
-    @Override
-    public T getProperty() {
-        try {
-            return loadObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        Object invoke = method.invoke(source);
+        return (T) invoke;
     }
 
     @Override

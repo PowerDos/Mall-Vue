@@ -3,6 +3,7 @@ package com.example.goods.goodsbrowseapplication.application.dto;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SpecsInfo;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author WuHao
  * @since 2021/3/4 11:39
  */
+@Data
 public class GoodsSpecsDTO {
     /**
      * 规格Id
@@ -43,14 +45,35 @@ public class GoodsSpecsDTO {
         private String specsValueName;
     }
 
-    public static GoodsSpecsDTO convertFromDO(GoodsCategory goodsCategory) {
-        GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
-        return goodsCategoryDTO;
+    public static List<GoodsSpecsDTO> convertFromDO(GoodsCategory goodsCategory) {
+        List<GoodsSpecsDTO> containSpecsDTOList = new ArrayList<>();
+
+        List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
+        for (SpecsInfo specsInfo : specsInfoList) {
+            GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
+            goodsCategoryDTO.specsId = specsInfo.getSpecsId();
+            goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
+            goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
+            List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();
+            List<AvailableSpecsKeyPO> specsValuePOList = new ArrayList<>();
+            for (SpecsInfo.AvailableSpecsKey availableSpecsKey : specsValueList) {
+                AvailableSpecsKeyPO availableSpecsKeyPO = new AvailableSpecsKeyPO();
+                availableSpecsKeyPO.specsValueId = availableSpecsKey.getSpecsValueId();
+                availableSpecsKeyPO.specsValueName = availableSpecsKey.getSpecsValueName();
+
+            }
+            goodsCategoryDTO.specsValue = specsValuePOList;
+        }
+
+        return containSpecsDTOList;
     }
 
     public static List<GoodsSpecsDTO> convertFromDO(List<GoodsCategory> goodsCategoryList) {
         List<GoodsSpecsDTO> goodsSpecsDTOList = new ArrayList<>();
-        goodsCategoryList.forEach(goodsCategory -> goodsSpecsDTOList.add(convertFromDO(goodsCategory)));
+        for (GoodsCategory goodsCategory : goodsCategoryList) {
+            List<GoodsSpecsDTO> goodsSpecsDTOList1 = convertFromDO(goodsCategory);
+            goodsSpecsDTOList.addAll(goodsSpecsDTOList1);
+        }
         return goodsSpecsDTOList;
     }
 }

@@ -6,10 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class LazyProperty {
-
-    public String methodName;
-
-    public Method method;
+    public Class<?> listType;
 
     public LazyPropertyHolder<?> lazyPropertyHolder;
 }

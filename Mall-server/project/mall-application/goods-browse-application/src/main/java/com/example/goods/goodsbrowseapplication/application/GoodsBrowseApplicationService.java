@@ -8,7 +8,6 @@ import com.example.goods.goodsbrowseapplication.domain.goodscategory.service.Goo
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.service.GoodsColumnService;
-import com.example.mallcommon.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,6 @@ public class GoodsBrowseApplicationService {
      * @return 返回 {@code GoodsColumnDTO} 商品栏目的DTO对象
      * @see GoodsColumnDTO
      */
-    @Query(DTOCls = GoodsColumnDTO.class, DOCls = GoodsColumn.class, POCls = GoodsColumnPO.class)
     public List<GoodsColumnDTO> browseColumns() {
         List<GoodsColumn> goodsColumnList = goodsColumnService.browseColumns();
         return GoodsColumnDTO.convertFromDO(goodsColumnList);

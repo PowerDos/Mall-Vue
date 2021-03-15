@@ -2,6 +2,7 @@ package com.example.goods.goodsbrowseapplication.domain.goodscategory.po;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 2021/3/3 14:13
  */
 @Data
-public class GoodsCategoryPO {
+public class GoodsCategoryPO implements Serializable {
 
     /**
      * 根类别id
@@ -61,7 +62,7 @@ public class GoodsCategoryPO {
      * @since 2021/3/4 9:17
      */
     @Data
-    public static class SpecsInfoPO {
+    public static class SpecsInfoPO implements Serializable{
         /**
          * 规格Id
          */
@@ -83,7 +84,7 @@ public class GoodsCategoryPO {
         private List<AvailableSpecsKeyPO> specsValue;
     }
     @Data
-    public static class AvailableSpecsKeyPO {
+    public static class AvailableSpecsKeyPO implements Serializable{
 
         private String specsValueId;
 

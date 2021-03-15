@@ -6,7 +6,5 @@ import java.lang.reflect.Field;
 
 public interface LazyPropertyHolder<T> extends LazyLoader {
 
-    T getProperty();
-
     void initialize(Object source, Field targetField);
 }

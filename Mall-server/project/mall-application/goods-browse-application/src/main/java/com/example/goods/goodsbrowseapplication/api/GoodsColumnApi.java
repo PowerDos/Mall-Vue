@@ -3,9 +3,6 @@ package com.example.goods.goodsbrowseapplication.api;
 import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsColumnApiFacade;
 import com.example.goods.goodsbrowseapplication.application.GoodsBrowseApplicationService;
 import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
-import com.example.mallcommon.Source;
-import com.example.mallcommon.Target;
-import com.example.mallcommon.lazyload.TargetEnhancerContainer;
 import com.example.mallcommon.response.BaseResponse;
 import com.example.mallcommon.response.ErrorResponse;
 import io.swagger.annotations.*;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

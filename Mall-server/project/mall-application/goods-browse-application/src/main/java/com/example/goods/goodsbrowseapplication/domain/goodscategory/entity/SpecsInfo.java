@@ -1,5 +1,8 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscategory.entity;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +13,8 @@ import java.util.List;
  * @author WuHao
  * @since 2021/3/3 10:00
  */
-public class SpecsInfo {
+@Data
+public class SpecsInfo implements Serializable {
 
     /**
      * 规格Id
@@ -32,7 +36,8 @@ public class SpecsInfo {
      */
     private List<AvailableSpecsKey> specsValue;
 
-    public static class AvailableSpecsKey {
+    @Data
+    public static class AvailableSpecsKey implements Serializable{
 
         private String specsValueId;
 

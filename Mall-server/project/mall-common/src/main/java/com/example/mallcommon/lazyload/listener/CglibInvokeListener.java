@@ -1,84 +1,86 @@
 package com.example.mallcommon.lazyload.listener;
 
+import com.example.mallcommon.lazyload.Convert;
 import com.example.mallcommon.lazyload.LazyProperty;
-import com.example.mallcommon.lazyload.property.LazyPropertyHolder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CglibInvokeListener implements InvokeListener {
 
     /**
      * 所有source对象中有的属性
-     * <methodName,fieldName>
+     *
+     * @see LazyProperty
      */
-    private List<LazyProperty> propertyList;
+    private Map<String, LazyProperty> propertyMap;
 
 
-    public void addInterceptor(List<LazyProperty> propertyList, Class<?> expectCls) {
-        this.propertyList = propertyList;
+    public void addInterceptor(Map<String, LazyProperty> propertyMap, Class<?> exceptCls) {
+        this.propertyMap = propertyMap;
     }
 
 
+    /**
+     * 在此拦截target的getter，并判断是否需要做增强
+     *
+     * @param o
+     * @param method
+     * @param objects
+     * @param methodProxy
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        // TODO 决定是否去加载source的数据
-        List<String> containFieldList = new ArrayList<>();
-        propertyList.forEach(lazyProperty -> {
-            int getIndex = lazyProperty.methodName.indexOf("get");
-            String containFieldName = lazyProperty.methodName.substring(getIndex + 3, getIndex + 4).toLowerCase() + lazyProperty.methodName.substring(4);
-            containFieldList.add(containFieldName);
-        });
-
         String methodName = method.getName();
-        if (methodName.startsWith("get")) {
-            //1.该方法需要的就是source的数据
-            String guessFieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
-            try {
-                Field declaredField = o.getClass().getDeclaredField(guessFieldName);
-                if (containFieldList.contains(declaredField.getName())) {
-                    System.out.println("需要拦截！" + declaredField.getName());
-                }
-            } catch (NoSuchFieldException e) {
-                // wrong guess
-            }
-            //2.该方法加载的对象需要source的数据(这里暂时只递进一层关系)
-            Class<?> returnType = method.getReturnType();
+        if (!methodName.startsWith("get")) {
+            return methodProxy.invokeSuper(o, objects);
+        }
+        // 该方法可能需要加载的参数名
+        String guessFieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
 
-            Field[] secField = returnType.getDeclaredFields();
-            String innerFieldName = "";
-            for (Field field : secField) {
-                if (containFieldList.contains(field.getName())) {
-                    innerFieldName = field.getName();
-                }
-            }
-            if (!innerFieldName.equals("")) {
-                System.out.println("需要拦截！" + methodName + "(" + innerFieldName + ")");
-            }
-
+        //1.该方法需要的就是source的数据
+        if (propertyMap.containsKey(guessFieldName)) {
+            System.out.println("需要拦截！" + guessFieldName);
+            LazyProperty lazyProperty = propertyMap.get(guessFieldName);
+            Object requireObj = lazyProperty.lazyPropertyHolder.loadObject();
+            // 将requireObj装换成需要的类型
+            Field declaredField = ((Class<?>) o.getClass().getGenericSuperclass()).getDeclaredField(guessFieldName);
+            return Convert.convert(requireObj, declaredField);
         }
 
-
-//        for (LazyProperty lazyProperty : propertyList) {
-//            if (lazyProperty.methodName.equals(method.getName())) {
-//                LazyPropertyHolder<?> lazyPropertyHolder = lazyProperty.lazyPropertyHolder;
-//                if (lazyPropertyHolder == null) {
-//                    // 无需懒加载
-//                    System.out.println("无需懒加载");
-//                    return null;
-//                } else {
-//                    Object property = lazyPropertyHolder.getProperty();
-//                    property.toString(); // 需要显式的调用结果对象的引用
-//                    Field cglib$LAZY_loader_0 = property.getClass().getDeclaredField("CGLIB$LAZY_LOADER_0");
-//                    cglib$LAZY_loader_0.setAccessible(true);
-//                    return cglib$LAZY_loader_0.get(property);
-//                }
-//            }
-//        }
-        System.out.println("无需拦截" + methodName);
+        //2.该方法加载的对象需要source的数据（目前仅递进一层）
+        Class<?> returnType = method.getReturnType();
+        Field[] containFields = returnType.getDeclaredFields();
+        List<String> containFieldsName = new ArrayList<>();
+        for (Field field : containFields) {
+            containFieldsName.add(field.getName());
+        }
+        List<String> allNeedToLoadFieldNameList = new ArrayList<>();
+        for (String existFieldName : propertyMap.keySet()) {
+            if (containFieldsName.contains(existFieldName)) {
+                allNeedToLoadFieldNameList.add(existFieldName);
+            }
+        }
+        if (!allNeedToLoadFieldNameList.isEmpty()) {
+            System.out.println("需要拦截！" + guessFieldName);
+            Object returnTypeObj = returnType.newInstance();
+            for (String fieldName : allNeedToLoadFieldNameList) {
+                Field requireField = returnType.getDeclaredField(fieldName);
+                requireField.setAccessible(true);
+                Object property = propertyMap.get(fieldName).lazyPropertyHolder.loadObject();
+                requireField.set(returnTypeObj, property);
+            }
+            return returnTypeObj;
+        }
         return methodProxy.invokeSuper(o, objects);
     }
 }

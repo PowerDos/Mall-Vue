@@ -4,10 +4,11 @@ import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.factory.GoodsColumnFactory;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
+import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class GoodsColumnService {
 
     @Autowired
     private GoodsColumnRepository goodsColumnRepository;
-
+    @Autowired
+    private ObjectFactory<MybatisTargetEnhancer<Object>> containerFactory;
 
     /**
      * 获取所有的商品栏目信息
