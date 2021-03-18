@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2021/3/3 10:00
  */
 @Data
-public class SpecsInfo implements Serializable {
+public class SpecsInfo  {
 
     /**
      * 规格Id
@@ -37,7 +37,7 @@ public class SpecsInfo implements Serializable {
     private List<AvailableSpecsKey> specsValue;
 
     @Data
-    public static class AvailableSpecsKey implements Serializable{
+    public static class AvailableSpecsKey {
 
         private String specsValueId;
 

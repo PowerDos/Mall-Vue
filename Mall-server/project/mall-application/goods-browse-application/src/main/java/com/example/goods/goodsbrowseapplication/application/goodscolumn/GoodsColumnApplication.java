@@ -1,12 +1,11 @@
-package com.example.goods.goodsbrowseapplication.application;
+package com.example.goods.goodsbrowseapplication.application.goodscolumn;
 
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsCategoryDTO;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsSpecsDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscategory.dto.GoodsCategoryDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscolumn.dto.GoodsColumnDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscategory.dto.GoodsSpecsDTO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.service.GoodsCategoryService;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.service.GoodsColumnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +23,10 @@ import java.util.List;
  * @since 2021/2/27 17:22
  */
 @Service
-public class GoodsBrowseApplicationService {
+public class GoodsColumnApplication {
 
     @Autowired
     private GoodsColumnService goodsColumnService;
-
-    @Autowired
-    private GoodsCategoryService goodsCategoryService;
 
     /**
      * 获取所有的商品栏目信息
@@ -45,27 +41,6 @@ public class GoodsBrowseApplicationService {
         return GoodsColumnDTO.convertFromDO(goodsColumnList);
     }
 
-    /**
-     * 获取所有的商品类别信息
-     *
-     * @return List<GoodsCategoryDTO>
-     * @see GoodsCategoryDTO
-     */
-    public List<GoodsCategoryDTO> getCategories() {
-        List<GoodsCategory> categories = goodsCategoryService.getCategories();
-        return GoodsCategoryDTO.convertFromDO(categories);
-    }
-
-    /**
-     * 获取对应商品第三层级类别的商品规格信息
-     *
-     * @param thirdCategoryId 商品三级类别id
-     * @return 商品规格信息
-     */
-    public List<GoodsSpecsDTO> getSpecsInfo(Integer thirdCategoryId) {
-        List<GoodsCategory> categories = goodsCategoryService.getSpecsInfos(thirdCategoryId);
-        return GoodsSpecsDTO.convertFromDO(categories);
-    }
 
 
 }

@@ -1,12 +1,9 @@
 package com.example.goods.goodsbrowseapplication.api;
 
-import com.example.goods.goodsbrowseapplication.api.facade.GoodsCategoryApiFacadeImpl;
 import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsCategoryApiFacade;
-import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsColumnApiFacade;
-import com.example.goods.goodsbrowseapplication.application.GoodsBrowseApplicationService;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsCategoryDTO;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsSpecsDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscategory.GoodsCategoryApplication;
+import com.example.goods.goodsbrowseapplication.application.goodscategory.dto.GoodsCategoryDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscategory.dto.GoodsSpecsDTO;
 import com.example.mallcommon.response.BaseResponse;
 import com.example.mallcommon.response.ErrorResponse;
 import io.swagger.annotations.Api;
@@ -43,18 +40,18 @@ public class GoodsCategoryApi {
     @Autowired
     private GoodsCategoryApiFacade goodsCategoryApiFacade;
     @Autowired
-    private GoodsBrowseApplicationService goodsBrowseApplicationService;
+    private GoodsCategoryApplication goodsCategoryApplication;
 
     @ApiOperation(value = "获取所有的商品类别信息", produces = "application/json")
     @GetMapping("/goods_categories")
     public BaseResponse<List<GoodsCategoryDTO>> getGoodsColumns() {
-        return new BaseResponse<>(goodsBrowseApplicationService.getCategories());
+        return new BaseResponse<>(goodsCategoryApplication.getCategories());
     }
 
 
     @ApiOperation(value = "获取某类别下的商品规格信息", produces = "application/json")
     @GetMapping("/goods_specs_infos")
     public BaseResponse<List<GoodsSpecsDTO>> getGoodsSpecsInfos(Integer thirdCategoryId) {
-        return new BaseResponse<>(goodsBrowseApplicationService.getSpecsInfo(thirdCategoryId));
+        return new BaseResponse<>(goodsCategoryApplication.getSpecsInfo(thirdCategoryId));
     }
 }

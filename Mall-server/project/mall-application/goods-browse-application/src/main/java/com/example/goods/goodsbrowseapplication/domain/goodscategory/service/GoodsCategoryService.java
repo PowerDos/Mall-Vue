@@ -1,7 +1,7 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscategory.service;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.po.GoodsCategoryPO;
+import com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po.GoodsCategoryPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.GoodsCategoryRepository;
 import com.example.mallcommon.lazyload.container.TargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
@@ -21,9 +21,6 @@ import java.util.List;
  */
 @Service
 public class GoodsCategoryService {
-
-    @Autowired
-    private ObjectFactory<TargetEnhancer<Object>> containerFactory;
     @Autowired
     private GoodsCategoryRepository goodsCategoryRepository;
 
@@ -33,25 +30,14 @@ public class GoodsCategoryService {
      * @return
      */
     public List<GoodsCategory> getCategories() {
-        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryRepository.findAllCategories();
-        List<GoodsCategory> goodsCategoryList = new ArrayList<>();
-        for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
-            TargetEnhancer<Object> container = containerFactory.getObject();
-            container.initialize(goodsCategoryPO, GoodsCategory.class);
-            goodsCategoryList.add((GoodsCategory) container.getTarget());
-        }
+        List<GoodsCategory> goodsCategoryList = goodsCategoryRepository.findAllCategories();
         return goodsCategoryList;
     }
 
 
     public List<GoodsCategory> getSpecsInfos(Integer thirdCategoryId) {
-        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryRepository.findByThirdCategoryId(thirdCategoryId);
-        List<GoodsCategory> goodsCategoryList = new ArrayList<>();
-        for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
-            TargetEnhancer<Object> container = containerFactory.getObject();
-            container.initialize(goodsCategoryPO, GoodsCategory.class);
-            goodsCategoryList.add((GoodsCategory) container.getTarget());
-        }
+        List<GoodsCategory> goodsCategoryList = goodsCategoryRepository.findByThirdCategoryId(thirdCategoryId);
+
         return goodsCategoryList;
     }
 }

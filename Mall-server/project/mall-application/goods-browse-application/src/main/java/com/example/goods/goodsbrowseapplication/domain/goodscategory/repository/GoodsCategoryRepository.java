@@ -1,12 +1,12 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscategory.repository;
 
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.po.GoodsCategoryPO;
+import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 
 import java.util.List;
 
 public interface GoodsCategoryRepository {
 
-    List<GoodsCategoryPO> findAllCategories();
+    List<GoodsCategory> findAllCategories();
 
-    List<GoodsCategoryPO> findByThirdCategoryId(Integer thirdCategoryId);
+    List<GoodsCategory> findByThirdCategoryId(Integer thirdCategoryId);
 }

@@ -1,8 +1,7 @@
-package com.example.goods.goodsbrowseapplication.application.dto;
+package com.example.goods.goodsbrowseapplication.application.goodscategory.dto;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SpecsInfo;
-import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class GoodsSpecsDTO {
     /**
      * 规格Id
      */
-    private String specsId;
+    private String specsInfoId;
 
     /**
      * 规格键Id
@@ -38,6 +37,7 @@ public class GoodsSpecsDTO {
      */
     private List<AvailableSpecsKeyPO> specsValue;
 
+    @Data
     public static class AvailableSpecsKeyPO {
 
         private String specsValueId;
@@ -51,7 +51,7 @@ public class GoodsSpecsDTO {
         List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
         for (SpecsInfo specsInfo : specsInfoList) {
             GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
-            goodsCategoryDTO.specsId = specsInfo.getSpecsId();
+            goodsCategoryDTO.specsInfoId = specsInfo.getSpecsId();
             goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
             goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
             List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();
@@ -60,9 +60,10 @@ public class GoodsSpecsDTO {
                 AvailableSpecsKeyPO availableSpecsKeyPO = new AvailableSpecsKeyPO();
                 availableSpecsKeyPO.specsValueId = availableSpecsKey.getSpecsValueId();
                 availableSpecsKeyPO.specsValueName = availableSpecsKey.getSpecsValueName();
-
+                specsValuePOList.add(availableSpecsKeyPO);
             }
             goodsCategoryDTO.specsValue = specsValuePOList;
+            containSpecsDTOList.add(goodsCategoryDTO);
         }
 
         return containSpecsDTOList;

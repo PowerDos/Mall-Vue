@@ -1,4 +1,4 @@
-package com.example.goods.goodsbrowseapplication.application.dto;
+package com.example.goods.goodsbrowseapplication.application.goodscolumn.dto;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.valueobject.GoodsInfoInGoodsColumn;
@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

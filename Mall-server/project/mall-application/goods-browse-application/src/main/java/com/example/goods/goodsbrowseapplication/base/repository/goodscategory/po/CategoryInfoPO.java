@@ -1,10 +1,8 @@
-package com.example.goods.goodsbrowseapplication.domain.goodscategory.entity;
+package com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * 商品根类别下的子类别信息
@@ -17,7 +15,17 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubCategoryInfo  {
+public class CategoryInfoPO {
+
+    /**
+     * 根类别id
+     */
+    private String rootCategoryId;
+
+    /**
+     * 根类别名
+     */
+    private String rootCategoryName;
 
     /**
      * 二级类别id

@@ -1,8 +1,8 @@
 package com.example.goods.goodsbrowseapplication.api;
 
 import com.example.goods.goodsbrowseapplication.api.facade.impl.GoodsColumnApiFacade;
-import com.example.goods.goodsbrowseapplication.application.GoodsBrowseApplicationService;
-import com.example.goods.goodsbrowseapplication.application.dto.GoodsColumnDTO;
+import com.example.goods.goodsbrowseapplication.application.goodscolumn.GoodsColumnApplication;
+import com.example.goods.goodsbrowseapplication.application.goodscolumn.dto.GoodsColumnDTO;
 import com.example.mallcommon.response.BaseResponse;
 import com.example.mallcommon.response.ErrorResponse;
 import io.swagger.annotations.*;
@@ -30,34 +30,15 @@ import java.util.List;
         @ApiResponse(code = 500, message = "请求处理失败", response = ErrorResponse.class)
 })
 public class GoodsColumnApi {
-//    @Autowired
-//    private TargetEnhancerContainer<Object> container;
     @Autowired
     private GoodsColumnApiFacade goodsColumnApiFacade;
     @Autowired
-    private GoodsBrowseApplicationService goodsBrowseApplicationService;
+    private GoodsColumnApplication goodsColumnApplication;
 
     @ApiOperation(value = "获取所有的商品栏目信息", produces = "application/json")
     @GetMapping("/goods_columns")
     public BaseResponse<List<GoodsColumnDTO>> getGoodsColumns() {
-        return new BaseResponse<>(goodsBrowseApplicationService.browseColumns());
+        return new BaseResponse<>(goodsColumnApplication.browseColumns());
     }
 
-
-    @GetMapping("/test")
-    public String test() {
-//        Source source = new Source();
-//        source.setA(1);
-//        List<String> aList = new ArrayList<>();
-//        aList.add("hello");
-//        source.setList(aList);
-//        container.initialize(source, Target.class);
-//
-//        Target target = (Target) container.getTarget();
-//        Integer a = target.getA();
-//        System.out.println(a);
-//        List<String> list = target.getList();
-//        System.out.println(list);
-        return "success";
-    }
 }

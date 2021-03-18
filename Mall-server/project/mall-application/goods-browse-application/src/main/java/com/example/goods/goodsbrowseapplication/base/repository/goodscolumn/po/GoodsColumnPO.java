@@ -1,4 +1,4 @@
-package com.example.goods.goodsbrowseapplication.domain.goodscolumn;
+package com.example.goods.goodsbrowseapplication.base.repository.goodscolumn.po;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.entity.Column;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.valueobject.GoodsColumnHeat;
@@ -6,34 +6,29 @@ import com.example.goods.goodsbrowseapplication.domain.goodscolumn.valueobject.G
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * @author WuHao
  * @Description: 商城首页中的一个商品栏目
  * @since 2021/2/21 17:37
  */
 @Data
-@ToString
-public class GoodsColumn {
+public class GoodsColumnPO {
 
     /**
      * 栏目
      */
-    private Column column;
+    private ColumnPO column;
 
     /**
      * 栏目中包含的商品信息
      */
-    private GoodsInfoInGoodsColumn goodsInfo;
+    private GoodsInfoInColumnPO goodsInfo;
 
     /**
      * 栏目热度
      */
-    private GoodsColumnHeat heat;
+    private GoodsColumnHeatPO heat;
 
-    /**
-     * 浏览商品栏目，获取栏目信息
-     */
-    public void browseColumn() {
-        getGoodsInfo().browseGoodsInfo();
-    }
 }

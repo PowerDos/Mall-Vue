@@ -1,8 +1,6 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscolumn.service;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.factory.GoodsColumnFactory;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
 import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
@@ -24,8 +22,6 @@ public class GoodsColumnService {
 
     @Autowired
     private GoodsColumnRepository goodsColumnRepository;
-    @Autowired
-    private ObjectFactory<MybatisTargetEnhancer<Object>> containerFactory;
 
     /**
      * 获取所有的商品栏目信息
@@ -36,13 +32,12 @@ public class GoodsColumnService {
      */
     public List<GoodsColumn> browseColumns() {
         // 仓储创建过程
-        List<GoodsColumnPO> goodsColumnPOList = goodsColumnRepository.findAllWhichEnable();
-        List<GoodsColumn> goodsColumnList = GoodsColumnFactory.mulConvertGoodsColumnFromPO(goodsColumnPOList);
+        List<GoodsColumn> goodsColumnList = goodsColumnRepository.findAllWhichEnable();
 
         // 调用聚合的行为
-        for (GoodsColumn goodsColumn : goodsColumnList) {
-            goodsColumn.browseColumn();
-        }
+//        for (GoodsColumn goodsColumn : goodsColumnList) {
+//            goodsColumn.browseColumn();
+//        }
         return goodsColumnList;
     }
 

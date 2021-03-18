@@ -4,7 +4,7 @@ import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCatego
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.RootCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SpecsInfo;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SubCategoryInfo;
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.po.GoodsCategoryPO;
+import com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po.GoodsCategoryPO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;

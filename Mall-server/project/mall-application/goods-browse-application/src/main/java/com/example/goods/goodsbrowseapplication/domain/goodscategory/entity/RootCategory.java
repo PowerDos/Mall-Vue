@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RootCategory implements Serializable {
+public class RootCategory  {
 
     /**
      * 根类别id

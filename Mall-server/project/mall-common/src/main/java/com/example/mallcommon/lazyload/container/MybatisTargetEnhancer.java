@@ -1,8 +1,9 @@
 package com.example.mallcommon.lazyload.container;
 
+import com.example.mallcommon.lazyload.LazyLoadSupport;
 import com.example.mallcommon.lazyload.LazyProperty;
-import com.example.mallcommon.lazyload.listener.InvokeListener;
-import com.example.mallcommon.lazyload.property.PropertyLazyLoader;
+import com.example.mallcommon.lazyload.listener.MethodInvokeListener;
+import com.example.mallcommon.lazyload.propertyholder.CglibLazyPropertyHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
@@ -10,9 +11,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * 用于存放转换后生成的目标代理对象以及各种listener的抽象类
+ * 适用于mybatis的具体实现类
  *
- * <p> </p>
+ * <p>主要的区别就是mybatis采用了cglib对属性进行懒加载，需要拦截其代理对象的方法</p>
  *
  * @param <T> 期望的目标代理对象类型
  * @author WuHao
@@ -21,70 +22,70 @@ import java.util.*;
 public class MybatisTargetEnhancer<T> extends AbstractTargetEnhancer<T> {
 
     @Autowired
-    private InvokeListener invokeListener;
-
-
-    public void addIgnoreLazyProperty() throws Exception {
-        throw new Exception("TODO!");
-    }
+    private MethodInvokeListener methodInvokeListener;
 
     /**
-     * 配置所有source中包含的属性
+     * 配置所有source中包含的属性,这其中的每一个属性都属orm数据库框架加载的最小粒度
      */
-//    @Override
-    protected Map<String, LazyProperty> configProperties() {
+    @Override
+    protected Map<String, LazyProperty> getAllRequireLazyLoadProperties() {
         Map<String, LazyProperty> lazyProperties = new LinkedHashMap<>();
         Class<?> proxyCls = proxySource.getClass();
         Class<?> sourceCls = (Class<?>) proxySource.getClass().getGenericSuperclass();
-        if (sourceCls == Object.class) {
-            // Mybatis 直接加载完毕的对象
+        if (sourceCls == Object.class) {  // Mybatis 直接加载完毕的对象父类是Object(这里要求我们的PO不会继承于其他类)
             sourceCls = proxyCls;
-            Method[] proxyDeclaredMethods = proxyCls.getDeclaredMethods();
-            for (Method method : proxyDeclaredMethods) {
-                String proxyMethodName = method.getName();
-                if (proxyMethodName.startsWith("get")) {// 只取代理对象的代理method @$$XXX_getXXX
-                    String guessFieldName = proxyMethodName.substring(3, 4).toLowerCase() + proxyMethodName.substring(4);
-                    try {
-                        Field declaredField = sourceCls.getDeclaredField(guessFieldName);
-                        LazyProperty lazyProperty = new LazyProperty();
-                        if (List.class.isAssignableFrom(declaredField.getType())) {
-                            lazyProperty.listType = Object.class;
-                        }
-                        lazyProperty.lazyPropertyHolder = new PropertyLazyLoader<>(proxySource, method);
-                        lazyProperties.put(guessFieldName, lazyProperty);
-                    } catch (NoSuchFieldException e) {
-                        // wrong guess
-                    }
+        }
+        // Mybatis 懒加载对象
+        Method[] proxyDeclaredMethods = proxyCls.getDeclaredMethods();
+        for (Method method : proxyDeclaredMethods) {
+            String proxyMethodName = method.getName();
+            if (proxyMethodName.startsWith("get")) {
+                String guessFieldName = LazyLoadSupport.getGuessFieldName(proxyMethodName);
+                try {
+                    Field declaredField = sourceCls.getDeclaredField(guessFieldName);
+                    createLazyPropertyByField(lazyProperties, declaredField, null);
+                } catch (Exception e) {
                     // wrong guess
                 }
-            }
-        } else {
-            // Mybatis 懒加载对象
-            Method[] proxyDeclaredMethods = proxyCls.getDeclaredMethods();
-            for (Method method : proxyDeclaredMethods) {
-                String proxyMethodName = method.getName();
-                if (!proxyMethodName.startsWith("get") && proxyMethodName.contains("get")) {// 只取代理对象的代理method @$$XXX_getXXX
-                    int index = proxyMethodName.indexOf("get");
-                    String guessFieldName = proxyMethodName.substring(index + 3, index + 4).toLowerCase() + proxyMethodName.substring(index + 4);
-                    try {
-                        Field declaredField = sourceCls.getDeclaredField(guessFieldName);
-                        LazyProperty lazyProperty = new LazyProperty();
-                        lazyProperty.lazyPropertyHolder = new PropertyLazyLoader<>(proxySource, method);
-                        lazyProperties.put(guessFieldName, lazyProperty);
-                    } catch (NoSuchFieldException e) {
-                        // wrong guess
-                    }
-                    // wrong guess
-                }
+                // wrong guess
             }
         }
+
         return lazyProperties;
     }
 
+    private void createLazyPropertyByField(Map<String, LazyProperty> lazyProperties, Field declaredField, String appendMethodName) throws Exception {
+        Class<?> type = declaredField.getType();
+        // 无需进入source内部对象
+        if (!LazyLoadSupport.typeWhichRequireScanInnerField(type)) {
+            String guessMethodName = LazyLoadSupport.getGetterName(declaredField);
+            List<String> invokeMethodNameList = new ArrayList<>();
+            if (appendMethodName != null) {
+                invokeMethodNameList.add(appendMethodName);
+            }
+            invokeMethodNameList.add(guessMethodName);
+            LazyProperty lazyProperty = new LazyProperty();
+            lazyProperty.lazyPropertyHolder = new CglibLazyPropertyHolder<>(proxySource, invokeMethodNameList);
+            lazyProperties.put(declaredField.getName(), lazyProperty);
+        } else {
+            // 这是一个对象，需要递归获取其中可用的属性值
+            Field[] innerFields = type.getDeclaredFields();
+            for (Field field : innerFields) {
+                String guessMethodName = LazyLoadSupport.getGetterName(declaredField);
+                createLazyPropertyByField(lazyProperties, field, guessMethodName);
+            }
+        }
+    }
+
+    /**
+     * 给子类一个重写父类的加载方法增强器的机会
+     *
+     * @return MethodInvokeListener 方法增强器
+     */
     @Override
-    protected InvokeListener configInterceptor() {
-        invokeListener.addInterceptor(lazyProperties, expectCls);
-        return invokeListener;
+    protected MethodInvokeListener configInterceptor() {
+        methodInvokeListener.addInterceptor(lazyProperties);
+        return methodInvokeListener;
     }
 
 

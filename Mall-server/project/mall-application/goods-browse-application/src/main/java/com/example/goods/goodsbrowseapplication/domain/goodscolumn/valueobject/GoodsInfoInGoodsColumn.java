@@ -70,7 +70,7 @@ public class GoodsInfoInGoodsColumn {
     public void browseGoodsInfo() {
         List<GoodsInfo> onShowGoodsInfos = new ArrayList<>();
         Date now = new Date();
-        for (GoodsInfo goodsInfo : goodsInfoList) {
+        for (GoodsInfo goodsInfo : getGoodsInfoList()) {
             if (goodsInfo.showTime.before(now) && goodsInfo.offTime.after(now)) { // 该商品在展示时间内
                 onShowGoodsInfos.add(goodsInfo);
             }

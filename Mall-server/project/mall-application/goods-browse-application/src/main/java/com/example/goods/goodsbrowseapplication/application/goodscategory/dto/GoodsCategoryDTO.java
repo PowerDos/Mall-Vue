@@ -1,8 +1,7 @@
-package com.example.goods.goodsbrowseapplication.application.dto;
+package com.example.goods.goodsbrowseapplication.application.goodscategory.dto;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
