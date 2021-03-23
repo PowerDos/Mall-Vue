@@ -6,6 +6,6 @@ ENV MYSQL_USR root
 ENV MYSQL_PWD root
 
 COPY target /app
-CMD java -jar /app/goods-browse-application-1.0-SNAPSHOT.jar NACOS_ADDR=${NACOS_ADDR}
+CMD java -Xms128m -Xmx512m  -XX:+UseG1GC -jar /app/goods-browse-application-1.0-SNAPSHOT.jar
 
 EXPOSE 8001
