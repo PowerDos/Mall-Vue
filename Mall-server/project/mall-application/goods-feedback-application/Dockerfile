@@ -5,6 +5,6 @@ ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES http://monitor-skywalking-server.mall:11
 ENV SW_AGENT_NAME goods-feedback
 
 COPY target /app
-CMD java -javaagent="/agent/skywalking-agent.jar" -Xms128m -Xmx512m  -XX:+UseG1GC -jar /app/goods-feedback-application-1.0-SNAPSHOT.jar
+CMD java -javaagent:"/agent/skywalking-agent.jar" -Xms128m -Xmx512m  -XX:+UseG1GC -jar /app/goods-feedback-application-1.0-SNAPSHOT.jar
 
 EXPOSE 8002

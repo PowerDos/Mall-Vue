@@ -5,6 +5,6 @@ ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES http://monitor-skywalking-server.mall:11
 ENV SW_AGENT_NAME user-info
 
 COPY target /app
-CMD java -javaagent="/agent/skywalking-agent.jar" -Xms128m -Xmx512m  -XX:+UseG1GC  -jar /app/user-info-application-1.0-SNAPSHOT.jar
+CMD java -javaagent:"/agent/skywalking-agent.jar" -Xms128m -Xmx512m  -XX:+UseG1GC  -jar /app/user-info-application-1.0-SNAPSHOT.jar
 
 EXPOSE 8007
