@@ -2,6 +2,7 @@ package com.example.goods.goodsbrowseapplication.base.webconfig;
 
 import com.example.mallcommon.lazyload.listener.CglibMethodInvokeListener;
 import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
+import com.example.mallcommon.loadcontroller.LoadDataSelector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -25,5 +26,10 @@ public class LazyConvertAutoConfiguration {
     @Scope("prototype")
     public MybatisTargetEnhancer<?> targetEnhancerContainer() {
         return new MybatisTargetEnhancer<>();
+    }
+
+    @Bean
+    public LoadDataSelector loadDataSelector() {
+        return new LoadDataSelector();
     }
 }

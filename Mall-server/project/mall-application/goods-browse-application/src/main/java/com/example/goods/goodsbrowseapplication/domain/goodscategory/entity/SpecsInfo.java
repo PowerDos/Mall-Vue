@@ -19,7 +19,7 @@ public class SpecsInfo  {
     /**
      * 规格Id
      */
-    private String specsId;
+    private String specsInfoId;
 
     /**
      * 规格键Id

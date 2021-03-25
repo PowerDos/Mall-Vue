@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2021/3/3 14:41
  */
 @Repository
-public class GoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
+public class MysqlMybatisGoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
 
     @Autowired
     private ObjectFactory<TargetEnhancer<Object>> containerFactory;
@@ -29,8 +29,8 @@ public class GoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
 
     @Override
     public List<GoodsCategory> findAllCategories() {
+        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.lazyFindAll();
         List<GoodsCategory> goodsCategoryList = new ArrayList<>();
-        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.findAll();
         for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
             TargetEnhancer<Object> container = containerFactory.getObject();
             container.initialize(goodsCategoryPO, GoodsCategory.class);
@@ -41,21 +41,13 @@ public class GoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
 
     @Override
     public List<GoodsCategory> findByThirdCategoryId(Integer thirdCategoryId) {
-//        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.findSpecsInfoByCategoryId(thirdCategoryId);
-
-        System.out.println("??!");
-        return null;
-//        List<GoodsCategoryPO> allCategories = new ArrayList<>();
-//        GoodsCategoryPO goodsCategoryPO = new GoodsCategoryPO();
-//        goodsCategoryPO.setSpecsInfo(goodsCategoryPOList);
-//        allCategories.add(goodsCategoryPO);
-//
-//        List<GoodsCategory> goodsCategoryList = new ArrayList<>();
-//        for (GoodsCategoryPO goodsCategoryPO1 : allCategories) {
-//            TargetEnhancer<Object> container = containerFactory.getObject();
-//            container.initialize(goodsCategoryPO1, GoodsCategory.class);
-//            goodsCategoryList.add((GoodsCategory) container.getTarget());
-//        }
-//        return goodsCategoryList;
+        List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.LazyFindByThirdCategoryId(thirdCategoryId);
+        List<GoodsCategory> goodsCategoryList = new ArrayList<>();
+        for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
+            TargetEnhancer<Object> container = containerFactory.getObject();
+            container.initialize(goodsCategoryPO, GoodsCategory.class);
+            goodsCategoryList.add((GoodsCategory) container.getTarget());
+        }
+        return goodsCategoryList;
     }
 }

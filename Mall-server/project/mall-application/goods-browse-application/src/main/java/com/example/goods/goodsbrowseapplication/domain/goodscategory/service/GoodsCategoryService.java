@@ -30,7 +30,12 @@ public class GoodsCategoryService {
      * @return
      */
     public List<GoodsCategory> getCategories() {
-        List<GoodsCategory> goodsCategoryList = goodsCategoryRepository.findAllCategories();
+        List<GoodsCategory> goodsCategoryList = null;
+        try {
+            goodsCategoryList = goodsCategoryRepository.findAllCategories();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return goodsCategoryList;
     }
 

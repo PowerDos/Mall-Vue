@@ -63,7 +63,7 @@ public class CglibMethodInvokeListener implements MethodInvokeListener {
             requireObj = cglib$LAZY_loader_0.get(requireObj);
             // 将requireObj装换成需要的类型
             Class<?> targetCls = o.getClass();
-            if (targetCls.equals(Object.class)) {
+            if (!targetCls.getSuperclass().equals(Object.class)) {
                 targetCls = targetCls.getSuperclass();
             }
             Field declaredField = targetCls.getDeclaredField(guessFieldName);

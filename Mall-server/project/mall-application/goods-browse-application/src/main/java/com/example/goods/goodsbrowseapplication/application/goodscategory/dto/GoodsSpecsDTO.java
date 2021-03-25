@@ -51,7 +51,7 @@ public class GoodsSpecsDTO {
         List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
         for (SpecsInfo specsInfo : specsInfoList) {
             GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
-            goodsCategoryDTO.specsInfoId = specsInfo.getSpecsId();
+            goodsCategoryDTO.specsInfoId = specsInfo.getSpecsInfoId();
             goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
             goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
             List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();
