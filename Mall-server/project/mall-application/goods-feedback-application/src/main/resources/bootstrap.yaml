@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: goods-browse
+    name: goods-feedback
   cloud:
     nacos:
       config:
