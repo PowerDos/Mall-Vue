@@ -6,6 +6,11 @@
 
 > back end gateway address: http://180.76.150.95:30001/swagger-ui.html
 
+> SkyWalking address: http://180.76.150.95:30004
+
+> Kuboard address: http://180.76.150.95:32567 
+- achieve login token: http://180.76.150.95:29999/visitor_token 
+
 ## Document
 [中文](README-ZH.md) | [English](README.md)
 

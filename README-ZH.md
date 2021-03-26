@@ -6,6 +6,11 @@
 
 > 后端网关地址： http://180.76.150.95:30001/swagger-ui.html
 
+> SkyWalking监控地址: http://180.76.150.95:30004
+
+> k8s集群管理地址: http://180.76.150.95:32567
+- 获取登录token: http://180.76.150.95:29999/visitor_token 
+    
 ## 文档
 [中文](README-ZH.md) | [English](README.md)
 
