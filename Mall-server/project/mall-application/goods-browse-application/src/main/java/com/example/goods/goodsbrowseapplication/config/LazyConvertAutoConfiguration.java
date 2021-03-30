@@ -1,8 +1,8 @@
 package com.example.goods.goodsbrowseapplication.config;
 
-import com.example.mallcommon.lazyload.target.TargetEnhancer;
+import com.example.mallcommon.lazyload.targetenhancer.TargetEnhancer;
 import com.example.mallcommon.lazyload.interceptor.CglibGetterInvokeInterceptor;
-import com.example.mallcommon.lazyload.target.MybatisTargetEnhancer;
+import com.example.mallcommon.lazyload.targetenhancer.MybatisTargetEnhancer;
 import com.example.mallcommon.lazyload.interceptor.GetterInvokeInterceptor;
 import com.example.mallcommon.loadcontroller.LoadDataSelector;
 import org.springframework.context.annotation.Bean;

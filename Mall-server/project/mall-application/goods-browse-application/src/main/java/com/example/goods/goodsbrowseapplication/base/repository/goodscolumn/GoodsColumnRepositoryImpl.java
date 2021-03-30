@@ -4,7 +4,7 @@ import com.example.goods.goodsbrowseapplication.base.repository.goodscolumn.po.C
 import com.example.goods.goodsbrowseapplication.base.repository.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
-import com.example.mallcommon.lazyload.target.TargetEnhancer;
+import com.example.mallcommon.lazyload.targetenhancer.TargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

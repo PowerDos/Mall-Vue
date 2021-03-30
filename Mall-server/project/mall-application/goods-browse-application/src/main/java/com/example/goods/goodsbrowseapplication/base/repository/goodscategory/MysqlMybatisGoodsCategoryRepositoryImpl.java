@@ -3,7 +3,7 @@ package com.example.goods.goodsbrowseapplication.base.repository.goodscategory;
 import com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po.GoodsCategoryPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.GoodsCategoryRepository;
-import com.example.mallcommon.lazyload.target.TargetEnhancer;
+import com.example.mallcommon.lazyload.targetenhancer.TargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
