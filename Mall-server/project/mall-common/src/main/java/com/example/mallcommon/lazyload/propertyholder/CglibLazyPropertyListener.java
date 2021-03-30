@@ -1,4 +1,4 @@
-package com.example.mallcommon.lazyload.listener;
+package com.example.mallcommon.lazyload.propertyholder;
 
 import org.springframework.cglib.proxy.LazyLoader;
 

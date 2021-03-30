@@ -1,4 +1,4 @@
-package com.example.mallcommon.lazyload.listener;
+package com.example.mallcommon.lazyload.interceptor;
 
 import com.example.mallcommon.lazyload.LazyProperty;
 import org.springframework.cglib.proxy.MethodInterceptor;
@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * <P>对目标对象进行拦截</P>
  */
-public interface MethodInvokeListener extends MethodInterceptor {
+public interface GetterInvokeInterceptor extends MethodInterceptor {
 
     /**
      * 配置所有需要拦截的列表和填充属性

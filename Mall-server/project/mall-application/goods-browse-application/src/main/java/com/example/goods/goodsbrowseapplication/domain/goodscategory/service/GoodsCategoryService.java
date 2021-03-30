@@ -1,14 +1,10 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscategory.service;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
-import com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po.GoodsCategoryPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.GoodsCategoryRepository;
-import com.example.mallcommon.lazyload.container.TargetEnhancer;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

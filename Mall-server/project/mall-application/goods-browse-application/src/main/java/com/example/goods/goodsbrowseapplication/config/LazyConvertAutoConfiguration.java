@@ -1,7 +1,9 @@
-package com.example.goods.goodsbrowseapplication.base.webconfig;
+package com.example.goods.goodsbrowseapplication.config;
 
-import com.example.mallcommon.lazyload.listener.CglibMethodInvokeListener;
-import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
+import com.example.mallcommon.lazyload.target.TargetEnhancer;
+import com.example.mallcommon.lazyload.interceptor.CglibGetterInvokeInterceptor;
+import com.example.mallcommon.lazyload.target.MybatisTargetEnhancer;
+import com.example.mallcommon.lazyload.interceptor.GetterInvokeInterceptor;
 import com.example.mallcommon.loadcontroller.LoadDataSelector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +20,14 @@ public class LazyConvertAutoConfiguration {
 
     @Bean
     @Scope("prototype")
-    public CglibMethodInvokeListener cglibInvokeListener() {
-        return new CglibMethodInvokeListener();
+    public GetterInvokeInterceptor cglibGetterInvokeInterceptor() {
+        return new CglibGetterInvokeInterceptor();
     }
 
     @Bean
     @Scope("prototype")
-    public MybatisTargetEnhancer<?> targetEnhancerContainer() {
-        return new MybatisTargetEnhancer<>();
+    public TargetEnhancer targetEnhancerContainer() {
+        return new MybatisTargetEnhancer();
     }
 
     @Bean

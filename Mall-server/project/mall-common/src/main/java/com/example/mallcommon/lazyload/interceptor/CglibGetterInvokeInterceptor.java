@@ -1,4 +1,4 @@
-package com.example.mallcommon.lazyload.listener;
+package com.example.mallcommon.lazyload.interceptor;
 
 import com.example.mallcommon.lazyload.Convert;
 import com.example.mallcommon.lazyload.LazyProperty;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Cglib方法增强器的具体实现类
  */
-public class CglibMethodInvokeListener implements MethodInvokeListener {
+public class CglibGetterInvokeInterceptor implements GetterInvokeInterceptor {
 
     /**
      * 所有source对象中有的属性

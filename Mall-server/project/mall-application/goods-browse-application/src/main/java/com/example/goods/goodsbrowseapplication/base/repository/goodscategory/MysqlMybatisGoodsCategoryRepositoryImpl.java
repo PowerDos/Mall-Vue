@@ -3,7 +3,7 @@ package com.example.goods.goodsbrowseapplication.base.repository.goodscategory;
 import com.example.goods.goodsbrowseapplication.base.repository.goodscategory.po.GoodsCategoryPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.GoodsCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodscategory.repository.GoodsCategoryRepository;
-import com.example.mallcommon.lazyload.container.TargetEnhancer;
+import com.example.mallcommon.lazyload.target.TargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MysqlMybatisGoodsCategoryRepositoryImpl implements GoodsCategoryRepository {
 
     @Autowired
-    private ObjectFactory<TargetEnhancer<Object>> containerFactory;
+    private ObjectFactory<TargetEnhancer> containerFactory;
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
 
@@ -32,9 +32,8 @@ public class MysqlMybatisGoodsCategoryRepositoryImpl implements GoodsCategoryRep
         List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.lazyFindAll();
         List<GoodsCategory> goodsCategoryList = new ArrayList<>();
         for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
-            TargetEnhancer<Object> container = containerFactory.getObject();
-            container.initialize(goodsCategoryPO, GoodsCategory.class);
-            goodsCategoryList.add((GoodsCategory) container.getTarget());
+            TargetEnhancer container = containerFactory.getObject();
+            goodsCategoryList.add(container.getTarget(goodsCategoryPO,GoodsCategory.class));
         }
         return goodsCategoryList;
     }
@@ -44,9 +43,8 @@ public class MysqlMybatisGoodsCategoryRepositoryImpl implements GoodsCategoryRep
         List<GoodsCategoryPO> goodsCategoryPOList = goodsCategoryMapper.LazyFindByThirdCategoryId(thirdCategoryId);
         List<GoodsCategory> goodsCategoryList = new ArrayList<>();
         for (GoodsCategoryPO goodsCategoryPO : goodsCategoryPOList) {
-            TargetEnhancer<Object> container = containerFactory.getObject();
-            container.initialize(goodsCategoryPO, GoodsCategory.class);
-            goodsCategoryList.add((GoodsCategory) container.getTarget());
+            TargetEnhancer container = containerFactory.getObject();
+            goodsCategoryList.add(container.getTarget(goodsCategoryPO,GoodsCategory.class));
         }
         return goodsCategoryList;
     }

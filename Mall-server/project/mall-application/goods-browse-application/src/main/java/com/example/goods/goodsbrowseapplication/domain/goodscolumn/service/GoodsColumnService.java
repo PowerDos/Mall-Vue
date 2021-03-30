@@ -2,8 +2,6 @@ package com.example.goods.goodsbrowseapplication.domain.goodscolumn.service;
 
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
-import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +33,9 @@ public class GoodsColumnService {
         List<GoodsColumn> goodsColumnList = goodsColumnRepository.findAllWhichEnable();
 
         // 调用聚合的行为
-//        for (GoodsColumn goodsColumn : goodsColumnList) {
-//            goodsColumn.browseColumn();
-//        }
+        for (GoodsColumn goodsColumn : goodsColumnList) {
+            goodsColumn.browseColumn();
+        }
         return goodsColumnList;
     }
 

@@ -1,6 +1,5 @@
 package com.example.mallcommon.lazyload.propertyholder;
 
-import com.example.mallcommon.lazyload.listener.CglibLazyPropertyListener;
 import org.springframework.cglib.proxy.Enhancer;
 
 import java.util.List;

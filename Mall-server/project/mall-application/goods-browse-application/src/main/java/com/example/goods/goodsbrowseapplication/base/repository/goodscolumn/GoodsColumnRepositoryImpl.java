@@ -4,8 +4,7 @@ import com.example.goods.goodsbrowseapplication.base.repository.goodscolumn.po.C
 import com.example.goods.goodsbrowseapplication.base.repository.goodscolumn.po.GoodsColumnPO;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
-import com.example.mallcommon.lazyload.container.MybatisTargetEnhancer;
-import com.example.mallcommon.lazyload.container.TargetEnhancer;
+import com.example.mallcommon.lazyload.target.TargetEnhancer;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,7 +24,7 @@ import java.util.List;
 public class GoodsColumnRepositoryImpl implements GoodsColumnRepository {
 
     @Autowired
-    private ObjectFactory<TargetEnhancer<Object>> containerFactory;
+    private ObjectFactory<TargetEnhancer> containerFactory;
 
     private ThreadLocal<ColumnPO> originDataCache = new ThreadLocal<>();
 
@@ -37,9 +36,8 @@ public class GoodsColumnRepositoryImpl implements GoodsColumnRepository {
         List<GoodsColumnPO> columnPOList = goodsColumnMapper.findAllWhichEnable();
         List<GoodsColumn> goodsColumnList = new ArrayList<>();
         for (GoodsColumnPO PO : columnPOList) {
-            TargetEnhancer<Object> container = containerFactory.getObject();
-            container.initialize(PO, GoodsColumn.class);
-            goodsColumnList.add((GoodsColumn) container.getTarget());
+            TargetEnhancer container = containerFactory.getObject();
+            goodsColumnList.add(container.getTarget(PO, GoodsColumn.class));
         }
         return goodsColumnList;
     }
