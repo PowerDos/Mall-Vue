@@ -2,6 +2,7 @@ package com.example.goods.goodsbrowseapplication.domain.goodsspecs;
 
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity.GoodsIncluded;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity.SelectedSpecsInCategory;
+import lombok.Data;
 
 /**
  * 商品规格信息
@@ -11,6 +12,7 @@ import com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity.Selecte
  * @author WuHao
  * @since 2021/3/3 10:43
  */
+@Data
 public class GoodsSpecs {
 
     /**

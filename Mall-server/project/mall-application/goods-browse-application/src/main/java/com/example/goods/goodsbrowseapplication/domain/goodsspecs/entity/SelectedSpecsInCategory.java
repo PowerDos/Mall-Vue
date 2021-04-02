@@ -1,5 +1,7 @@
 package com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import java.util.Map;
  * @author WuHao
  * @since 2021/3/3 10:52
  */
+@Data
 public class SelectedSpecsInCategory {
 
     /**
@@ -21,12 +24,6 @@ public class SelectedSpecsInCategory {
     /**
      * 已选择的规格信息
      */
-    private List<SelectedSpecs> selectedSpecs;
+    private List<String> specsValueIdList;
 
-    public static class SelectedSpecs {
-
-        private String SpecsKeyId;
-
-        private List<String> specsValueIdList;
-    }
 }
