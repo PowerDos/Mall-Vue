@@ -1,7 +1,5 @@
 package com.example.goods.goodsbrowseapplication.domain.goodsspecs.service;
 
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.repository.GoodsColumnRepository;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.repository.GoodsSpecsRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +22,7 @@ public class GoodsSpecsService {
     @Autowired
     private GoodsSpecsRepository goodsSpecsRepository;
 
-    public GoodsSpecs getGoodsSpecsPOByCategoryAndSpecsValues(String thirdCategoryId, List<String> specsValues) {
+    public GoodsSpecs getGoodsSpecsByCategoryAndSpecsValues(String thirdCategoryId, List<String> specsValues) {
         String categoryAndSpecsValuesCombineStr = thirdCategoryId + "." + StringUtils.join(specsValues, ",");
         return goodsSpecsRepository.selectGoodsSpecsPOByCategoryAndSpecsValuesCombineStr(categoryAndSpecsValuesCombineStr);
     }

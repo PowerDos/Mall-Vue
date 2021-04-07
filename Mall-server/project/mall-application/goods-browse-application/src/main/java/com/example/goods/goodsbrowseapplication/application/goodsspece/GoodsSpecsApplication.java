@@ -1,7 +1,11 @@
 package com.example.goods.goodsbrowseapplication.application.goodsspece;
 
+import com.example.goods.goodsbrowseapplication.application.goodscolumn.dto.GoodsColumnDTO;
+import com.example.goods.goodsbrowseapplication.application.goodsspece.dto.GoodsInfoInGoodsSpecsDTO;
+import com.example.goods.goodsbrowseapplication.application.goodsspece.dto.SpecsGoodsInfoDTO;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.service.GoodsSpecsService;
+import com.example.goods.goodsbrowseapplication.domain.goodsspecs.valueobject.SpecsGoodsInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +25,8 @@ public class GoodsSpecsApplication {
     @Autowired
     private GoodsSpecsService goodsSpecsService;
 
-    public GoodsSpecs getGoodsSpecsPOByCategoryAndSpecsValues(String thirdCategoryId, List<String> specsValues) {
-        return goodsSpecsService.getGoodsSpecsPOByCategoryAndSpecsValues(thirdCategoryId, specsValues);
+    public GoodsInfoInGoodsSpecsDTO getGoodsSpecsPOByCategoryAndSpecsValues(String thirdCategoryId, List<String> specsValues) {
+        GoodsSpecs goodsSpecsByCategoryAndSpecsValues = goodsSpecsService.getGoodsSpecsByCategoryAndSpecsValues(thirdCategoryId, specsValues);
+        return GoodsInfoInGoodsSpecsDTO.convertFromDO(goodsSpecsByCategoryAndSpecsValues);
     }
 }

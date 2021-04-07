@@ -25,10 +25,10 @@ public class SpecsGoodsInfoPO {
     /**
      * 商品图片
      */
-    private String img;
+    private String goodsImg;
 
     /**
      * 商品描述
      */
-    private String describe;
+    private String goodsDescribe;
 }

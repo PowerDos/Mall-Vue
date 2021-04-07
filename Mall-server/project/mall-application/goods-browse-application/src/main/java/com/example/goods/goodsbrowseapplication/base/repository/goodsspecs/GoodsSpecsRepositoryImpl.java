@@ -2,14 +2,11 @@ package com.example.goods.goodsbrowseapplication.base.repository.goodsspecs;
 
 import com.example.goods.goodsbrowseapplication.base.repository.goodsspecs.po.GoodsSpecsPO;
 import com.example.goods.goodsbrowseapplication.base.repository.goodsspecs.po.SpecsGoodsInfoPO;
-import com.example.goods.goodsbrowseapplication.domain.goodscolumn.GoodsColumn;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity.GoodsIncluded;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.entity.SelectedSpecsInCategory;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.repository.GoodsSpecsRepository;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.valueobject.SpecsGoodsInfo;
-import com.example.mallcommon.lazyload.targetenhancer.TargetEnhancer;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,14 +35,14 @@ public class GoodsSpecsRepositoryImpl implements GoodsSpecsRepository {
         List<SpecsGoodsInfo> goodsInfoList = new ArrayList<>();
         for (SpecsGoodsInfoPO specsGoodsInfoPO : goodsInfoPOList) {
             SpecsGoodsInfo specsGoodsInfo = new SpecsGoodsInfo();
-            specsGoodsInfo.setDescribe(specsGoodsInfoPO.getDescribe());
+            specsGoodsInfo.setGoodsDescribe(specsGoodsInfoPO.getGoodsDescribe());
             specsGoodsInfo.setGoodsId(specsGoodsInfoPO.getGoodsId());
             specsGoodsInfo.setGoodsName(specsGoodsInfoPO.getGoodsName());
-            specsGoodsInfo.setImg(specsGoodsInfoPO.getImg());
+            specsGoodsInfo.setGoodsImg(specsGoodsInfoPO.getGoodsImg());
             goodsInfoList.add(specsGoodsInfo);
         }
         GoodsIncluded goodsIncluded = new GoodsIncluded();
-        goodsIncluded.setGoodsIdList(goodsInfoList);
+        goodsIncluded.setGoodsInfoList(goodsInfoList);
 
         String[] split = categoryAndSpecsValuesCombineStr.split("\\.");
         String thirdCategoryId = split[0];

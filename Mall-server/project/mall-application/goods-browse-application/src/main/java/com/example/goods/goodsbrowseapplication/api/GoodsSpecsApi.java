@@ -1,6 +1,7 @@
 package com.example.goods.goodsbrowseapplication.api;
 
 import com.example.goods.goodsbrowseapplication.application.goodsspece.GoodsSpecsApplication;
+import com.example.goods.goodsbrowseapplication.application.goodsspece.dto.GoodsInfoInGoodsSpecsDTO;
 import com.example.goods.goodsbrowseapplication.domain.goodsspecs.GoodsSpecs;
 import com.example.mallcommon.response.BaseResponse;
 import com.example.mallcommon.response.ErrorResponse;
@@ -41,7 +42,7 @@ public class GoodsSpecsApi {
 
     @ApiOperation(value = "根据类别与规格筛选商品", produces = "application/json")
     @GetMapping("/goods_infos")
-    public BaseResponse<GoodsSpecs> getGoodsSpecsInfos(String thirdCategoryId, String[] specsValues) {
+    public BaseResponse<GoodsInfoInGoodsSpecsDTO> getGoodsSpecsInfos(String thirdCategoryId, String[] specsValues) {
         return new BaseResponse<>(goodsSpecsApplication.getGoodsSpecsPOByCategoryAndSpecsValues(thirdCategoryId, Arrays.asList(specsValues)));
     }
 }

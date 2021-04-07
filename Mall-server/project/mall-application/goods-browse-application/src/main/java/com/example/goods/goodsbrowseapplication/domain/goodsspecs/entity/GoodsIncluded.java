@@ -21,6 +21,6 @@ public class GoodsIncluded {
     /**
      * 包含商品信息的集合
      */
-    private List<SpecsGoodsInfo> goodsIdList = new ArrayList<>(3);
+    private List<SpecsGoodsInfo> goodsInfoList = new ArrayList<>(3);
 
 }

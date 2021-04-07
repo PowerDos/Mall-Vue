@@ -21,7 +21,7 @@ public interface GoodsSpecsMapper {
     GoodsSpecsPO selectGoodsSpecsPOByCategoryAndSpecsValuesCombineStr(String categoryAndSpecsValuesCombineStr);
 
     @Select("SELECT " +
-            " goods_id " +
+            " goods_id, goods_name, goods_img, goods_describe " +
             "FROM " +
             " `goods_category_and_specs_selector` " +
             "WHERE " +
