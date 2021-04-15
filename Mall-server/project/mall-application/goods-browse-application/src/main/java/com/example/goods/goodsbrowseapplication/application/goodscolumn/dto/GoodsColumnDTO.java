@@ -45,12 +45,22 @@ public class GoodsColumnDTO {
          */
         private String goodsName;
 
+        /**
+         * 商品图片
+         */
+        private String goodsImg;
+
+        /**
+         * 商品描述
+         */
+        private String goodsDescribe;
+
     }
 
     public static GoodsColumnDTO convertFromDO(GoodsColumn goodsColumn) {
         List<GoodsInfoDTO> goodsInfoDTOList = new ArrayList<>();
         for (GoodsInfoInGoodsColumn.GoodsInfo goodsInfo : goodsColumn.getGoodsInfo().getGoodsInfoList()) {
-            goodsInfoDTOList.add(new GoodsInfoDTO(goodsInfo.getGoodsId(), goodsInfo.getGoodsName()));
+            goodsInfoDTOList.add(new GoodsInfoDTO(goodsInfo.getGoodsId(), goodsInfo.getGoodsName(), goodsInfo.getGoodsImg(), goodsInfo.getGoodsDescribe()));
         }
         return new GoodsColumnDTO(goodsColumn.getColumn().getColumnId(), goodsColumn.getColumn().getColumnName(),
                 goodsInfoDTOList, goodsColumn.getHeat().getView(), goodsColumn.getHeat().getUniqueView());

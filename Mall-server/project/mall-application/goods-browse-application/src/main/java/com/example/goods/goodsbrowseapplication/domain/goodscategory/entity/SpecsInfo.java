@@ -17,11 +17,6 @@ import java.util.List;
 public class SpecsInfo  {
 
     /**
-     * 规格Id
-     */
-    private String specsInfoId;
-
-    /**
      * 规格键Id
      */
     private String specsKeyId;

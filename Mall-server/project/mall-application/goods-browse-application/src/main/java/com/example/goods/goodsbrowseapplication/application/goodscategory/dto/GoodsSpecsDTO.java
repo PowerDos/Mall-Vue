@@ -17,10 +17,6 @@ import java.util.List;
  */
 @Data
 public class GoodsSpecsDTO {
-    /**
-     * 规格Id
-     */
-    private String specsInfoId;
 
     /**
      * 规格键Id
@@ -51,7 +47,6 @@ public class GoodsSpecsDTO {
         List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
         for (SpecsInfo specsInfo : specsInfoList) {
             GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
-            goodsCategoryDTO.specsInfoId = specsInfo.getSpecsInfoId();
             goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
             goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
             List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();

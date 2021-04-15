@@ -97,18 +97,18 @@ public interface GoodsCategoryMapper {
      */
     @Select("select * from goods_category_specs_info where category_id = #{thirdCategoryId}")
     @Results({
-            @Result(many = @Many(select = "findAvailableSpecsKeyPOBySpecsInfoId", fetchType = FetchType.LAZY), column = "specs_info_id",
+            @Result(many = @Many(select = "findAvailableSpecsKeyPOBySpecsInfoId", fetchType = FetchType.LAZY), column = "specs_key_id",
                     property = "specsValue", javaType = List.class),
-            @Result(column = "specs_info_id", property = "specsInfoId")
+            @Result(column = "specs_key_id", property = "specsKeyId")
     })
     SpecsInfoPO findSpecsInfoPOByThirdCategoryId(Integer thirdCategoryId);
 
     /**
      * just for join table
      *
-     * @param specsInfoId
+     * @param specsKeyId
      * @return
      */
-    @Select("select * from goods_category_specs_value where specs_info_id = #{specsInfoId}")
-    AvailableSpecsKeyPO findAvailableSpecsKeyPOBySpecsInfoId(Integer specsInfoId);
+    @Select("select * from goods_category_specs_value where specs_key_id = #{specsKeyId}")
+    AvailableSpecsKeyPO findAvailableSpecsKeyPOBySpecsInfoId(Integer specsKeyId);
 }

@@ -26,12 +26,12 @@ public class GoodsInfoPO {
     /**
      * 商品图片
      */
-    private String img;
+    private String goodsImg;
 
     /**
      * 商品描述
      */
-    private String describe;
+    private String goodsDescribe;
 
     /**
      * 在栏目中展示该商品的时间

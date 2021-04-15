@@ -14,10 +14,6 @@ import java.util.List;
  */
 @Data
 public class SpecsInfoPO {
-    /**
-     * 规格Id
-     */
-    private String specsInfoId;
 
     /**
      * 规格键Id
