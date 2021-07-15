@@ -10,3 +10,15 @@ Mall-web/yarn-error.log*
 *.iml
 /Mall-web/project/dist/
 /Mall-web/project/node_modules/
+
+node_modules
+package-lock.json
+yarn.lock
+
+Mall-h5/node_modules/
+Mall-h5/dist/
+Mall-h5/npm-debug.log*
+Mall-h5/yarn-debug.log*
+Mall-h5/yarn-error.log*
+Mall-h5/yarn.lock
+Mall-h5/package-lock.json

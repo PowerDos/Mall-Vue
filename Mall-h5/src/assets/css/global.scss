@@ -1,0 +1,22 @@
+@import './tailwind.scss';
+@import './app.scss';
+
+:root {
+  // vant变量
+  --van-sidebar-padding: 1rem var(--van-padding-sm);
+  --van-sidebar-selected-text-color: #ee0a24;
+  --van-popover-dark-background-color: rgba(0, 0, 0, 0.9);
+  --van-swipe-indicator-inactive-background-color: #ccc;
+  --van-swipe-indicator-active-background-color: rgb(250, 44, 25);
+  --van-swipe-indicator-inactive-opacity: 0.8;
+  --van-swipe-indicator-size: 0.35rem;
+  //自定义变量
+  --mall-background-color: #f6f6f6;
+  --van-orange: #ff983b;
+}
+
+//vant轮播图active时的样式
+.van-swipe__indicator--active {
+  border-radius: 0.25rem;
+  width: 0.75rem;
+}
