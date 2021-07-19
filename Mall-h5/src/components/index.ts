@@ -25,7 +25,7 @@ const components = {
   Footer
 }
 
-const install = (Vue: App) => {
+const install = (Vue: App): void => {
   Object.values(components).forEach((component) => {
     Vue.component(component.name, component)
   })

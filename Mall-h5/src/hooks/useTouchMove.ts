@@ -5,7 +5,7 @@ import {
   setTranslateX,
   setTranslateY
 } from '@/utils/dom'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, onUpdated, ref } from 'vue'
 
 export enum TouchMoveType {
   x = 0,
@@ -26,6 +26,7 @@ export default function (
   offset = -1
 ) {
   const dom = ref()
+  const domBox = ref()
   const isMove = ref(false)
   const offsetX = ref(-1)
   const offsetY = ref(-1)
@@ -36,6 +37,16 @@ export default function (
   const handleTouchStart = (e: TouchEvent) => {
     const target = e.targetTouches[0]
     const [translateX, translateY] = getTranslateValue(dom.value)
+    dom.value = $(domName) as any
+    domBox.value = $(boxName) as any
+    offsetY.value =
+      dom.value.offsetHeight - domBox.value.offsetHeight > 0
+        ? dom.value.offsetHeight - domBox.value.offsetHeight
+        : 0
+    offsetX.value =
+      dom.value.offsetWidth - domBox.value.offsetWidth > 0
+        ? dom.value.offsetWidth - domBox.value.offsetWidth
+        : 0
     beginTranslateX.value = translateX
     beginTranslateY.value = translateY
     isMove.value = true
@@ -97,30 +108,41 @@ export default function (
         break
     }
   }
-  onMounted(() => {
+  const init = () => {
     dom.value = $(domName) as any
-    const boxDom = $(boxName) as any
+    domBox.value = $(boxName) as any
     if (dom.value) {
-      offsetY.value =
-        dom.value.offsetHeight - boxDom.offsetHeight > 0
-          ? dom.value.offsetHeight - boxDom.offsetHeight
-          : 0
-      offsetX.value =
-        dom.value.offsetWidth - boxDom.offsetWidth > 0
-          ? dom.value.offsetWidth - boxDom.offsetWidth
-          : 0
+      console.log(dom.value.offsetHeight, domBox.value.offsetHeight)
       dom.value.style.transition = 'transform 0.3s ease'
-      dom.value.addEventListener('touchstart', handleTouchStart)
-      dom.value.addEventListener('touchend', handleTouchEnd)
-      dom.value.addEventListener('touchmove', handleTouchMove)
+      domBox.value.addEventListener('touchstart', handleTouchStart)
+      domBox.value.addEventListener('touchend', handleTouchEnd)
+      domBox.value.addEventListener('touchmove', handleTouchMove)
     }
+  }
+  const reset = () => {
+    isMove.value = false
+    offsetX.value = -1
+    offsetY.value = -1
+    beginX.value = -1
+    beginY.value = -1
+    beginTranslateX.value = -1
+    beginTranslateY.value = -1
+    setTranslate(dom.value, [0, 0])
+  }
+  onMounted(() => {
+    init()
+  })
+
+  onUpdated(() => {
+    init()
   })
   onBeforeUnmount(() => {
     if (dom.value) {
-      dom.value.removeEventListener('touchstart', handleTouchStart)
-      dom.value.removeEventListener('touchend', handleTouchEnd)
-      dom.value.removeEventListener('touchmove', handleTouchMove)
-      dom.value = null
+      domBox.value.removeEventListener('touchstart', handleTouchStart)
+      domBox.value.removeEventListener('touchend', handleTouchEnd)
+      domBox.value.removeEventListener('touchmove', handleTouchMove)
+      domBox.value = null
     }
   })
+  return reset
 }

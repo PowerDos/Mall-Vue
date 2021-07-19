@@ -1,5 +1,5 @@
 <template>
-  <div class="mall-chart relative">
+  <div class="mall-chart mall-bg relative">
     <mall-header back title="购物车" showMenu class="bg-white"> </mall-header>
     <mall-pull-refresh
       v-model="refresh.loading"
@@ -138,6 +138,7 @@
       >
     </div>
   </div>
+  <mall-footer class="absolute left-0 bottom-0 right-0" />
 </template>
 
 <script lang="ts">
@@ -292,7 +293,6 @@
 
 <style lang="scss">
   .mall-chart {
-    background-color: var(--mall-background-color);
     display: flex;
     flex-direction: column;
     width: 100%;

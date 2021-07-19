@@ -16,18 +16,20 @@
     <slot
       ><div class="flex-auto text-center">{{ title }}</div></slot
     >
-    <van-popover
-      v-if="showMenu"
-      v-model:show="showPopover"
-      theme="dark"
-      :actions="actions"
-      placement="bottom-end"
-    >
-      <template #reference>
-        <div class="h-full px-2 flex justify-center items-center"
-          ><van-icon name="weapp-nav" class="text-gray-400" size="20" /> </div
-      ></template>
-    </van-popover>
+    <slot name="right">
+      <van-popover
+        v-if="showMenu"
+        v-model:show="showPopover"
+        theme="dark"
+        :actions="actions"
+        placement="bottom-end"
+      >
+        <template #reference>
+          <div class="h-full px-2 flex justify-center items-center"
+            ><van-icon name="weapp-nav" class="text-gray-400" size="20" /> </div
+        ></template>
+      </van-popover>
+    </slot>
   </div>
 </template>
 
