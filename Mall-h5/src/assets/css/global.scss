@@ -10,13 +10,24 @@
   --van-swipe-indicator-active-background-color: rgb(250, 44, 25);
   --van-swipe-indicator-inactive-opacity: 0.8;
   --van-swipe-indicator-size: 0.35rem;
+  --van-orange: #ff983b;
   //自定义变量
   --mall-background-color: #f6f6f6;
-  --van-orange: #ff983b;
 }
 
 //vant轮播图active时的样式
 .van-swipe__indicator--active {
   border-radius: 0.25rem;
   width: 0.75rem;
+}
+.van-button--default.van-dialog__confirm {
+  color: #fff;
+  background-color: var(--van-sidebar-selected-text-color);
+}
+.van-password-input__item {
+  border-radius: 1rem;
+}
+
+.mall-bg {
+  background-color: var(--mall-background-color);
 }

@@ -1,8 +1,8 @@
 <template>
   <!-- 全屏loading -->
-  <mall-loading :show="isLoading" />
+  <!-- <mall-loading :show="isLoading" /> -->
   <!-- 首页 -->
-  <div class="mall-home">
+  <div class="mall-home mall-bg">
     <div class="mall-home_nav">
       <van-sticky @change="search.setBgColor"
         ><mall-search
@@ -72,7 +72,7 @@
     </div>
 
     <mall-goods
-      class="mt-2"
+      class="mt-2 mb-14"
       v-model:loading="list.loading"
       @load="list.load"
       :finished="list.finished"
@@ -81,6 +81,7 @@
       finished-text="到底了~~"
     ></mall-goods>
   </div>
+  <mall-footer class="absolute left-0 bottom-0 right-0" />
 </template>
 
 <script lang="ts">
@@ -90,10 +91,16 @@
   import { navList } from './config'
   import { GoodType } from '../../components/business/Goods/type'
   import { useRouter } from 'vue-router'
+  import { $loading } from '@/utils/loading'
   export default {
     setup() {
       const store = useStore()
       const router = useRouter()
+      const a = $loading()
+      setTimeout(() => {
+        a?.close()
+      }, 2000)
+      console.log(a)
       //搜索
       const search = reactive({
         handle: () => {
@@ -105,7 +112,7 @@
         }
       })
       //全屏loading
-      const isLoading = ref(false)
+      const isLoading = ref(true)
       //营销和轮播图
       store.dispatch('loadCarouselItems')
       const markets = reactive({
@@ -168,9 +175,9 @@
 
 <style lang="scss">
   .mall-home {
-    background-color: var(--mall-background-color);
-    min-height: 100%;
-
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
     .mall-home_nav {
       background: url(@/assets/img/nav_bg.jpg) no-repeat;
       background-size: 100% auto;

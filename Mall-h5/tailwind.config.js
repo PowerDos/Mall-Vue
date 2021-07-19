@@ -19,11 +19,20 @@ module.exports = {
       height: {
         header: '46px'
       },
+      margin: {
+        header: '46px'
+      },
       width: {
         34: '8.5rem'
       },
       lineHeight: {
         header: '46px'
+      },
+      scale: {
+        25: '.25'
+      },
+      padding: {
+        full: '100%'
       }
     }
   },

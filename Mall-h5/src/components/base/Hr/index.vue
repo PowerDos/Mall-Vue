@@ -1,6 +1,11 @@
 <template>
   <div class="mall-line">
-    <span class="mall-dot" :style="`background:${backgroundColor}`" v-if="title">{{ title }}</span>
+    <span
+      class="mall-dot"
+      :style="`background:${backgroundColor}`"
+      v-if="title"
+      >{{ title }}</span
+    >
   </div>
 </template>
 

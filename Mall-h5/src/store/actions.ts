@@ -829,7 +829,7 @@ export const getCategorysList = ({ commit }: ActionContext<IState, any>) => {
             list: [
               {
                 title: '坚果炒货',
-                img: 'static/img/goodsDetail/pack/1.jpg'
+                img: 'static/img/goodsDetail/intro/6.jpg'
               }
             ]
           },
@@ -1021,6 +1021,48 @@ export const getCategorysList = ({ commit }: ActionContext<IState, any>) => {
             ]
           }
         ]
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
+      },
+      {
+        title: '瞎说的'
       }
     ]
     commit('GET_CATEGORY_LIST', data)

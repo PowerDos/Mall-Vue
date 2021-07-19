@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import babel from 'vite-babel-plugin'
+import eslintPlugin from 'vite-plugin-eslint'
 import { resolve } from 'path'
 
 export default defineConfig({
   base: './',
-  plugins: [babel(), vue()],
+  plugins: [eslintPlugin(), babel(), vue()],
   build: {
     minify: 'esbuild'
   },
