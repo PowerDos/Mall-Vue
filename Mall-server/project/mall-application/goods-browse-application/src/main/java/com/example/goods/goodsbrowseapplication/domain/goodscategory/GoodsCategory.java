@@ -1,8 +1,6 @@
 package com.example.goods.goodsbrowseapplication.domain.goodscategory;
 
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.RootCategory;
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SpecsInfo;
-import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SubCategoryInfo;
+import com.example.goods.goodsbrowseapplication.domain.goodscategory.entity.SecondCategoryInfo;
 import lombok.Data;
 
 import java.util.List;
@@ -19,18 +17,18 @@ import java.util.List;
 public class GoodsCategory {
 
     /**
-     * 商品根类别
+     * 根类别id
      */
-    private RootCategory rootCategory;
+    private Long rootCategoryId;
 
     /**
-     * 根类别下的子类
+     * 根类别名
      */
-    private SubCategoryInfo subCategoryInfo;
+    private String rootCategoryName;
 
     /**
-     * 子类别下的商品规格信息
+     * 根类别下的二级类别
      */
-    private List<SpecsInfo> specsInfo;
+    private List<SecondCategoryInfo> secondCategoryInfo;
 
 }

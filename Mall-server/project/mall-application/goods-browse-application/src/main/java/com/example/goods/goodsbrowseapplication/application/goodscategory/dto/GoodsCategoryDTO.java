@@ -19,7 +19,7 @@ public class GoodsCategoryDTO {
     /**
      * 根类别id
      */
-    private String rootCategoryId;
+    private Long rootCategoryId;
 
     /**
      * 根类别名
@@ -27,35 +27,66 @@ public class GoodsCategoryDTO {
     private String rootCategoryName;
 
     /**
-     * 二级类别id
+     * 二级类别
      */
-    private String secCategoryId;
-
-    /**
-     * 二级类别名称
-     */
-    private String secCategoryName;
-
-    /**
-     * 三级类别id
-     */
-    private String thirdCategoryId;
-
-    /**
-     * 三级类别名称
-     */
-    private String thirdCategoryName;
+    private List<SecondCategoryDTO> secondCategoryDTOList;
 
 
     public static GoodsCategoryDTO convertFromDO(GoodsCategory category) {
         GoodsCategoryDTO goodsCategoryDTO = new GoodsCategoryDTO();
-        goodsCategoryDTO.setRootCategoryId(category.getRootCategory().getRootCategoryId());
-        goodsCategoryDTO.setRootCategoryName(category.getRootCategory().getRootCategoryName());
-        goodsCategoryDTO.setSecCategoryId(category.getSubCategoryInfo().getSecCategoryId());
-        goodsCategoryDTO.setSecCategoryName(category.getSubCategoryInfo().getSecCategoryName());
-        goodsCategoryDTO.setThirdCategoryId(category.getSubCategoryInfo().getThirdCategoryId());
-        goodsCategoryDTO.setThirdCategoryName(category.getSubCategoryInfo().getThirdCategoryName());
+        goodsCategoryDTO.setRootCategoryId(category.getRootCategoryId());
+        goodsCategoryDTO.setRootCategoryName(category.getRootCategoryName());
+        List<SecondCategoryDTO> secondCategoryDTOList = new ArrayList<>();
+        category.getSecondCategoryInfo().forEach(secondCategoryInfo -> {
+            SecondCategoryDTO secondCategoryDTO = new SecondCategoryDTO();
+            secondCategoryDTO.secCategoryId = secondCategoryInfo.getSecCategoryId();
+            secondCategoryDTO.secCategoryName = secondCategoryInfo.getSecCategoryName();
+            List<ThirdCategoryDTO> thirdCategoryDTOList = new ArrayList<>();
+            secondCategoryInfo.getThirdCategoryInfo().forEach(thirdCategoryInfo -> {
+                ThirdCategoryDTO thirdCategoryDTO = new ThirdCategoryDTO();
+                thirdCategoryDTO.thirdCategoryId = thirdCategoryInfo.getThirdCategoryId();
+                thirdCategoryDTO.thirdCategoryName = thirdCategoryInfo.getThirdCategoryName();
+                thirdCategoryDTOList.add(thirdCategoryDTO);
+            });
+            secondCategoryDTO.thirdCategoryDTOList = thirdCategoryDTOList;
+            secondCategoryDTOList.add(secondCategoryDTO);
+        });
+        goodsCategoryDTO.setSecondCategoryDTOList(secondCategoryDTOList);
         return goodsCategoryDTO;
+    }
+
+    @Data
+    static class SecondCategoryDTO {
+
+        /**
+         * 二级类别id
+         */
+        private Long secCategoryId;
+
+        /**
+         * 二级类别名称
+         */
+        private String secCategoryName;
+
+        /**
+         * 三级类别
+         */
+        private List<ThirdCategoryDTO> thirdCategoryDTOList;
+    }
+
+    @Data
+    static class ThirdCategoryDTO {
+
+        /**
+         * 三级类别id
+         */
+        private Long thirdCategoryId;
+
+        /**
+         * 三级类别名称
+         */
+        private String thirdCategoryName;
+
     }
 
     public static List<GoodsCategoryDTO> convertFromDO(List<GoodsCategory> categories) {

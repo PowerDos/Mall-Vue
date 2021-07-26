@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * 商品根类别下的子类别信息
@@ -17,25 +17,20 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubCategoryInfo  {
-
-    /**
-     * 二级类别id
-     */
-    private String secCategoryId;
-
-    /**
-     * 二级类别名称
-     */
-    private String secCategoryName;
+public class ThirdCategoryInfo {
 
     /**
      * 三级类别id
      */
-    private String thirdCategoryId;
+    private Long thirdCategoryId;
 
     /**
      * 三级类别名称
      */
     private String thirdCategoryName;
+
+    /**
+     * 三级类别下的规格信息
+     */
+    private List<SpecsInfo> specsInfo;
 }

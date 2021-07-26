@@ -43,23 +43,23 @@ public class GoodsSpecsDTO {
 
     public static List<GoodsSpecsDTO> convertFromDO(GoodsCategory goodsCategory) {
         List<GoodsSpecsDTO> containSpecsDTOList = new ArrayList<>();
-
-        List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
-        for (SpecsInfo specsInfo : specsInfoList) {
-            GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
-            goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
-            goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
-            List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();
-            List<AvailableSpecsKeyPO> specsValuePOList = new ArrayList<>();
-            for (SpecsInfo.AvailableSpecsKey availableSpecsKey : specsValueList) {
-                AvailableSpecsKeyPO availableSpecsKeyPO = new AvailableSpecsKeyPO();
-                availableSpecsKeyPO.specsValueId = availableSpecsKey.getSpecsValueId();
-                availableSpecsKeyPO.specsValueName = availableSpecsKey.getSpecsValueName();
-                specsValuePOList.add(availableSpecsKeyPO);
-            }
-            goodsCategoryDTO.specsValue = specsValuePOList;
-            containSpecsDTOList.add(goodsCategoryDTO);
-        }
+//
+//        List<SpecsInfo> specsInfoList = goodsCategory.getSpecsInfo();
+//        for (SpecsInfo specsInfo : specsInfoList) {
+//            GoodsSpecsDTO goodsCategoryDTO = new GoodsSpecsDTO();
+//            goodsCategoryDTO.specsKeyId = specsInfo.getSpecsKeyId();
+//            goodsCategoryDTO.specsKeyName = specsInfo.getSpecsKeyName();
+//            List<SpecsInfo.AvailableSpecsKey> specsValueList = specsInfo.getSpecsValue();
+//            List<AvailableSpecsKeyPO> specsValuePOList = new ArrayList<>();
+//            for (SpecsInfo.AvailableSpecsKey availableSpecsKey : specsValueList) {
+//                AvailableSpecsKeyPO availableSpecsKeyPO = new AvailableSpecsKeyPO();
+//                availableSpecsKeyPO.specsValueId = availableSpecsKey.getSpecsValueId();
+//                availableSpecsKeyPO.specsValueName = availableSpecsKey.getSpecsValueName();
+//                specsValuePOList.add(availableSpecsKeyPO);
+//            }
+//            goodsCategoryDTO.specsValue = specsValuePOList;
+//            containSpecsDTOList.add(goodsCategoryDTO);
+//        }
 
         return containSpecsDTOList;
     }

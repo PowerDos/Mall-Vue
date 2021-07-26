@@ -18,10 +18,21 @@ public class GoodsCategoryPO  {
     /**
      * 类别
      */
-    private CategoryInfoPO categoryInfoPO;
+    private String id;
 
     /**
-     * 子类别下的商品规格信息
+     * 类别id
      */
-    private List<SpecsInfoPO> specsInfo;
+    private Long categoryId;
+
+    /**
+     * 类别名
+     */
+    private String categoryName;
+
+    /**
+     * 父类别的类别id
+     * @see GoodsCategoryPO#categoryId
+     */
+    private Long parentCategoryId;
 }
