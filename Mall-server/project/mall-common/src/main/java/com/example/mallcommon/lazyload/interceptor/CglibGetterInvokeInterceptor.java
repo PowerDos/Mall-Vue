@@ -1,7 +1,6 @@
 package com.example.mallcommon.lazyload.interceptor;
 
 import com.example.mallcommon.lazyload.Convert;
-import com.example.mallcommon.lazyload.LazyProperty;
 import com.example.mallcommon.lazyload.propertyholder.LazyPropertyHolder;
 import org.springframework.cglib.proxy.MethodProxy;
 
@@ -17,12 +16,12 @@ public class CglibGetterInvokeInterceptor implements GetterInvokeInterceptor {
     /**
      * 所有source对象中有的属性
      *
-     * @see LazyProperty
+     * @see LazyPropertyHolder
      */
-    private Map<String, LazyProperty> propertyMap;
+    private Map<String, LazyPropertyHolder<?>> propertyMap;
 
 
-    public void addInterceptor(Map<String, LazyProperty> propertyMap) {
+    public void addInterceptor(Map<String, LazyPropertyHolder<?>> propertyMap) {
         this.propertyMap = propertyMap;
     }
 
@@ -53,8 +52,7 @@ public class CglibGetterInvokeInterceptor implements GetterInvokeInterceptor {
     public Object loadProperty(Object o, String guessFieldName) throws Exception {
         //1.该方法需要的就是source的数据
         if (propertyMap.containsKey(guessFieldName)) {
-            LazyProperty lazyProperty = propertyMap.get(guessFieldName);
-            LazyPropertyHolder<?> lazyPropertyHolder = lazyProperty.lazyPropertyHolder;
+            LazyPropertyHolder<?> lazyPropertyHolder = propertyMap.get(guessFieldName);
             Object requireObj = lazyPropertyHolder.getInstance();
             // 这里需要显式的调用一下requireObj以触发cglib的懒加载。。
             requireObj.hashCode();

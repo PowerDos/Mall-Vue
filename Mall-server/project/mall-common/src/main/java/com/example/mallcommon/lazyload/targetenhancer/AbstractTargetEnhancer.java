@@ -1,7 +1,7 @@
 package com.example.mallcommon.lazyload.targetenhancer;
 
-import com.example.mallcommon.lazyload.LazyProperty;
 import com.example.mallcommon.lazyload.interceptor.GetterInvokeInterceptor;
+import com.example.mallcommon.lazyload.propertyholder.LazyPropertyHolder;
 import org.springframework.cglib.proxy.Enhancer;
 
 import java.util.LinkedHashMap;
@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author WuHao
  * @see GetterInvokeInterceptor 方法增强器
- * @see LazyProperty 懒加载属性
+ * @see LazyPropertyHolder 懒加载属性持有者
  * @since 2021/3/12 11:51
  */
 public abstract class AbstractTargetEnhancer implements TargetEnhancer {
@@ -32,13 +32,13 @@ public abstract class AbstractTargetEnhancer implements TargetEnhancer {
     private GetterInvokeInterceptor getterInvokeInterceptor;
 
     /**
-     * 用于存放源对象中的已有属性
+     * 用于存放源对象中的已有属性，以及该属性对应的延迟加载持有者
      * <p>
      * {@code sourceFieldName,LazyProperty{lazyLoader} }
      *
-     * @see LazyProperty
+     * @see LazyPropertyHolder
      */
-    protected Map<String, LazyProperty> lazyProperties = new LinkedHashMap<>();
+    protected Map<String, LazyPropertyHolder<?>> lazyProperties = new LinkedHashMap<>();
 
 
     /**
@@ -57,17 +57,19 @@ public abstract class AbstractTargetEnhancer implements TargetEnhancer {
      *
      * @return 需要懒加载的属性集合
      */
-    protected abstract Map<String, LazyProperty> getAllRequireLazyLoadProperties();
+    protected abstract Map<String, LazyPropertyHolder<?>> getAllRequireLazyLoadProperties();
 
     protected abstract GetterInvokeInterceptor configInterceptor();
 
-    public final <T> T getTarget(Object source, Class<T> expectCls) {
+    @Override
+    public <S extends T,T> S getTarget(Object source, Class<T> expectCls) {
         initialize(source);
 
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(expectCls);
         enhancer.setCallback(getterInvokeInterceptor);
-        return (T) enhancer.create();
+        @SuppressWarnings("unchecked") S s = (S) enhancer.create();
+        return s;
     }
 
 

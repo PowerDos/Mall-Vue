@@ -19,5 +19,5 @@ public interface TargetEnhancer {
      * @param <T> 期望的类型
      * @return 增强后的目标对象
      */
-    <T> T getTarget(Object source,Class<T> expectCls);
+    <S extends T,T> S getTarget(Object source,Class<T> expectCls);
 }

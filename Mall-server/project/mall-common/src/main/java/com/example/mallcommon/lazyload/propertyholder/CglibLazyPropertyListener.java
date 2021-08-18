@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class CglibLazyPropertyListener implements LazyLoader {
 
-    private Object source;
+    private final Object source;
 
-    private List<String> invokeMethodNameArray;
+    private final List<String> invokeMethodNameArray;
 
     public CglibLazyPropertyListener(Object source, List<String> invokeMethodName) {
         this.source = source;

@@ -1,6 +1,6 @@
 package com.example.mallcommon.lazyload.interceptor;
 
-import com.example.mallcommon.lazyload.LazyProperty;
+import com.example.mallcommon.lazyload.propertyholder.LazyPropertyHolder;
 import org.springframework.cglib.proxy.MethodInterceptor;
 
 import java.util.Map;
@@ -13,10 +13,10 @@ import java.util.Map;
 public interface GetterInvokeInterceptor extends MethodInterceptor {
 
     /**
-     * 配置所有需要拦截的列表和填充属性
+     * 配置所有需要拦截的属性列表和填充属性
      *
-     * @param propertyMap 需要被拦截的属性表({@code Map<fieldName,lazyProperty> })
+     * @param propertyMap 需要被拦截的属性表({@code Map<fieldName,LazyPropertyHolder> })
      */
-    void addInterceptor(Map<String, LazyProperty> propertyMap);
+    void addInterceptor(Map<String, LazyPropertyHolder<?>> propertyMap);
 
 }

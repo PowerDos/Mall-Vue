@@ -18,10 +18,10 @@ public class LazyLoadSupport {
     }
 
     /**
-     * 对应type是一个简单java.util对象
+     * 对应type是一个简单java.lang对象
      *
      * @param type 待检验type类
-     * @return true if type is a simple object import from java.util
+     * @return true if type is a simple object import from java.lang
      */
     public static Boolean typeWhichRequireScanInnerField(Class<?> type) {
         return !type.equals(String.class) && !type.equals(Integer.class) && !type.equals(Long.class) && !type.equals(Boolean.class) &&

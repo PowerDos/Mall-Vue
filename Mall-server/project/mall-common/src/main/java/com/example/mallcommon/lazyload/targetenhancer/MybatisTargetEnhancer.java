@@ -1,9 +1,9 @@
 package com.example.mallcommon.lazyload.targetenhancer;
 
 import com.example.mallcommon.lazyload.LazyLoadSupport;
-import com.example.mallcommon.lazyload.LazyProperty;
 import com.example.mallcommon.lazyload.interceptor.GetterInvokeInterceptor;
 import com.example.mallcommon.lazyload.propertyholder.CglibLazyPropertyHolder;
+import com.example.mallcommon.lazyload.propertyholder.LazyPropertyHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
@@ -27,8 +27,8 @@ public class MybatisTargetEnhancer extends AbstractTargetEnhancer {
      * 配置所有source中包含的属性,这其中的每一个属性都是orm数据库框架加载的最小粒度
      */
     @Override
-    protected Map<String, LazyProperty> getAllRequireLazyLoadProperties() {
-        Map<String, LazyProperty> lazyProperties = new LinkedHashMap<>();
+    protected Map<String, LazyPropertyHolder<?>> getAllRequireLazyLoadProperties() {
+        Map<String, LazyPropertyHolder<?>> lazyProperties = new LinkedHashMap<>();
         Class<?> proxyCls = proxySource.getClass();
         Class<?> sourceCls; // PO类
         if (proxyCls.getName().contains(proxyCls.getSuperclass().getName())) { // 这个是mybatis生成的延迟加载cglib代理对象
@@ -55,7 +55,13 @@ public class MybatisTargetEnhancer extends AbstractTargetEnhancer {
         return lazyProperties;
     }
 
-    private void createLazyPropertyByField(Map<String, LazyProperty> lazyProperties, Field declaredField, String appendMethodName)  {
+    /**
+     * 对于可能的field构建它的延迟加载的引用对象
+     * @param lazyProperties 所有懒加载的属性集合
+     * @param declaredField 需要懒加载的field
+     * @param appendMethodName 这个field的getter方法名
+     */
+    private void createLazyPropertyByField(Map<String, LazyPropertyHolder<?>> lazyProperties, Field declaredField, String appendMethodName)  {
         Class<?> type = declaredField.getType();
         // 无需进入source内部对象
         if (!LazyLoadSupport.typeWhichRequireScanInnerField(type)) {
@@ -65,9 +71,7 @@ public class MybatisTargetEnhancer extends AbstractTargetEnhancer {
                 invokeMethodNameList.add(appendMethodName);
             }
             invokeMethodNameList.add(guessMethodName);
-            LazyProperty lazyProperty = new LazyProperty();
-            lazyProperty.lazyPropertyHolder = new CglibLazyPropertyHolder<>(proxySource, invokeMethodNameList);
-            lazyProperties.put(declaredField.getName(), lazyProperty);
+            lazyProperties.put(declaredField.getName(), new CglibLazyPropertyHolder<>(proxySource, invokeMethodNameList));
         } else {
             // 这是一个对象，需要递归获取其中可用的属性值
             Field[] innerFields = type.getDeclaredFields();

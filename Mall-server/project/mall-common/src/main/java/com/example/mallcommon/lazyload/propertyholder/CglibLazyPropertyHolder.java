@@ -14,9 +14,9 @@ import java.util.List;
 public class CglibLazyPropertyHolder<T> implements LazyPropertyHolder<T> {
 
 
-    private T instance;
+    private final T instance;
 
-    private CglibLazyPropertyListener lazyPropertyListener;
+    private final CglibLazyPropertyListener lazyPropertyListener;
 
     public CglibLazyPropertyHolder(Object source, List<String> invokeMethodName) {
         this.lazyPropertyListener = new CglibLazyPropertyListener(source, invokeMethodName);
@@ -26,9 +26,10 @@ public class CglibLazyPropertyHolder<T> implements LazyPropertyHolder<T> {
 
     private T holdInstance() {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(Object.class);
+        enhancer.setSuperclass(Object.class); // using Object to avoid extend form some final class e.g. java.lang.String
         enhancer.setCallback(lazyPropertyListener);
-        return (T) enhancer.create();
+        @SuppressWarnings("unchecked") T t = (T) enhancer.create();
+        return t;
     }
 
     public T getInstance() {
